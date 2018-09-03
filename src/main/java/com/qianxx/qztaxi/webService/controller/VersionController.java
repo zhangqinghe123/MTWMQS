@@ -43,7 +43,7 @@ public class VersionController extends BaseController {
 	public DatatableResponse<AppVersion> getVersionList(HttpServletRequest request) {
 		DatatableRequest datatableRequest = getRequest(request);
 		datatableRequest.getSearchMap().put("terminal", request.getParameter("terminal"));
-		DatatableResponse<AppVersion> response = new DatatableResponse<AppVersion>();
+		DatatableResponse<AppVersion> response = new DatatableResponse<>();
         response.setData(appVersionDao.getPage(datatableRequest.getSearchMap()));
         response.setRecordsTotal(appVersionDao.countByMap(datatableRequest.getSearchMap()));
         response.setDraw(datatableRequest.getDraw());

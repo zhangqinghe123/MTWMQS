@@ -101,7 +101,8 @@
 
 	<!-- 获取最新版信息 -->
 	<select id="getNewVersion" parameterType="map" resultType="com.qianxx.qztaxi.vo.AppVersion">
-	   	SELECT 
+	   	SELECT
+		top 1
 	    	versionCode,
 	    	versionType,
 	    	md5,
@@ -136,9 +137,6 @@
 	     	</if>
 	   	</where>
 	   	ORDER BY versionId DESC
-	   	<if test="start != null">
-            LIMIT #{start}, #{length}
-        </if>
 	</select>
 
 	<select id="countByMap" parameterType="map" resultType="int">

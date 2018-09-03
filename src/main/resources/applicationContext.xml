@@ -36,14 +36,11 @@
 	</bean>
 
 	<!-- 数据源 -->
-	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
-		<property name="driverClassName" value="${db.dirverClass}"></property>
-		<property name="url" value="${db.url}"></property>
-		<property name="username" value="${db.username}"></property>
-		<property name="password" value="${db.password}"></property>
-		<property name="validationQuery" value="SELECT 1" />
-		<property name="testOnBorrow" value="true" />
-		<property name="maxActive" value="50" />
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"></property>
+		<property name="url" value="jdbc:sqlserver://localhost:1433;Database=mtwmqs;useUnicode=true&amp;characterEncoding=UTF-8"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
 	</bean>
 
 	<!-- 与mybatis集成 -->
