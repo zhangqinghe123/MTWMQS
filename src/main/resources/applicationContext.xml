@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+						http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+						http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.1.xsd">
+
+	<!-- <context:property-placeholder location="classpath:db-config.properties" ignore-unresolvable="true" /> -->
+
+	<bean id="environmentVariablesConfiguration" class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
+		<property name="algorithm" value="PBEWithMD5AndDES" />
+		<property name="password" value="yubin" />
+	</bean>
+
+	<bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+		<property name="config" ref="environmentVariablesConfiguration" />
+	</bean>
+
+	<!-- Spring属性文件解密组件 -->
+	<bean id="propertyConfigurer" class="org.jasypt.spring31.properties.EncryptablePropertyPlaceholderConfigurer">
+		<constructor-arg ref="configurationEncryptor" />
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+			<list>
+				<value>/WEB-INF/classes/db-config.properties</value>
+				<value>/WEB-INF/classes/redis.properties</value>
+			</list>
+		</property>
+		<property name="fileEncoding" value="utf-8" />
+	</bean>
+
+	<!-- 数据源 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+		<property name="driverClassName" value="${db.dirverClass}"></property>
+		<property name="url" value="${db.url}"></property>
+		<property name="username" value="${db.username}"></property>
+		<property name="password" value="${db.password}"></property>
+		<property name="validationQuery" value="SELECT 1" />
+		<property name="testOnBorrow" value="true" />
+		<property name="maxActive" value="50" />
+	</bean>
+
+	<!-- 与mybatis集成 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+		<property name="mapperLocations" value="classpath:com/qianxx/qztaxi/dao/*.xml"></property>
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.qianxx" />
+		<property name="markerInterface" value="com.qianxx.qztaxi.dao.IBaseDao" />
+		<!--
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+		-->
+	</bean>
+
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+
+	<!-- 事务管理配置 -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 事务控制 -->
+	<tx:annotation-driven proxy-target-class="true" transaction-manager="txManager" />
+
+	<!-- spring declarative transaction management -->
+	<aop:config>
+		<aop:pointcut id="apiServiceAop" expression="execution(* com.qianxx.qztaxi.webService.controller.*.*(..)) || execution(* com.qianxx.qztaxi.webService.api.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="apiServiceAop" />
+	</aop:config>
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="srh*" read-only="true" />
+			<tx:method name="ins*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException" />
+			<tx:method name="upd*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException" />
+			<tx:method name="del*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException" />
+			<tx:method name="*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- SpringMVC自动扫描路径 -->
+	<context:component-scan base-package="com.qianxx">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	<mvc:resources mapping="/swagger/**" location="/WEB-INF/swagger/" />
+	<!-- 注解驱动 -->
+	<mvc:annotation-driven />
+	<!-- Task任务扫描 -->
+	<task:annotation-driven />
+	<mvc:interceptors>
+		<!-- api服务器请求拦截器 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/api/**" />
+			<bean class="com.qianxx.qztaxi.interceptor.ApiInterceptor">
+				<property name="uris">
+					<list>
+						<value>/api/common/commonParams</value><!-- 获取公共参数 -->
+						<value>/api/driver/registerVehicle</value><!-- 注册车辆基本信息 -->
+						<value>/api/driver/registerVehicleInsurance</value><!-- 注册车辆保险信息 -->
+						<value>/api/driver/registerShDriver</value><!-- 注册驾驶员 -->
+						<value>/api/driver/ShDriverExtendEducate</value><!-- 注册驾驶员 -->
+						<value>/api/common/identify</value>
+						<value>/api/common/newIdentify</value>
+						<value>/api/common/login</value>
+						<value>/api/driver/driverLogin</value>
+						<value>/api/driver/getDriverInfo</value>
+						<value>/api/driver/driverToAudit</value>
+						<value>/api/driver/resetPwd</value>
+						<value>/api/driver/getMap</value>
+						<value>/api/common/version</value>
+						<value>/api/driver/updatePlace</value>
+						<value>/api/driver/registered</value>
+						<value>/api/driver/V3/registered</value>
+						<value>/api/driver/V3/driverLogin</value>
+						<value>/api/driver/checkCode</value>
+						<value>/api/common/version</value>
+						<value>/api/common/help</value>
+						<value>/api/common/test</value>
+						<value>/api/common/activity</value>
+						<value>/api/common/getAllCarBrand</value>
+						<value>/api/common/getTypeByBrandId</value>
+						<value>/api/common/getMenuDisplayList</value>
+						<value>/api/common/getAllowedBank</value>
+						<value>/api/webSocketServer</value>
+						<value>/api/special/getCarType</value>
+						<value>/api/special/getMap</value>
+						<value>/api/special/valuation</value>
+						<value>/api/carpooling/getMap</value>
+						<value>/api/common/getCompany</value>
+						<value>/api/carpooling/valuation</value>
+						<value>/api/carpooling/getCity</value>
+						<value>/api/carpooling/getPlateByCity</value>
+						<value>/api/passenger/getBusinessDistrict</value>
+						<value>/api/version/getNewVersion</value>
+						<value>/api/pay/alipay/tradeCallback</value>
+						<value>/api/pay/wx/tradeCallback</value>
+						<value>/api/pay/bestpay/tradeCallback</value>
+						<value>/api/driver/updatePlace</value>
+						<value>/api/download/config/ios</value>
+						<value>/api/download/config/android</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/**" />
+			<bean class="com.qianxx.qztaxi.interceptor.AdminInterceptor">
+				<property name="urls">
+					<list>
+					</list>
+				</property>
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<bean id="exceptionResolver" class="com.qianxx.qztaxi.interceptor.ExceptionHandler"></bean>
+
+	<bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>
+	<bean id="stringConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>application/json;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="stringConverter" />
+				<ref bean="jsonConverter" />
+			</list>
+		</property>
+	</bean>
+	<import resource="applicationContext-redis.xml"/>
+</beans>

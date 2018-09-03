@@ -1,0 +1,27 @@
+.img img{
+    float: left;
+    width: 100px;
+}
+.margin-5{
+    margin-top: 5%;
+}
+.span-line{
+    display: block;
+    line-height: 10px;
+}
+.float-right{
+    float: right;
+}
+.line{
+    margin-top:-20px;
+    border:none;
+    border-top:1px ridge grey;
+}
+.input-hidden{
+    border:0 !important;
+
+}
+.span-padding{
+    display: block;
+    padding-top: 5px;
+}

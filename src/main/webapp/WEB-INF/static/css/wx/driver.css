@@ -1,0 +1,101 @@
+.driver-area{
+    position: relative;
+    padding:6% 3% 3% 3%;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    margin-top: 10%;
+}
+.driver-area .driver-info {
+    position: relative;
+    display: -webkit-box;
+    font-size: 1.3rem;
+}
+.driver-area .driver-info .info-img{
+    width: 70px;
+    height: 70px;
+    -webkit-border-radius:100%;
+    overflow: hidden;
+}
+.driver-area .driver-info .info-img img{
+    width: 100%;
+}
+.driver-area .driver-info .info-text{
+    -webkit-box-flex: 1;
+    padding:0 3%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-pack: center;
+}
+.driver-area .driver-info .info-call{
+    position: absolute;
+    top: -9%;
+    right: 0;
+}
+.driver-area .driver-info .info-call i{
+    font-size: 55px;
+    color: #f8a022;
+}
+.driver-area .driver-info .info-text p{
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.driver-area .driver-info .info-text p:first-child{
+    color: #302d40;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.8;
+}
+.driver-area .driver-info .info-text p:nth-child(2) span{
+    padding-right: 10px;
+}
+.driver-area .driver-info .info-text .star-level{
+    display: inline-block;
+    line-height: 1.2;
+}
+.driver-area .driver-info .info-text .star-level i{
+    font-size: 20px;
+    float: left;
+    color: #dadada;
+}
+.driver-area .driver-info .info-text .star-level1 i:first-child,
+.driver-area .driver-info .info-text .star-level2 i:first-child,
+.driver-area .driver-info .info-text .star-level2 i:nth-child(2),
+.driver-area .driver-info .info-text .star-level3 i:first-child,
+.driver-area .driver-info .info-text .star-level3 i:nth-child(2),
+.driver-area .driver-info .info-text .star-level3 i:nth-child(3),
+.driver-area .driver-info .info-text .star-level4 i:first-child,
+.driver-area .driver-info .info-text .star-level4 i:nth-child(2),
+.driver-area .driver-info .info-text .star-level4 i:nth-child(3),
+.driver-area .driver-info .info-text .star-level4 i:nth-child(4),
+.driver-area .driver-info .info-text .star-level5 i {
+    color: #f9b24d;
+}
+
+.driver-area .driver-info .info-text .star-level span{
+    line-height: 27px;
+    float: left;
+    padding-left: 10px;
+    color: #302d40;
+}
+.driver-area .title{
+    position: absolute;
+    background: #f8a022;
+    color: #fff;
+    padding: 6px 25px;
+    font-size: 17px;
+    border-radius: 25px;
+    left: 50%;
+    margin-left: -109px;
+    top: -19px;
+}
+
+.driver-area.budget-area{
+    position: relative;
+    padding:12% 3% 6% 3%;
+    margin-top: 15%;
+}
+.driver-area.budget-area .driver-info .info-call{
+    top:-11%;
+}

@@ -1,0 +1,66 @@
+
+label.error {
+  color: #bb4944;
+  border: 1px solid #f3dfdf;
+  background-color: #f9e5e5;
+  padding: 0px 10px 0px 0px;
+  border-radius: 2px;
+  font-size: 12px;
+  line-height: 21px;
+ display: inline-block;
+  margin-left: 10px;
+  font-family: 'FontAwesome';
+}
+
+label.error:before {
+  content: "\f06a";
+  padding: 0px 6px;
+  top: 1px;
+  left: 0px;
+  position: relative;
+  font-size: 14px;
+}
+
+/* 悬浮提示 */
+.validate-error {
+  position: relative;
+}
+.validate-error .error {
+  border-color: #cc3f44;
+}
+
+.validate-error .validate-has-error, .validate-error .validate-has-error-ex {
+  display: inline-block;
+  white-space: nowrap;
+  color: #bb4944;
+  border: 1px solid #f3dfdf;
+  background-color: #f9e5e5;
+  padding: 0px 10px 1px 0px;
+  border-radius: 2px;
+  font-size: 12px;
+  line-height: 20px;
+  position: absolute;
+  z-index: 2;
+  margin-left: 4px;
+}
+
+.validate-error .validate-has-error:before, .validate-error .validate-has-error-ex:before {
+  content: "\e088";
+  cursor: pointer;
+  padding: 0px 6px;
+  top: 1px;
+  left: 0px;
+  position: relative;
+  font-size: 14px;
+  font-family: 'Glyphicons Halflings';
+}
+
+
+
+
+
+
+
+
+
+

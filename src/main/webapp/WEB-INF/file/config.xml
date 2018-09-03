@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<config> 
+    <open>1</open>
+    <title>邀请有奖</title>
+    <host>http://www.djrentcar.com:8080/share</host>
+    <pic>http://www.djrentcar.com:8080/images/coupon/lottery1.png</pic>
+</config>

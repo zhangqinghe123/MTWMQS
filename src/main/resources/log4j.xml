@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%n%-d{yyyy-MM-dd HH:mm:ss}%n[%p]-[Thread: %t]-[%C.%M():%L]: %m%n" />
+		</layout>
+	</appender>
+	<!-- 记录系统日志信息 -->
+	<appender name="systeminfolog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.base}/qztaxi/dj_system_info.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%p][%d{yyyy-MM-dd HH:mm:ss.SSS}][%F.%M] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+			<param name="LevelMax" value="INFO" />
+		</filter>
+	</appender>
+
+	<appender name="systemerrorlog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.base}/qztaxi/dj_system_error.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%p][%d{yyyy-MM-dd HH:mm:ss.SSS}][%F.%M] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="ERROR" />
+			<param name="LevelMax" value="ERROR" />
+		</filter>
+	</appender>
+
+	<!-- 记录API能力部分日志 -->
+	<appender name="apiinfolog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.base}/qztaxi/dj_api_info.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%p][%d{yyyy-MM-dd HH:mm:ss.SSS}] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+			<param name="LevelMax" value="ERROR" />
+		</filter>
+	</appender>
+
+	<!-- 记录管理系统日志 -->
+	<appender name="managerinfolog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.base}/qztaxi/dj_manager_info.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%p][%d{yyyy-MM-dd HH:mm:ss.SSS}] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+			<param name="LevelMax" value="ERROR" />
+		</filter>
+	</appender>
+
+	<!-- 记录API统计日志 -->
+	<appender name="statistics" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.base}/qztaxi/dj_statistics.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%p][%d{yyyy-MM-dd HH:mm:ss.SSS}] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+			<param name="LevelMax" value="INFO" />
+		</filter>
+	</appender>
+
+	<!-- 记录调用会员系统失败日志 -->
+	<appender name="memberfailed" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.base}/qztaxi/dj_member_failed.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%p][%d{yyyy-MM-dd HH:mm:ss.SSS}] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+			<param name="LevelMax" value="INFO" />
+		</filter>
+	</appender>
+	
+	<appender name="alarmlog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.base}/qztaxi/dj_alarm.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%p][%d{yyyy-MM-dd HH:mm:ss.SSS}] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="ERROR" />
+			<param name="LevelMax" value="ERROR" />
+		</filter>
+	</appender>
+
+	<!-- 记录API统计信息 -->
+	<appender name="MongoDB" class="org.log4mongo.AsynMongoURILayoutAppender">
+		<param name="jvmMonitor" value="'true" />
+		<param name="mongoURI"
+			value="mongodb://172.17.159.168:27017/DJRentCar?slaveOk=true" />
+		<param name="collectionName" value="dj_taxi" />
+		<layout class="org.log4mongo.layout.MongoDbDefaultLayout">
+			<param name="ConversionPattern" value="{'timestamp':'%d','level':'%p','message':'%m'}" />
+		</layout>
+	</appender>
+
+	<!-- 数据库日志 -->
+	<appender name="databaselog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.base}/qztaxi/dj_database.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%n%-d{yyyy-MM-dd HH:mm:ss}%n[%p]-[Thread: %t]-[%C.%M():%L]: %m%n" />
+		</layout>
+	</appender>
+
+	<logger name="org.apache.ibatis" additivity="true">
+		<level value="DEBUG" />
+		<appender-ref ref="databaselog" />
+	</logger>
+
+	<logger name="java.sql" additivity="true">
+		<level value="DEBUG" />
+		<appender-ref ref="databaselog" />
+	</logger>
+	<logger name="com.ibatis" additivity="true">
+		<level value="DEBUG" />
+		<appender-ref ref="databaselog" />
+	</logger>
+	<logger name="java.sql.Connection" additivity="true">
+		<level value="DEBUG" />
+		<appender-ref ref="databaselog" />
+	</logger>
+
+	<logger name="java.sql.Statement" additivity="true">
+		<level value="DEBUG" />
+		<appender-ref ref="databaselog" />
+	</logger>
+
+	<logger name="java.sql.PreparedStatement" additivity="true">
+		<level value="DEBUG" />
+		<appender-ref ref="databaselog" />
+	</logger>
+	<logger name="java.sql.ResultSet" additivity="true">
+		<level value="DEBUG" />
+		<appender-ref ref="databaselog" />
+	</logger>
+
+	<logger name="org.mybatis.spring" additivity="true">
+		<level value="INFO" />
+		<appender-ref ref="databaselog" />
+	</logger>
+
+	<!-- Spring -->
+	<logger name="org.springframework" additivity="true">
+		<level value="INFO" />
+		<appender-ref ref="systeminfolog" />
+		<appender-ref ref="systemerrorlog" />
+	</logger>
+
+	<logger name="apilog" additivity="true">
+		<level value="INFO" />
+		<appender-ref ref="apiinfolog" />
+	</logger>
+
+	<logger name="managerlog" additivity="true">
+		<level value="INFO" />
+		<appender-ref ref="managerinfolog" />
+	</logger>
+
+	<logger name="statisticslog" additivity="true">
+		<level value="INFO" />
+		<appender-ref ref="statistics" />
+	</logger>
+
+	<logger name="memberfailedlog" additivity="true">
+		<level value="INFO" />
+		<appender-ref ref="memberfailed" />
+	</logger>
+	
+	<logger name="alarmlog" additivity="true">
+		<level value="ERROR" />
+		<appender-ref ref="alarmlog" />
+	</logger>
+
+	<!-- <logger name="mongonlog" additivity="true"> -->
+	<!-- <level value="INFO" /> -->
+	<!-- <appender-ref ref="MongoDB" /> -->
+	<!-- </logger> -->
+
+	<root>
+		<priority value="INFO" />
+		<appender-ref ref="systeminfolog" />
+		<appender-ref ref="systemerrorlog" />
+<!-- 		<appender-ref ref="STDOUT" /> -->
+	</root>
+</log4j:configuration>

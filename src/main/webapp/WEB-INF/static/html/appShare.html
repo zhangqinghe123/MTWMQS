@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <title>朋友得10元，我得5元</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no" name="format-detection" />
+    <link rel="stylesheet" href="css/common.css" type="text/css">
+    <link rel="stylesheet" href="css/pages.css" type="text/css">
+</head>
+<body>
+<section>
+    <div class="wrap">
+        <div class="top">
+            <img class="animated rubberBand delay1" src="images/m-five.png">
+        </div>
+        <div class="content">
+            <img class="f-title" src="images/title.png">
+            <!-- 如果活动已结束，把以下按钮class="share-btn btn-disable",效果见disable页面 -->
+            <a class="share-btn animated shake delay3" href="javascript:;">分享给朋友</a>
+            <img class="s-title" src="images/title-rule.png">
+            <p>
+                1.分享专属链接给好友，邀请好友使用互联打的
+            </p>
+            <p>
+                2.新用户通过邀请页面留下手机号，即可获得10元优惠券一张，可在互联打的app内使用
+            </p>
+            <p>
+                2.您邀请的用户使用互联打的app叫车成功后，您也可以获得10元优惠券一张
+            </p>
+            <p>
+                2.通过您的邀请链接注册的用户越多，您得到的奖励也越多
+            </p>
+        </div>
+    </div>	
+</section>
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script type="text/javascript" src="js/touch.js"></script>
+<script type="text/javascript">
+// 设置rem
+(function (doc, win) {
+    var docEl = doc.documentElement,
+        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        recalc    = function () {
+            var clientWidth = docEl.clientWidth;
+            clientWidth = clientWidth > 750 ? 750 : clientWidth;
+            if (!clientWidth) return;
+            docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+        };
+    if (!doc.addEventListener) return;
+    win.addEventListener(resizeEvt, recalc, false);
+    doc.addEventListener('DOMContentLoaded', recalc, false);
+})(document, window);
+
+// todo:使用tap代替click！！！
+</script>
+</body>
+</html>

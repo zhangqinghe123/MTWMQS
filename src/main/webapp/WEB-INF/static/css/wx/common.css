@@ -1,0 +1,167 @@
+.hidden{
+    display: none;
+}
+.text-center{
+    text-align: center;
+}
+.black{
+    color: black;
+}
+.text-warning{
+    color: #f8a022;
+}
+.ui-wrap{
+    padding: 15px 0;
+}
+.ui-btn-lg,.ui-btn,.ui-btn-border{
+    display: inline-block;
+    font-size: 16px;
+    height: 34px;
+    line-height: 34px;
+    border-radius: 4px;
+    background-color: #f8a022;
+    border:1px solid #f8a022;
+    text-align: center;
+    color: #fff;
+    padding: 0 10px;
+    box-shadow: none;
+}
+.ui-btn-lg{
+    width: 100%;
+    height: 44px;
+    line-height: 40px;
+    font-size: 18px;
+}
+.ui-btn-border{
+    background-color: #fff;
+    border-color: #ccc;
+    color: #302d40;
+}
+.ui-btn-lg:not(.disabled):not(:disabled):active, .ui-btn-lg.active,.ui-btn:not(.disabled):not(:disabled):active, .ui-btn.active {
+    background:#E89319;
+    border-color: #E89319;
+    color: rgba(255,255,255,.8);
+}
+.ui-btn-lg:disabled,.ui-btn:disabled{
+    background: #d0d0d0;
+    border-color: #d0d0d0;
+    color: rgba(255,255,255,.6);
+}
+.ui-btn-border:not(.disabled):not(:disabled):active, .ui-btn-border.active{
+    border-color: #302d40;
+    color: #302d40;
+}
+.ui-btn-border:disabled{
+    opacity: 0.5;
+}
+
+
+
+
+.head-item{
+    margin-top: 8%;
+}
+.head-item p{
+    width: 100%;
+    text-align: center;
+}
+.head-item .logo-sign{
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 20px;
+    overflow: hidden;
+    line-height: 120px;
+}
+.head-item .logo-sign img{
+    width: 80%;
+    vertical-align: middle;
+    margin-top: 9px;
+}
+.head-item p:nth-child(2){
+    font-size: 20px;
+    margin: 4% 0 2% 0;
+}
+.head-item p label{
+    padding: 0 3px;
+}
+.ui-form .form-item{
+    width: 100%;
+    position: relative;
+    margin: 10px 0;
+}
+.ui-form .form-item .ui-input{
+    width: 100%;
+    display: block;
+    padding:13px 5px;
+}
+/*单选*/
+.ui-check{
+    margin: 4% 0;
+    text-align: left;
+}
+.ui-check input[type="radio"].ui-input + label{
+    position: relative;
+    display: inline-block;
+    padding-left: 26px;
+    color: #302d40;
+}
+.ui-check input[type="radio"].ui-input + label i{
+    font-size: 12px;
+    font-style: normal;
+    color:#99989e;
+}
+.ui-check input[type="radio"].ui-input+ label:before{
+    display: inline-block;
+    font-family: "iconfont";
+    position: absolute;
+    font-size: 20px;
+}
+.ui-check input[type="radio"].ui-input+ label:before{
+    top: -4px;
+    left: 0;
+    content: "\e606";
+    color: #d5d5d5;
+}
+
+.ui-check input[type="radio"].ui-input{
+    display: none;
+}
+.ui-check input[type="radio"].ui-input:checked + label:before {
+    content: "\e603";
+    color: #f8a022;
+}
+/*取消行程弹窗样式控制*/
+.afPopup.cancel-popup > HEADER{
+    text-align: center;
+    color:#302d40;
+}
+.afPopup.cancel-popup > HEADER .close{
+    display: none;
+}
+.cancel-popup .cancle-info{
+    text-align: left;
+    color: #302d40;
+    line-height: 1.8;
+    margin:8px 0;
+}
+
+.translate-center {
+    position: relative;
+}
+.translate-center .children {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform:translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.ui-none-data{
+    height: 320px;
+    font-size: 20px;
+}

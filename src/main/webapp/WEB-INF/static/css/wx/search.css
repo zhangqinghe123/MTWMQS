@@ -1,0 +1,111 @@
+.arrow_box {
+    position: relative;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+}
+.arrow_box:after, .arrow_box:before {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.arrow_box:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-bottom-color: #fff;
+    border-width: 10px;
+    margin-left: -10px;
+}
+.arrow_box:before {
+    border-color: rgba(229, 229, 229, 0);
+    border-bottom-color: #e5e5e5;
+    border-width: 13px;
+    margin-left: -13px;
+}
+.search-area{
+    width: 100%;
+    margin: 15px auto 0;
+    padding: 8%;
+    text-align: center;
+}
+.search-area .text{
+    line-height: 70px;
+    vertical-align: top;
+    display: inline-block;
+    padding-left: 10px;
+}
+.loading{
+    display: inline-block;
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    position: relative;
+}
+.loading .countdown{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    display: block;
+    line-height: 70px;
+}
+.loader {
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+}
+.loader:after {
+    content: '';
+    position: absolute;
+    top: 0;
+}
+.loading .loader {
+    position: relative;
+    border-top: 3px solid #f0f0f0;
+    border-right: 3px solid #f0f0f0;
+    border-bottom: 3px solid #f0f0f0;
+    border-left: 3px solid #feb91c;
+    -webkit-animation: loading 2s infinite linear;
+    animation: loading 2s infinite linear;
+}
+.loading .loader,
+.loading .loader:after {
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+}
+.loading .loader span{
+    background: #feb91c;
+    width: 10px;
+    height: 10px;
+    display: block;
+    border-radius: 50%;
+    position: relative;
+    top: 7px;
+    left: 0%;
+}
+@-webkit-keyframes loading {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes loading {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,46 @@
+body{
+    background: #f0f0f0;
+}
+.ui-form.search-area{
+    margin-bottom: 4%;
+}
+.ui-form.search-area .form-item .ui-input{
+    background: #fff;
+    border-radius: 5px;
+}
+.ui-form.search-area .form-item{
+    margin:0;
+}
+.ui-form.search-area .form-item i{
+    position: absolute;
+    top: 4px;
+    right: 10px;
+    font-size: 24px;
+    color: #ccc;
+}
+.location-list{
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    background: #fff;
+    width: 108%;
+    margin-left: -4%;
+}
+.location-list .list-item{
+    padding: 2.5% 2px;
+    border-bottom: 1px solid #e5e5e5;
+    width: 95%;
+    margin: 0 auto;
+}
+.location-list .list-item:last-child{
+    border-bottom: 0;
+}
+.location-list .list-item p{
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.location-list .list-item p:first-child{
+    font-size: 16px;
+    color: #333;
+}

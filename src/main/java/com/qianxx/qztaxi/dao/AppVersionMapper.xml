@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianxx.qztaxi.dao.AppVersionDao">
+
+	<!-- 插入数据 -->
+	<insert id="doInsert" parameterType="com.qianxx.qztaxi.vo.AppVersion">
+		INSERT INTO app_version (
+	   			versionName,
+	   			terminal,
+	   			versionCode,
+	   			versionType,
+	   			md5,
+	   			downLoadUrl,
+	    	<if test="introduce != null and introduce != ''">
+	   			introduce,
+	   		</if>
+	    	<if test="purpose != null and purpose != ''">
+	   			purpose,
+	   		</if>
+	   		ctime
+	   	) VALUES (
+     		#{versionName},
+     		#{terminal},
+     		#{versionCode},
+     		#{versionType},
+     		#{md5},
+     		#{downLoadUrl},
+	    	<if test="introduce != null and introduce != ''">
+	     		#{introduce},
+	     	</if>
+	    	<if test="purpose != null and purpose != ''">
+	     		#{purpose},
+	     	</if>
+	    	NOW()
+		)
+	</insert>
+
+	<!-- 更新数据 -->
+	<update id="doUpdate" parameterType="com.qianxx.qztaxi.vo.AppVersion">
+		UPDATE app_version
+			<set>
+	     		versionName = #{versionName},
+	     		versionCode = #{versionCode},
+	     		versionType = #{versionType},
+	     		md5 = #{md5},
+	     		downLoadUrl = #{downLoadUrl},
+				<if test="introduce != null and introduce != ''">
+		     		introduce = #{introduce}
+		     	</if>
+				<if test="purpose != null and purpose != ''">
+		     		purpose = #{purpose}
+		     	</if>
+			</set>
+	   	WHERE versionId = #{versionId}
+	</update>
+
+	<!-- 发布、取消发布 -->
+	<update id="doUpdateState" parameterType="map">
+	   	UPDATE app_version SET state = CASE WHEN state = 1 THEN 2 ELSE 1 END WHERE versionId = #{versionId}
+	</update>
+
+	<!-- 删除 -->
+	<update id="doDelete" parameterType="map">
+	   	UPDATE app_version SET isDel = 2 WHERE versionId = #{versionId}
+	</update>
+
+	<!-- 查询单个对象 -->
+	<select id="getById" parameterType="map" resultType="com.qianxx.qztaxi.vo.AppVersion">
+	   	SELECT 
+	    	versionId,
+	    	versionName,
+	    	terminal,
+	    	versionCode,
+	    	versionType,
+	    	md5,
+	    	state,
+	    	downLoadUrl,
+	    	introduce,
+	    	purpose,
+	    	ctime
+	   	FROM app_version WHERE versionId = #{versionId}
+	</select>
+
+	<!-- 查询单个对象 -->
+	<select id="getByCode" parameterType="map" resultType="com.qianxx.qztaxi.vo.AppVersion">
+	   	SELECT 
+	    	versionId,
+	    	versionName,
+	    	terminal,
+	    	versionCode,
+	    	versionType,
+	    	md5,
+	    	state,
+	    	downLoadUrl,
+	    	introduce,
+	    	purpose,
+	    	isDel,
+	    	ctime
+	   	FROM app_version WHERE state = 1 AND isDel = 1 AND versionCode = #{versionCode} AND terminal = #{terminal}
+	</select>
+
+	<!-- 获取最新版信息 -->
+	<select id="getNewVersion" parameterType="map" resultType="com.qianxx.qztaxi.vo.AppVersion">
+	   	SELECT 
+	    	versionCode,
+	    	versionType,
+	    	md5,
+	    	downLoadUrl,
+	    	introduce
+	   	FROM app_version WHERE state = 1 AND isDel = 1 AND terminal = #{terminal}
+	   	<if test="versionId != null and versionId != ''">
+		   	AND versionId &gt; #{versionId}
+	   	</if>
+	   	ORDER BY versionId DESC LIMIT 1
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="getPage" parameterType="map" resultType="com.qianxx.qztaxi.vo.AppVersion">
+	   	SELECT 
+	     	versionId,
+	     	versionName,
+	     	terminal,
+	     	versionCode,
+	     	versionType,
+	     	md5,
+	     	state,
+	     	downLoadUrl,
+	     	introduce,
+	     	purpose,
+	     	ctime
+	   	FROM app_version
+	   	<where>
+	   		isDel = 1
+	     	<if test="terminal != null and terminal != ''">
+	       		 AND terminal = #{terminal}
+	     	</if>
+	   	</where>
+	   	ORDER BY versionId DESC
+	   	<if test="start != null">
+            LIMIT #{start}, #{length}
+        </if>
+	</select>
+
+	<select id="countByMap" parameterType="map" resultType="int">
+		SELECT COUNT(versionId) FROM app_version
+	   	<where>
+	   		isDel = 1
+	     	<if test="versionName != null and versionName != ''">
+	       		 AND versionName LIKE '%${versionName}%'
+	     	</if>
+	     	<if test="versionType != null and versionType != ''">
+	       		 AND versionType = #{versionType}
+	     	</if>
+	   	</where>
+	</select>
+
+	<!-- 检查版本号是否存在 -->
+	<select id="getVersionByCode" parameterType="map" resultType="long">
+		SELECT COUNT(1) FROM app_version WHERE versionCode = #{versionCode} AND terminal = #{terminal} AND isDel = 1
+		<if test="versionId != null">
+			AND versionId &lt;&gt; #{versionId}
+		</if>
+	</select>
+
+</mapper> 

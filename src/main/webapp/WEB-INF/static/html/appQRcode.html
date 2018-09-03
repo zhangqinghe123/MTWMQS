@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <title>朋友得10元，我得5元</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no" name="format-detection" />
+    <link rel="stylesheet" href="css/common.css" type="text/css"> 
+    <style type="text/css">
+    body{
+    	background-color: #fff;
+    	overflow-y: auto;
+    }
+    section{
+    	position: relative;
+    	width: 100%;
+    	min-height: 100%;
+    	padding-bottom: .4rem;
+    	background-color: #fff;
+    	color: #666;
+    	text-align: center;
+    	font-size: .3rem;
+    }
+    h2{
+    	margin-bottom: .2rem;
+    	font-size: .36rem;
+    }
+    p{
+    	padding: 0 .6rem;
+    	line-height: .5rem;
+    }
+    #code{
+    	position: absolute;
+    	top: 4.05rem;
+    	left: 2.67rem;
+    	width: 2.18rem;
+    	height: 2.18rem;
+    	overflow: hidden;
+    }
+    </style>
+</head>
+<body>
+<section>
+	<div id="code"></div>
+	<img src="images/main-pic.png">
+	<h2>·分享有奖规则·</h2>
+	<p>每邀请一名乘客注册并成功打车，你将获得5元收益，收益将直接存入余额。</p>
+</section>
+<script type="text/javascript">
+// 设置rem
+(function (doc, win) {
+    var docEl = doc.documentElement,
+        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        recalc    = function () {
+            var clientWidth = docEl.clientWidth;
+            clientWidth = clientWidth > 750 ? 750 : clientWidth;
+            if (!clientWidth) return;
+            docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+        };
+    if (!doc.addEventListener) return;
+    win.addEventListener(resizeEvt, recalc, false);
+    doc.addEventListener('DOMContentLoaded', recalc, false);
+})(document, window);
+</script>
+</body>
+</html>

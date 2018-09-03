@@ -1,0 +1,33 @@
+﻿body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div{margin:0;padding:0;border:0;}
+body{color:#333; font-size:12px;font-family:"Microsoft YaHei";background: url("../images/bg@2x.png") no-repeat #1ab938;background-size: 100%;}
+ul,ol{list-style-type:none;}
+select,input,img,select{vertical-align:middle;}
+input{ font-size:12px;}
+a{ text-decoration:none; color:#000;}
+a:hover{color:#c00; text-decoration:none;}
+.clear{clear:both;}
+
+/* 大转盘样式 */
+.banner{display:block;width:95%;margin-left:auto;margin-right:auto;margin-bottom: 20px}
+.banner .turnplate{display:block;width:84%;position:relative;margin: 0% auto}
+.banner .turnplate canvas.item{width:100%;}
+.banner .turnplate img.pointer{position:absolute;width:31.5%;height:42.5%;left:34.6%;top:23%;}
+.jp-set{padding: 17px;margin-top: 25px}
+.jp-set .set-span{display: block;float: right;color: #fed82c}
+.jp-set h5{color: #fed82c;font-size: 15px;}
+.jp-set .set-content{background: #146925;border-radius: 6px;padding: 10px;margin-top: 5px;}
+.jp-set thead th{color: rgba(254, 216, 44, 0.8)}
+.jp-set tbody td{color: rgba(251, 251, 254, 0.8);font-size: 14px}
+.jp-get-a{text-align: center;margin: 10px 0;}
+.jp-get-a a{color: #faee8c;font-size: 15px;font-weight: bold;text-decoration: underline}
+.jp-md{border-radius: 0px 0px 6px 6px;margin-top: 32px}
+.jp-md .title{background: #feda2b;padding: 10px;border-radius: 6px 6px 0px 0px;color: #7c6000;font-size: 15px;font-weight: bold}
+.jp-md .content{padding: 10px;background: #146925;border-radius: 0px 0px 6px 6px;}
+.jp-md .content td{color: #FBFBFE;border-bottom: 1px dotted #ffffff}
+.jp-md .content tr:last-child td{border-bottom: 0}
+.jp-rule{margin-top: 32px}
+.jp-rule table tr td{color: #f8de25;font-size: 15px;font-weight: bold;}
+.jp-rule .content{margin-top: 8px;}
+.jp-rule .content ul li{margin-top: 2px;letter-spacing: 2px;color: #fdf5ff;opacity: .8}
+.tips-wp{position: fixed;width: 70%;left: 15%;top:30%;background: rgba(3, 2, 4, 0.61);padding: 10px;border-radius: 5px;color: #ffffff;text-align: center}
+

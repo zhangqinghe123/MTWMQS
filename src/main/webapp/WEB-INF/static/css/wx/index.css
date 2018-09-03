@@ -1,0 +1,154 @@
+/*登录*/
+.login-page{
+    position: absolute;
+    top: 0px;
+    left: 0;
+    z-index: 99;
+    width: 100%;
+    height: 100px;
+    background-color: rgba(0,0,0,0.7);
+}
+.translate-center .children {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+}
+.login-area  .login-title{
+    position: absolute;
+    background: #ffbd00;
+    color: #fff;
+    padding: 9px 50px;
+    font-size: 20px;
+    border-radius: 25px;
+    left: 50%;
+    margin-left: -61px;
+    top: -21px;
+}
+.login-area  .login-area{
+    width: 85%;
+    padding: 11% 4% 1% 4%;
+    margin:0 auto;
+    background: #fff;
+    border-radius: 10px;
+}
+.login-area  .login-area .ui-form{
+    border: 1px solid #E5E5E5;
+    border-radius: 5px;
+}
+.login-area  .login-area .ui-form .form-item:first-child{
+    border-bottom:1px solid #e5e5e5;
+}
+.login-area  .login-area .ui-form .form-item i {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-size: 17px;
+}
+ .login-area .ui-form .form-item:first-child i{
+     font-size: 22px;
+     top: 6px;
+     left: 6px;
+}
+.login-area .ui-form .form-item .ui-input{
+    padding-left: 35px;
+}
+.login-area .ui-form .form-item .verify-btn{
+    position: absolute;
+    top: 0;
+    right: 10px;
+    border: 1px solid #e5e5e5;
+    color: #f8a022;
+}
+.login-area .ui-form .form-item .verify-btn:not(.disabled):not(:disabled):active,.login-area .ui-form .form-item .verify-btn.active{
+    border-color: #999;
+    color: #999;
+}
+.travel-list{
+    position: absolute;
+    color:#aaa;
+}
+.travel-list i{
+    font-size:30px;
+    line-height: 1;
+}
+.position-area .ui-form .form-item{
+    border-bottom: 1px solid #e5e5e5;
+}
+.position-area .ui-form .form-item i{
+    position: absolute;
+    top: 15px;
+    left: 5px;
+    display:block;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #07c979;
+    border-radius: 100%;
+}
+.position-area .ui-form .form-item i.cicle-go{
+    border-color:#ff4a6c ;
+}
+.position-area .ui-form .form-item .ui-input{
+    padding-left: 25px;
+}
+
+.feell-bar .title i{
+    font-size: 20px;
+    padding: 0px 6px 0 5px;
+    vertical-align: middle;
+}
+.feell-bar .bar-item{
+    width: 100%;
+    margin:3% auto;
+    text-align: center;
+    overflow: hidden;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.feell-bar .bar-item > .item {
+    position: relative;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+.feell-bar .bar-item > .item span {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    margin: 0 auto;
+    border-radius: 100%;
+    background-color: #f2f2f2;
+    border: 3px solid #f2f2f2;
+}
+.feell-bar .bar-item > .item:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height:6px;
+    background-color: #f2f2f2;
+    display: block;
+    left: -50%;
+    top: 11px;
+    z-index: -1;
+}
+.feell-bar .bar-item > .item:first-child:before {
+    display: none;
+}
+.feell-bar .bar-item > .item.active span {
+    background-color:#f8a022;
+}
+.feell-bar .bar-item > .item.active:before {
+    background-color:#f8a022;
+}
+
+.try-btns a{
+    width: 45%;
+    margin: 0 2%;
+}

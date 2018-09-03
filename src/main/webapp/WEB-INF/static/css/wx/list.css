@@ -1,0 +1,44 @@
+body{
+    background: #f0f0f0;
+    padding: 0;
+}
+.travel-list{
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    padding:3%;
+}
+.travel-list p{
+    width: 100%;
+    line-height: 1.8;
+}
+.travel-list p:first-child{
+    font-size: 12px;
+    color:#666;
+}
+.travel-list p:first-child span{
+   display: inline-block;
+}
+.travel-list p:first-child span.text-going{
+    text-align: right;
+    float: right;
+}
+.travel-list.travel-going p:first-child span.text-going{
+    color: #07c979;
+}
+.travel-list .round-cur,.travel-list .round-go{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border: 2px solid #07c979;
+    border-radius: 100%;
+    margin-right: 7px;
+}
+.travel-list .round-go{
+    border-color:#ff4a6c;
+}
+.travel-gone-title{
+    padding: 2%;
+}
+.travel-list.travel-going{
+    color: #333;
+}

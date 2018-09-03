@@ -1,0 +1,51 @@
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div{margin:0;padding:0;border:0;}
+body{color:#333; font-size:12px;font-family:"Microsoft YaHei";background-size: 100%;}
+ul,li,ol{list-style-type:none;}
+a{text-decoration: none}
+.clearfix {
+    display: block;
+    zoom: 1;
+}
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.prize-wp{padding: 15px;}
+.prize-wp .prize-top{height: 80px;background: url("../images/矩形-26@2x.png");color: #ffffff;background-size: 100% 100%}
+.prize-wp .prize-top-gray{background: url("../images/矩形-26@2x-g.png");background-size: 100% 100%}
+.prize-wp .prize-top .prize-name{margin-left: 15px;line-height: 80px;font-size: 18px}
+.prize-wp ul li{border: 1px solid #cecdcb;box-shadow: 0px 1px 5px rgba(0, 0, 0, .2);margin-bottom: 20px;border-radius: 4px;}
+.prize-wp ul li .prize-name label{font-size: 25px;}
+.prize-wp .prize-top .prize-btn{margin-right: 15px;}
+.prize-wp .prize-top .prize-btn a{display: block;color: #ffffff;background: #ffc40f;height: 40px;line-height:40px;margin-top: 20px;padding: 0 25px;border-radius: 5px;font-size: 17px}
+.prize-wp .prize-top-gray .prize-btn a{background: #c1c1c1}
+.prize-wp .prize-top .prize-btn a:active{opacity: .7}
+.prize-wp .prize-info{background: #ffffff;padding: 5px;font-size: 14px;opacity: .8;border-radius: 0px 0px 4px 4px;}
+.prize-wp .prize-info tr td:first-child{vertical-align: top}
+
+.winning-mask{background: rgba(0, 0, 0, 0.5);position: fixed;left: 0px;top: 0px;width: 100%;height: 100%;z-index: 10}
+.winning-tip{width: 80%;box-shadow: 0px 1px 5px rgba(0, 0, 0, .3);position: absolute;z-index: 15;top: 20%;left: 10%}
+.winning-tip .winning-top{height: 262px;width: 100%;position: relative;background: url("../images/组-50@2x.png");background-size: 100%}
+.winning-tip .winning-top .winning-info{width: 90%;position: absolute;bottom: 8px;left: 5%;background: #ffffff;padding: 10px;box-sizing: border-box;border-radius: 4px}
+.winning-tip .winning-top .winning-info h5{margin-bottom: 5px;}
+.winning-tip .winning-top .winning-info ul li{line-height: 22px}
+.winning-tip .winning1-btn{height: 60px;width: 100%;background: #ffffff;padding-top: 10px;box-sizing: border-box;position: relative}
+.winning-tip .winning-btn{height: 60px;width: 50%;background: #ffffff;padding-top: 10px;box-sizing: border-box;position: relative;float: left}
+.winning-tip .cancle-btn{height: 60px;width: 50%;background: #ffffff;padding-top: 10px;box-sizing: border-box;position: relative;float: right}
+.winning-tip .winning-btn  a{display: block;width: 90%;height: 40px;line-height:40px;background: #f92654;margin: 0 auto;text-align: center;color: #ffffff;font-size: 15px;border-radius: 4px}
+.winning-tip .cancle-btn  a{display: block;width: 90%;height: 40px;line-height:40px;background: #D9D9D9;margin: 0 auto;text-align: center;color: #ffffff;font-size: 15px;border-radius: 4px}
+.winning-tip .winning1-btn  a{display: block;width: 90%;height: 40px;line-height:40px;background: #f92654;margin: 0 auto;text-align: center;color: #ffffff;font-size: 15px;border-radius: 4px}
+#exchangeTitle{color: #f92654}
+#exchange-tip .winning-top{background: url("../images/组-45-拷贝@2x.png");background-size: 100%}
+#exchange-tip .input-code{width: 90%}
+#exchange-tip .winning-info{text-align: center;padding-top: 15px;}
+#exchange-tip .input-code{width: 90%;border: 0px;background: #f2f2f2;height: 36px;line-height:36px;border-radius: 5px;margin-top: 10px;outline: none;padding: 0 10px;text-align: center;font-size: 16px;}
+#exchange-tip .winning-top{height: 280px}
+
+.fr{float: right}
+.fl{float: left}
+.vm{vertical-align: middle}
+
