@@ -34,7 +34,9 @@ public class VersionController extends BaseController {
 	private AppVersionDao appVersionDao;
 
 	@RequestMapping("")
-	public String index() {
+	public String index(Model model) {
+		model.addAttribute("menu", "versionUpdate");
+		model.addAttribute("menu1", "versionUpdateSon1");
 		return "version/index";
 	}
 

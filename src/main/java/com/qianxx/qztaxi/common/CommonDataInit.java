@@ -32,13 +32,13 @@ public class CommonDataInit {
         RoleResouce appUpdateMenuSon1 = new RoleResouce();
         appUpdateMenuSon1.setName("软件更新");
         appUpdateMenuSon1.setActionLink("admin/version");
-        appUpdateMenuSon1.setMenuFlag("9");
+        appUpdateMenuSon1.setMenuFlag("versionUpdateSon1");
         List<RoleResouce> appUpdateMenuSonList = new ArrayList<>();
         appUpdateMenuSonList.add(appUpdateMenuSon1);
         RoleResouce appUpdateMenu = new RoleResouce();
         appUpdateMenu.setName("软件更新");
         appUpdateMenu.setIconClass("icon-center");
-        appUpdateMenu.setMenuFlag("8");
+        appUpdateMenu.setMenuFlag("versionUpdate");
         appUpdateMenu.setSons(appUpdateMenuSonList);
         MENU_LIST.add(appUpdateMenu);
 
