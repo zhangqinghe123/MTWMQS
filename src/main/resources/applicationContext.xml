@@ -64,7 +64,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
-		<property name="mapperLocations" value="classpath:com/qianxx/qztaxi/dao/service/*.xml"></property>
+		<property name="mapperLocations" value="classpath:com/qianxx/qztaxi/dao/*/*.xml"></property>
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
@@ -83,14 +83,15 @@
 	</bean>
 
 	<!-- 事务控制 -->
-	<tx:annotation-driven proxy-target-class="true" transaction-manager="txManager" />
-    <bean id="changeDBInterceptor" class="com.qianxx.qztaxi.datebase.ChangDBInterceptor"></bean>
-    <aop:config proxy-target-class="true">
-        <aop:pointcut id="txPointcut" expression="execution(* com.qianxx.qztaxi.webService.controller.*.*(..)) || execution(* com.qianxx.qztaxi.webService.api.*.*(..))" />
-        <aop:aspect ref="changeDBInterceptor" order="1">
-            <aop:around pointcut-ref="txPointcut" method="changeDB"/>
-        </aop:aspect>
-    </aop:config>
+	<tx:annotation-driven proxy-target-class="true" transaction-manager="txManager"/>
+	<bean id="changeDBInterceptor" class="com.qianxx.qztaxi.datebase.ChangDBInterceptor"></bean>
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="txPointcut"
+					  expression="execution(* com.qianxx.qztaxi.webService.controller.*.*(..)) || execution(* com.qianxx.qztaxi.webService.api.service.*.*(..)) || execution(* com.qianxx.qztaxi.webService.api.user.*.*(..))"/>
+		<aop:aspect ref="changeDBInterceptor" order="1">
+			<aop:around pointcut-ref="txPointcut" method="changeDB"/>
+		</aop:aspect>
+	</aop:config>
 
     <!-- spring declarative transaction management -->
 	<aop:config>
