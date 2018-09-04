@@ -53,9 +53,6 @@
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.qianxx" />
 		<property name="markerInterface" value="com.qianxx.qztaxi.dao.IBaseDao" />
-		<!--
-		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
-		-->
 	</bean>
 
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
@@ -101,50 +98,6 @@
 			<bean class="com.qianxx.qztaxi.interceptor.ApiInterceptor">
 				<property name="uris">
 					<list>
-						<value>/api/common/commonParams</value><!-- 获取公共参数 -->
-						<value>/api/driver/registerVehicle</value><!-- 注册车辆基本信息 -->
-						<value>/api/driver/registerVehicleInsurance</value><!-- 注册车辆保险信息 -->
-						<value>/api/driver/registerShDriver</value><!-- 注册驾驶员 -->
-						<value>/api/driver/ShDriverExtendEducate</value><!-- 注册驾驶员 -->
-						<value>/api/common/identify</value>
-						<value>/api/common/newIdentify</value>
-						<value>/api/common/login</value>
-						<value>/api/driver/driverLogin</value>
-						<value>/api/driver/getDriverInfo</value>
-						<value>/api/driver/driverToAudit</value>
-						<value>/api/driver/resetPwd</value>
-						<value>/api/driver/getMap</value>
-						<value>/api/common/version</value>
-						<value>/api/driver/updatePlace</value>
-						<value>/api/driver/registered</value>
-						<value>/api/driver/V3/registered</value>
-						<value>/api/driver/V3/driverLogin</value>
-						<value>/api/driver/checkCode</value>
-						<value>/api/common/version</value>
-						<value>/api/common/help</value>
-						<value>/api/common/test</value>
-						<value>/api/common/activity</value>
-						<value>/api/common/getAllCarBrand</value>
-						<value>/api/common/getTypeByBrandId</value>
-						<value>/api/common/getMenuDisplayList</value>
-						<value>/api/common/getAllowedBank</value>
-						<value>/api/webSocketServer</value>
-						<value>/api/special/getCarType</value>
-						<value>/api/special/getMap</value>
-						<value>/api/special/valuation</value>
-						<value>/api/carpooling/getMap</value>
-						<value>/api/common/getCompany</value>
-						<value>/api/carpooling/valuation</value>
-						<value>/api/carpooling/getCity</value>
-						<value>/api/carpooling/getPlateByCity</value>
-						<value>/api/passenger/getBusinessDistrict</value>
-						<value>/api/version/getNewVersion</value>
-						<value>/api/pay/alipay/tradeCallback</value>
-						<value>/api/pay/wx/tradeCallback</value>
-						<value>/api/pay/bestpay/tradeCallback</value>
-						<value>/api/driver/updatePlace</value>
-						<value>/api/download/config/ios</value>
-						<value>/api/download/config/android</value>
 					</list>
 				</property>
 			</bean>
