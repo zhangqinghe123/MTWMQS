@@ -1,4 +1,4 @@
-package com.qianxx.qztaxi.webService.api;
+package com.qianxx.qztaxi.webService.api.service;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
