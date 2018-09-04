@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.qianxx.qztaxi.dao.AppVersionDao;
+import com.qianxx.qztaxi.dao.service.AppVersionDao;
 import com.qianxx.qztaxi.service.AppVersionService;
 import com.qianxx.qztaxi.vo.AppVersion;
 import com.qianxx.qztaxi.webService.response.AjaxList;

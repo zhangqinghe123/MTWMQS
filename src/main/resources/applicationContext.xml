@@ -36,7 +36,7 @@
 	</bean>
 
 	<!-- 数据源 -->
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+	<bean id="dataSource_service" class="org.apache.commons.dbcp.BasicDataSource"  destroy-method="close">
 		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"></property>
 		<property name="url" value="jdbc:sqlserver://localhost:1433;Database=mtwmqs;useUnicode=true&amp;characterEncoding=UTF-8"></property>
 		<property name="username" value="root"></property>
@@ -44,24 +44,25 @@
 	</bean>
 
 	<!-- 与mybatis集成 -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
+	<bean id="sqlSessionFactory_service" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource_service" />
 		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
-		<property name="mapperLocations" value="classpath:com/qianxx/qztaxi/dao/*.xml"></property>
+		<property name="mapperLocations" value="classpath:com/qianxx/qztaxi/dao/service/*.xml"></property>
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory_service"></property>
 		<property name="basePackage" value="com.qianxx" />
 		<property name="markerInterface" value="com.qianxx.qztaxi.dao.IBaseDao" />
 	</bean>
 
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg index="0" name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+		<constructor-arg index="0" name="sqlSessionFactory" ref="sqlSessionFactory_service"></constructor-arg>
 	</bean>
 
 	<!-- 事务管理配置 -->
 	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
+		<property name="dataSource" ref="dataSource_service" />
 	</bean>
 
 	<!-- 事务控制 -->

@@ -3,7 +3,7 @@ package com.qianxx.qztaxi.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.qianxx.qztaxi.dao.AppVersionDao;
+import com.qianxx.qztaxi.dao.service.AppVersionDao;
 import com.qianxx.qztaxi.service.AppVersionService;
 import com.qianxx.qztaxi.vo.AppVersion;
 
