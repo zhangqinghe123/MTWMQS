@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianxx.qztaxi.dao.service.StStbprpBDao">
+
+	<!-- 分页查询 -->
+	<select id="getPage" parameterType="map" resultType="com.qianxx.qztaxi.vo.StStbprpB">
+		SELECT STCD
+		,STNM
+		,RVNM
+		,HNNM
+		,BSNM
+		,LGTD
+		,LTTD
+		,STLC
+		,ADDVCD
+		,DTMNM
+		,DTMEL
+		,DTPR
+		,STTP
+		,FRGRD
+		,ESSTYM
+		,BGFRYM
+		,ATCUNIT
+		,ADMAUTH
+		,LOCALITY
+		,STBK
+		,STAZT
+		,DSTRVM
+		,DRNA
+		,PHCD
+		,USFL
+		,COMMENTS
+		,MODITIME
+		FROM ST_STBPRP_B
+		<where>
+			<if test="STCD != null and STCD != ''">
+				AND STCD = #{STCD}
+			</if>
+		</where>
+	</select>
+
+</mapper> 
