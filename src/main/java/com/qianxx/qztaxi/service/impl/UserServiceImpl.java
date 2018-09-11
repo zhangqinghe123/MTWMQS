@@ -2,11 +2,9 @@ package com.qianxx.qztaxi.service.impl;
 
 import com.qianxx.qztaxi.dao.user.UserDao;
 import com.qianxx.qztaxi.service.UserService;
-import com.qianxx.qztaxi.vo.User;
+import com.qianxx.qztaxi.po.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 /**
  * <p>Description: </p>

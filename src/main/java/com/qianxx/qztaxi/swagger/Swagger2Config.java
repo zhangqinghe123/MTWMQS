@@ -31,12 +31,12 @@ public class Swagger2Config {
      */
     private ApiInfo apiInfo() {
         ApiInfo apiInfo = new ApiInfo(
-                "鼎骏出行API文档",
+                "辽宁省朝阳县山洪灾害监测预警移动查询系统API文档",
                 "",
                 "1.0",
-                "https://www.djrentcar.com",
                 "",
-                "Create By 鼎骏出行",
+                "",
+                "Create By 辽宁省朝阳县山洪灾害监测预警移动查询系统",
                 ""
         );
         return apiInfo;

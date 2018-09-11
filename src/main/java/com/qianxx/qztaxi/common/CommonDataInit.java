@@ -1,7 +1,7 @@
 package com.qianxx.qztaxi.common;
 
-import com.qianxx.qztaxi.vo.Adminuser;
-import com.qianxx.qztaxi.vo.RoleResouce;
+import com.qianxx.qztaxi.po.Adminuser;
+import com.qianxx.qztaxi.po.RoleResouce;
 
 import java.util.ArrayList;
 import java.util.HashMap;

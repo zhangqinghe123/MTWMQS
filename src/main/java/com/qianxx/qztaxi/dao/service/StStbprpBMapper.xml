@@ -3,7 +3,7 @@
 <mapper namespace="com.qianxx.qztaxi.dao.service.StStbprpBDao">
 
 	<!-- 分页查询 -->
-	<select id="getAllByMap" parameterType="map" resultType="com.qianxx.qztaxi.vo.StStbprpB">
+	<select id="getAllByMap" parameterType="map" resultType="com.qianxx.qztaxi.po.StStbprpB">
 		SELECT STCD
 		,STNM
 		,RVNM
@@ -37,6 +37,7 @@
 				AND STTP = #{STTP}
 			</if>
 		</where>
+		ORDER by STCD;
 	</select>
 
 </mapper> 

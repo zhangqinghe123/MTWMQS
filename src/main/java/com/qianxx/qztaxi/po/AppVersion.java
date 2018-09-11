@@ -1,4 +1,4 @@
-package com.qianxx.qztaxi.vo;
+package com.qianxx.qztaxi.po;
 
 import java.io.Serializable;
 

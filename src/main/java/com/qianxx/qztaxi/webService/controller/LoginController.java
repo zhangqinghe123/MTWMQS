@@ -5,7 +5,7 @@ import com.qianxx.qztaxi.common.CommonDataInit;
 import com.qianxx.qztaxi.common.ErrCodeConstants;
 import com.qianxx.qztaxi.common.util.Constants;
 import com.qianxx.qztaxi.common.util.MD5Util;
-import com.qianxx.qztaxi.vo.Adminuser;
+import com.qianxx.qztaxi.po.Adminuser;
 import com.qianxx.qztaxi.webService.response.AjaxList;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;

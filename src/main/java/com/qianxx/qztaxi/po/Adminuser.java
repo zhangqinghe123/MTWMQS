@@ -1,8 +1,4 @@
-package com.qianxx.qztaxi.vo;
-
-import io.swagger.models.auth.In;
-
-import java.sql.Timestamp;
+package com.qianxx.qztaxi.po;
 
 /**
  * <p>

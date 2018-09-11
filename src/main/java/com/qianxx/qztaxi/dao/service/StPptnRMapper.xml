@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianxx.qztaxi.dao.service.StPptnRDao">
+
+    <!-- 分页查询 -->
+    <select id="getAllByMap" parameterType="map" resultType="com.qianxx.qztaxi.po.StPptnR">
+        SELECT STCD
+        ,TM
+        ,DRP
+        ,INTV
+        ,PDR
+        ,DYP
+        ,WTH
+        FROM ST_PPTN_R
+        <where>
+            STCD = #{STCD}
+            AND TM Between #{startTime} And #{endTime}
+        </where>
+    </select>
+
+    <select id="getRainInfoByTime" parameterType="map" resultType="map">
+        SELECT
+        AVG (DRP) AS DRP_AVG,
+        AVG (INTV) AS INTV_AVG,
+        AVG (PDR) AS PDR_AVG,
+        AVG (DYP) AS DYP_AVG
+        FROM
+        ST_PPTN_R
+        <where>
+            STCD = #{STCD}
+            AND TM Between #{startTime} And #{endTime}
+        </where>
+    </select>
+
+</mapper> 

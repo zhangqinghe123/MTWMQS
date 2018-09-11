@@ -1,10 +1,9 @@
 package com.qianxx.qztaxi.service.impl;
 
 import com.qianxx.qztaxi.common.util.Constants;
-import com.qianxx.qztaxi.dao.service.AppVersionDao;
 import com.qianxx.qztaxi.dao.service.StStbprpBDao;
 import com.qianxx.qztaxi.service.StStbprpBService;
-import com.qianxx.qztaxi.vo.StStbprpB;
+import com.qianxx.qztaxi.po.StStbprpB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,9 +29,11 @@ public class StStbprpBServiceImpl extends BaseService<StStbprpB, StStbprpBDao> i
     }
 
     @Override
-    public List<StStbprpB> getAllRainStations() {
+    public List<StStbprpB> getAllRainStations(Integer pageSize, Integer pageNum) {
         Map<String, Object> searchParams = new HashMap<>();
         searchParams.put("STTP", Constants.STATION_TYPE_RAIN);
+        searchParams.put("start", pageSize * pageNum);
+        searchParams.put("length", pageNum);
         return stStbprpBDao.getAllByMap(searchParams);
     }
 }

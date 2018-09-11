@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
-
 @RestController
 @RequestMapping(value = "api/ststbprpb")
 @Api(value = "站点信息查询接口")
@@ -21,9 +19,9 @@ public class StStbprpBController {
 
 
     @RequestMapping(value = "getRainSiteInfo", method = RequestMethod.GET)
-    @ApiOperation(value = "获取最新版本(司机,乘客端使用)", notes = "获取最新版本(司机,乘客端使用)", httpMethod = "GET")
+    @ApiOperation(value = "获取雨量站信息", notes = "获取雨量站信息", httpMethod = "GET")
     public AjaxList getRainSiteInfo() {
-        return AjaxList.createSuccess("检查成功", stStbprpBService.getAll());
+        return AjaxList.createSuccess("检查成功", stStbprpBService.getAllRainStations(10, 0));
     }
 
 }

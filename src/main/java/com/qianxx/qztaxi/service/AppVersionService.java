@@ -1,6 +1,6 @@
 package com.qianxx.qztaxi.service;
 
-import com.qianxx.qztaxi.vo.AppVersion;
+import com.qianxx.qztaxi.po.AppVersion;
 
 public interface AppVersionService extends IBaseService<AppVersion>  {
 

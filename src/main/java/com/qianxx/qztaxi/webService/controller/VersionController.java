@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.qianxx.qztaxi.dao.service.AppVersionDao;
 import com.qianxx.qztaxi.service.AppVersionService;
-import com.qianxx.qztaxi.vo.AppVersion;
+import com.qianxx.qztaxi.po.AppVersion;
 import com.qianxx.qztaxi.webService.response.AjaxList;
 import com.qianxx.qztaxi.webService.response.datatable.DatatableRequest;
 import com.qianxx.qztaxi.webService.response.datatable.DatatableResponse;

@@ -1,10 +1,6 @@
 package com.qianxx.qztaxi.service;
 
-import com.qianxx.qztaxi.dao.user.UserDao;
-import com.qianxx.qztaxi.vo.AppVersion;
-import com.qianxx.qztaxi.vo.User;
-
-import java.util.Map;
+import com.qianxx.qztaxi.po.User;
 
 /**
  * <p>Description: </p>

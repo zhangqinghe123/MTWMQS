@@ -6,7 +6,7 @@ import java.util.Map;
 import com.qianxx.qztaxi.dao.IBaseDao;
 import org.apache.ibatis.annotations.Param;
 
-import com.qianxx.qztaxi.vo.AppVersion;
+import com.qianxx.qztaxi.po.AppVersion;
 
 public interface AppVersionDao extends IBaseDao<AppVersion> {
 

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.qianxx.qztaxi.dao.service.AppVersionDao;
 import com.qianxx.qztaxi.service.AppVersionService;
-import com.qianxx.qztaxi.vo.AppVersion;
+import com.qianxx.qztaxi.po.AppVersion;
 
 /**
  * 数据访问接口

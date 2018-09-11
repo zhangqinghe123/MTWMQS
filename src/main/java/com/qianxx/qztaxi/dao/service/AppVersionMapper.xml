@@ -3,7 +3,7 @@
 <mapper namespace="com.qianxx.qztaxi.dao.service.AppVersionDao">
 
 	<!-- 插入数据 -->
-	<insert id="doInsert" parameterType="com.qianxx.qztaxi.vo.AppVersion">
+	<insert id="doInsert" parameterType="com.qianxx.qztaxi.po.AppVersion">
 		INSERT INTO app_version (
 	   			versionName,
 	   			terminal,
@@ -36,7 +36,7 @@
 	</insert>
 
 	<!-- 更新数据 -->
-	<update id="doUpdate" parameterType="com.qianxx.qztaxi.vo.AppVersion">
+	<update id="doUpdate" parameterType="com.qianxx.qztaxi.po.AppVersion">
 		UPDATE app_version
 			<set>
 	     		versionName = #{versionName},
@@ -65,7 +65,7 @@
 	</update>
 
 	<!-- 查询单个对象 -->
-	<select id="getById" parameterType="map" resultType="com.qianxx.qztaxi.vo.AppVersion">
+	<select id="getById" parameterType="map" resultType="com.qianxx.qztaxi.po.AppVersion">
 	   	SELECT 
 	    	versionId,
 	    	versionName,
@@ -82,7 +82,7 @@
 	</select>
 
 	<!-- 查询单个对象 -->
-	<select id="getByCode" parameterType="map" resultType="com.qianxx.qztaxi.vo.AppVersion">
+	<select id="getByCode" parameterType="map" resultType="com.qianxx.qztaxi.po.AppVersion">
 	   	SELECT 
 	    	versionId,
 	    	versionName,
@@ -100,7 +100,7 @@
 	</select>
 
 	<!-- 获取最新版信息 -->
-	<select id="getNewVersion" parameterType="map" resultType="com.qianxx.qztaxi.vo.AppVersion">
+	<select id="getNewVersion" parameterType="map" resultType="com.qianxx.qztaxi.po.AppVersion">
 	   	SELECT
 		top 1
 	    	versionCode,
@@ -116,7 +116,7 @@
 	</select>
 
 	<!-- 分页查询 -->
-	<select id="getPage" parameterType="map" resultType="com.qianxx.qztaxi.vo.AppVersion">
+	<select id="getPage" parameterType="map" resultType="com.qianxx.qztaxi.po.AppVersion">
 	   	SELECT 
 	     	versionId,
 	     	versionName,
