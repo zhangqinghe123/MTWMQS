@@ -5,6 +5,7 @@ import com.qianxx.qztaxi.dao.service.StStbprpBDao;
 import com.qianxx.qztaxi.service.StStbprpBService;
 import com.qianxx.qztaxi.vo.StStbprpB;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>Description: </p>
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @Auther: 张庆贺
  * @Date: 2018/9/10 15:35
  */
+@Service("stStbprpBService")
 public class StStbprpBServiceImpl extends BaseService<StStbprpB, StStbprpBDao> implements StStbprpBService {
 
     @Autowired
