@@ -3,7 +3,7 @@
 <mapper namespace="com.qianxx.qztaxi.dao.service.StStbprpBDao">
 
 	<!-- 分页查询 -->
-	<select id="getPage" parameterType="map" resultType="com.qianxx.qztaxi.vo.StStbprpB">
+	<select id="getAllByMap" parameterType="map" resultType="com.qianxx.qztaxi.vo.StStbprpB">
 		SELECT STCD
 		,STNM
 		,RVNM
@@ -33,8 +33,8 @@
 		,MODITIME
 		FROM ST_STBPRP_B
 		<where>
-			<if test="STCD != null and STCD != ''">
-				AND STCD = #{STCD}
+			<if test="STTP != null and STTP != ''">
+				AND STTP = #{STTP}
 			</if>
 		</where>
 	</select>
