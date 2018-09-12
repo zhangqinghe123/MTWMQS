@@ -49,5 +49,5 @@ public class Constants {
 	/**
 	 * 站点类型 ZZ 河道水位站
 	 */
-	public static final String STATION_TYPE_WATER_LEVEL = "ZZ";
+	public static final String STATION_TYPE_RIVER = "ZZ";
 }

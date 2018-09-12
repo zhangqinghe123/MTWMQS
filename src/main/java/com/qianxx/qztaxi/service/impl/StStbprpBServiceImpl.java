@@ -6,7 +6,9 @@ import com.qianxx.qztaxi.service.StStbprpBService;
 import com.qianxx.qztaxi.po.StStbprpB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,11 +31,34 @@ public class StStbprpBServiceImpl extends BaseService<StStbprpB, StStbprpBDao> i
     }
 
     @Override
-    public List<StStbprpB> getAllRainStations(Integer pageSize, Integer pageNum) {
+    public List<StStbprpB> getAllRainStations() {
         Map<String, Object> searchParams = new HashMap<>();
         searchParams.put("STTP", Constants.STATION_TYPE_RAIN);
-        searchParams.put("start", pageSize * pageNum);
-        searchParams.put("length", pageNum);
         return stStbprpBDao.getAllByMap(searchParams);
+    }
+
+    @Override
+    public List<StStbprpB> getAllReservoirStations() {
+        Map<String, Object> searchParams = new HashMap<>();
+        searchParams.put("STTP", Constants.STATION_TYPE_RESERVOIR);
+        return stStbprpBDao.getAllByMap(searchParams);
+    }
+
+    @Override
+    public List<StStbprpB> getAllRiverStations() {
+        Map<String, Object> searchParams = new HashMap<>();
+        List<StStbprpB> result = new ArrayList<>();
+
+        searchParams.put("STTP", Constants.STATION_TYPE_RIVER);
+        List<StStbprpB> riverList = stStbprpBDao.getAllByMap(searchParams);
+        if (!CollectionUtils.isEmpty(riverList)) {
+            result.addAll(riverList);
+        }
+        searchParams.put("STTP", Constants.STATION_TYPE_HYDROLOGY);
+        List<StStbprpB> hydrologyList = stStbprpBDao.getAllByMap(searchParams);
+        if (!CollectionUtils.isEmpty(hydrologyList)) {
+            result.addAll(hydrologyList);
+        }
+        return result;
     }
 }

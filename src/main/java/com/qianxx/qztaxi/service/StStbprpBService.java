@@ -6,5 +6,9 @@ import java.util.List;
 
 public interface StStbprpBService extends IBaseService<StStbprpB>  {
 
-    List<StStbprpB> getAllRainStations(Integer pageSize, Integer pageNum);
+    List<StStbprpB> getAllRainStations();
+
+    List<StStbprpB> getAllReservoirStations();
+
+    List<StStbprpB> getAllRiverStations();
 }

@@ -26,7 +26,7 @@ public class RainInfoController {
     @ApiOperation(value = "获取雨量站信息", notes = "获取雨量站信息", httpMethod = "GET")
     public AjaxList getRainInfoByTime(@RequestParam Integer pageSize, @RequestParam Integer pageNum, @RequestParam String startTime, @RequestParam String endTime) {
         try {
-            return AjaxList.createSuccess("检查成功", stPptnRService.getAllRainStations(pageSize, pageNum, startTime, endTime));
+            return AjaxList.createSuccess("检查成功", stPptnRService.getAllRainStations(startTime, endTime));
         } catch (RestServiceException e) {
             return AjaxList.createJsonDate(e.getStatus(), e.getErrorCode(), e.getMessage(), null);
         }

@@ -37,9 +37,9 @@ public class StPptnRServiceImpl extends BaseService<StPptnR, StPptnRDao> impleme
     private StStbprpBService stStbprpBService;
 
     @Override
-    public List<StStbprpB> getAllRainStations(Integer pageSize, Integer pageNum, String startTime, String endTime) {
+    public List<StStbprpB> getAllRainStations(String startTime, String endTime) {
         final String dateFormat = "yyyy-MM-dd HH";
-        List<StStbprpB> stStbprpBList = stStbprpBService.getAllRainStations(pageSize, pageNum);
+        List<StStbprpB> stStbprpBList = stStbprpBService.getAllRainStations();
         Calendar calendar = Calendar.getInstance();
         Date endDate;
         try {
