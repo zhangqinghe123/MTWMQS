@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -45,6 +46,12 @@ public class StStbprpBController {
     @ApiOperation(value = "获取山洪站信息", notes = "获取山洪站信息", httpMethod = "GET")
     public AjaxList getAllMountainTorrentStations() {
         return AjaxList.createSuccess("查询成功", stStbprpBService.getAllMountainTorrentStations());
+    }
+
+    @RequestMapping(value = "getStationInfoByStcd", method = RequestMethod.GET)
+    @ApiOperation(value = "获取站点详细信息", notes = "获取站点详细信息", httpMethod = "GET")
+    public AjaxList getStationInfoByStcd(@RequestParam String stcd) {
+        return AjaxList.createSuccess("查询成功", stStbprpBService.getStationInfoByStcd(stcd));
     }
 
 }

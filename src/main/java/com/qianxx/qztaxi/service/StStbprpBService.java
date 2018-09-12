@@ -40,4 +40,11 @@ public interface StStbprpBService extends IBaseService<StStbprpB> {
      * @return 水文站
      */
     List<StStbprpB> getAllHydrologyStations();
+
+    /**
+     * 查询站点详情
+     * @param stcd 站点ID
+     * @return
+     */
+    StStbprpB getStationInfoByStcd(String stcd);
 }

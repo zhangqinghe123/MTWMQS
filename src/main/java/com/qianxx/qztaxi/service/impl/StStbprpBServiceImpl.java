@@ -75,4 +75,15 @@ public class StStbprpBServiceImpl extends BaseService<StStbprpB, StStbprpBDao> i
         searchParams.put("ATCUNIT", "水文");
         return stStbprpBDao.getAllByMap(searchParams);
     }
+
+    @Override
+    public StStbprpB getStationInfoByStcd(String stcd) {
+        Map<String, Object> searchParams = new HashMap<>();
+        searchParams.put("STCD", stcd);
+        List<StStbprpB> resultList = stStbprpBDao.getAllByMap(searchParams);
+        if (CollectionUtils.isEmpty(resultList)) {
+            return null;
+        }
+        return resultList.get(0);
+    }
 }
