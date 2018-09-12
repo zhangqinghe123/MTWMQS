@@ -36,6 +36,10 @@
 			<if test="STTP != null and STTP != ''">
 				AND STTP = #{STTP}
 			</if>
+            <if test="ATCUNIT != null and ATCUNIT != ''">
+                AND ATCUNIT LIKE '%'+#{ATCUNIT}+'%'
+            </if>
+
 		</where>
 		ORDER by STCD;
 	</select>

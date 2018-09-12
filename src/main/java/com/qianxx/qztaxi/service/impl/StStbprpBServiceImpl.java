@@ -61,4 +61,18 @@ public class StStbprpBServiceImpl extends BaseService<StStbprpB, StStbprpBDao> i
         }
         return result;
     }
+
+    @Override
+    public List<StStbprpB> getAllMountainTorrentStations() {
+        Map<String, Object> searchParams = new HashMap<>();
+        searchParams.put("ATCUNIT", "山洪");
+        return stStbprpBDao.getAllByMap(searchParams);
+    }
+
+    @Override
+    public List<StStbprpB> getAllHydrologyStations() {
+        Map<String, Object> searchParams = new HashMap<>();
+        searchParams.put("ATCUNIT", "水文");
+        return stStbprpBDao.getAllByMap(searchParams);
+    }
 }

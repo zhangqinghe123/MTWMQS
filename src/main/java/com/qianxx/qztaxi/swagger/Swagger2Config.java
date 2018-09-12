@@ -31,12 +31,14 @@ public class Swagger2Config {
      */
     private ApiInfo apiInfo() {
         ApiInfo apiInfo = new ApiInfo(
-                "辽宁省朝阳县山洪灾害监测预警移动查询系统API文档",
+//                "辽宁省朝阳县山洪灾害监测预警移动查询系统API文档",
+                "安捷集团",
                 "",
                 "1.0",
                 "",
                 "",
-                "Create By 辽宁省朝阳县山洪灾害监测预警移动查询系统",
+//                "Create By 辽宁省朝阳县山洪灾害监测预警移动查询系统",
+                "安捷集团",
                 ""
         );
         return apiInfo;
