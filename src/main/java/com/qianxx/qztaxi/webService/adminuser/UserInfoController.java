@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -96,5 +97,23 @@ public class UserInfoController {
         }
         userService.deleteByIds(String.valueOf(id));
         return AjaxList.createSuccess("操作成功", null);
+    }
+
+    @RequestMapping("add")
+    public String add() {
+        return "userInfo/add";
+    }
+
+    @RequestMapping("doAdd")
+    @ResponseBody
+    public AjaxList doAdd(UserInfo userInfo) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("account", userInfo.getAccount());
+        long count = userInfoDao.countByMap(param);
+        if (count > 0) {
+            return AjaxList.createError("账号【" + userInfo.getAccount() + "】已存在，请重新输入", null);
+        }
+        userService.save(userInfo);
+        return AjaxList.createSuccess("保存成功", null);
     }
 }

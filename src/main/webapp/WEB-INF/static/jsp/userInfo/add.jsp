@@ -1,16 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
 $(function ($) {
     var isCheck = true;
     $(".qz_save_btn").click(function () {
         if(isCheck) {
-        if($("#versionForm").valid()){ 
+        if($("#versionForm").valid()) { 
             $(".qz_save_btn").attr("disabled", true).find("span").html("提交中...");
             isCheck = false;
             window.setTimeout(function () {
                 $.ajax({
-                    url: basePath + "admin/userInfo/doUpdate",
+                    url: basePath + "admin/userInfo/doAdd",
                     data: $("#versionForm").serialize(),
                     type: 'POST',
                     success: function (data) {
@@ -29,9 +28,10 @@ $(function ($) {
                         isCheck = true;
                         $(".qz_save_btn").attr("disabled", false).find("span").html("提交");
                         apus.ui.toastr.error("保存失败，请联系管理员");
+
                     },
                 });
-              }, 10)
+              	}, 10)
             }
         }
     });
@@ -41,39 +41,38 @@ $(function ($) {
     <div class="row">
         <div class="col-xs-12">
             <form class="form-horizontal" role="form" id="versionForm" modelAttribute="form">
-            	<input type="hidden" name="id" value="${userInfo.id}">
                 <div class="form-group">
                     <label class="col-sm-3 control-label"> 账号：</label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control" name="account" value="${userInfo.account}" data-rule-required="true" placeholder="请输入账号" readonly="readonly"/>
+                        <input type="text" class="form-control" name="account" data-rule-required="true" placeholder="请输入账号"/>
                     </div>
                 </div>
                 <div class="space-4"></div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label"> 密码：</label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control" name="password" value="${userInfo.password}" data-rule-required="true" placeholder="请输入密码"/>
+                        <input type="text" class="form-control" name="password" data-rule-required="true" placeholder="请输入密码"/>
                     </div>
                 </div>
                 <div class="space-4"></div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">手机号 ：</label>
+                    <label class="col-sm-3 control-label"> 手机号：</label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control" name="mobile" value="${userInfo.mobile}" data-rule-required="true" placeholder="请输入手机号"/>
+                        <input type="text" class="form-control" name="mobile" data-rule-required="true" placeholder="请输入手机号"/>
                     </div>
                 </div>
                 <div class="space-4"></div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">姓名 ：</label>
+                    <label class="col-sm-3 control-label"> 姓名：</label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control" name="userName" value="${userInfo.userName}" data-rule-required="true" placeholder="请输入姓名"/>
+                        <input type="text" class="form-control" name="userName" data-rule-required="true" placeholder="请输入版本号"/>
                     </div>
                 </div>
                 <div class="space-4"></div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">职位 ：</label>
+                    <label class="col-sm-3 control-label"> 职位：</label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control" name="userPosition" value="${userInfo.userPosition}" data-rule-required="true" placeholder="请输入职位"/>
+                        <input type="text" class="form-control" name="userPosition" data-rule-required="true" placeholder="请输入职位"/>
                     </div>
                 </div>
                 <div class="space-4"></div>

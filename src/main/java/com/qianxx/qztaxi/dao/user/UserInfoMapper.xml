@@ -21,7 +21,7 @@
     </select>
 
     <insert id="save" parameterType="com.qianxx.qztaxi.po.UserInfo" flushCache="true" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO user(
+		INSERT INTO user_info(
 		account,
         password,
         mobile,

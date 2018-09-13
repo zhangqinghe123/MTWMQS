@@ -31,7 +31,7 @@
                 },
                 {
                     "data": "userName",
-                    "title": '用户名',
+                    "title": '姓名',
                 },
                 {
                     "data": "userPosition",
@@ -98,7 +98,7 @@
                 $(".add_btn").on('click', function () {
                     dialog.openUrlModal(
                         "新增用户信息",
-                        basePath + "admin/version/add",
+                        basePath + "admin/userInfo/add",
                         {width: 750, height: 680, id: "my_customer_dialog", ajaxOption: {type: "get"}}
                     );
                 });
