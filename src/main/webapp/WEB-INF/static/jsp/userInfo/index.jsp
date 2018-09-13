@@ -50,11 +50,11 @@
                 $("#qz_userinfo_table_wrapper").on('click', '#delete', function () {
                     var id = $(this).attr("data-id");
                     dialog.confirm(
-                        "确认删除所选版本吗？",
+                        "确认删除所选用户吗？",
                         function () {
                             $.ajax({
-                                url: basePath + "admin/version/doDelete",
-                                data: {versionId: id},
+                                url: basePath + "admin/userInfo/doDelete",
+                                data: {id: id},
                                 type: 'POST',
                                 success: function (data) {
                                     if (data.errCode == 0) {

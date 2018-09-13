@@ -4,6 +4,7 @@ import com.qianxx.qztaxi.common.util.Constants;
 import com.qianxx.qztaxi.dao.user.UserInfoDao;
 import com.qianxx.qztaxi.po.AppVersion;
 import com.qianxx.qztaxi.po.UserInfo;
+import com.qianxx.qztaxi.service.UserService;
 import com.qianxx.qztaxi.webService.response.AjaxList;
 import com.qianxx.qztaxi.webService.response.datatable.DatatableRequest;
 import com.qianxx.qztaxi.webService.response.datatable.DatatableResponse;
@@ -32,6 +33,8 @@ public class UserInfoController {
 
     @Autowired
     private UserInfoDao userInfoDao;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("")
     public String index(Model model) {
@@ -81,4 +84,17 @@ public class UserInfoController {
         return AjaxList.createSuccess("编辑成功", null);
     }
 
+    @RequestMapping("doDelete")
+    @ResponseBody
+    public AjaxList doDelete(Integer id) {
+        if (id == null || id < 1) {
+            return AjaxList.createError("参数错误", null);
+        }
+        UserInfo userInfo = userService.getById(id);
+        if (userInfo == null) {
+            return AjaxList.createError("您选择的记录不存在", null);
+        }
+        userService.deleteByIds(String.valueOf(id));
+        return AjaxList.createSuccess("操作成功", null);
+    }
 }
