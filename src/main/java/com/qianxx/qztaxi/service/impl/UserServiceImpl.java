@@ -1,8 +1,8 @@
 package com.qianxx.qztaxi.service.impl;
 
-import com.qianxx.qztaxi.dao.user.UserDao;
+import com.qianxx.qztaxi.dao.user.UserInfoDao;
+import com.qianxx.qztaxi.po.UserInfo;
 import com.qianxx.qztaxi.service.UserService;
-import com.qianxx.qztaxi.po.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,18 +13,13 @@ import org.springframework.stereotype.Service;
  * @Date: 2018/9/4 10:31
  */
 @Service("userService")
-public class UserServiceImpl extends BaseService<User, UserDao> implements UserService {
+public class UserServiceImpl extends BaseService<UserInfo, UserInfoDao> implements UserService {
 
     @Autowired
-    private UserDao userDao;
+    private UserInfoDao userInfoDao;
 
     @Override
-    public User getByMobile(String mobile) {
-        return userDao.getByMobile(mobile);
-    }
-
-    @Override
-    public UserDao getDao() {
-        return userDao;
+    public UserInfoDao getDao() {
+        return userInfoDao;
     }
 }

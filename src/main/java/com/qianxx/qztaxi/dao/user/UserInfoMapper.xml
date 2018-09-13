@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianxx.qztaxi.dao.user.UserInfoDao">
+
+    <select id="getAllByMap" parameterType="map" resultType="com.qianxx.qztaxi.po.UserInfo">
+        SELECT
+        id,
+        account,
+        password,
+        mobile,
+        user_name,
+        user_position
+        FROM user_info
+        WHERE 1=1
+        <if test="account != null and account != ''">
+            AND account=#{account}
+        </if>
+        <if test="mobile != null and mobile != ''">
+            AND mobile=#{mobile}
+        </if>
+    </select>
+
+    <insert id="save" parameterType="com.qianxx.qztaxi.po.UserInfo" flushCache="true" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO user(
+		account,
+        password,
+        mobile,
+        user_name,
+        user_position)
+		VALUES (
+		#{account},
+		#{password},
+		#{mobile},
+		#{userName},
+		#{userPosition})
+	</insert>
+
+</mapper> 

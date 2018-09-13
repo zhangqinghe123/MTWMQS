@@ -21,7 +21,6 @@ public class RainInfoController {
     @Autowired
     private StPptnRService stPptnRService;
 
-
     @RequestMapping(value = "getRainInfoByTime", method = RequestMethod.GET)
     @ApiOperation(value = "获取雨量站信息", notes = "获取雨量站信息", httpMethod = "GET")
     public AjaxList getRainInfoByTime(@RequestParam Integer pageSize, @RequestParam Integer pageNum, @RequestParam String startTime, @RequestParam String endTime) {

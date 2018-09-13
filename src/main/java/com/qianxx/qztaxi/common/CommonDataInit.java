@@ -1,6 +1,6 @@
 package com.qianxx.qztaxi.common;
 
-import com.qianxx.qztaxi.po.Adminuser;
+import com.qianxx.qztaxi.po.AdminUser;
 import com.qianxx.qztaxi.po.RoleResouce;
 
 import java.util.ArrayList;
@@ -15,11 +15,11 @@ import java.util.Map;
  * @Date: 2018/9/3 15:44
  */
 public class CommonDataInit {
-    public static Map<String,Adminuser> ADMIN_USER_MAP = new HashMap<>();
+    public static Map<String,AdminUser> ADMIN_USER_MAP = new HashMap<>();
     public static List<RoleResouce> MENU_LIST = new ArrayList<>();
     static {
         // 增加初始管理员信息
-        ADMIN_USER_MAP.put("admin",new Adminuser(1,"admin","E10ADC3949BA59ABBE56E057F20F883E","管理员"));
+        ADMIN_USER_MAP.put("admin",new AdminUser(1,"admin","E10ADC3949BA59ABBE56E057F20F883E","管理员"));
 
         // 系统首页
         RoleResouce sysIndex = new RoleResouce();

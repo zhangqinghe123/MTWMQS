@@ -5,13 +5,13 @@ package com.qianxx.qztaxi.po;
  * 字段IDValueObject.
  * </p>
  */
-public class Adminuser implements java.io.Serializable {
+public class AdminUser implements java.io.Serializable {
     /**
      *
      */
     private static final long serialVersionUID = 1L;
 
-    public Adminuser(Integer id, String account, String password, String userName) {
+    public AdminUser(Integer id, String account, String password, String userName) {
         this.id = id;
         this.account = account;
         this.password = password;

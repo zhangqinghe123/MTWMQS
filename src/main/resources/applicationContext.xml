@@ -35,17 +35,17 @@
 		<property name="fileEncoding" value="utf-8" />
 	</bean>
 
-	<!-- 数据源 -->
+	<!-- 业务数据源 -->
 	<bean id="dataSource_service" class="org.apache.commons.dbcp.BasicDataSource"  destroy-method="close">
 		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"></property>
 		<property name="url" value="jdbc:sqlserver://localhost:1433;Database=shrwdb;useUnicode=true&amp;characterEncoding=UTF-8"></property>
 		<property name="username" value="root"></property>
 		<property name="password" value="root"></property>
 	</bean>
-
+	<!-- 用户数据源 -->
     <bean id="dataSource_user" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"></property>
-        <property name="url" value="jdbc:sqlserver://localhost:1433;Database=shrwdb;useUnicode=true&amp;characterEncoding=UTF-8"></property>
+        <property name="url" value="jdbc:sqlserver://localhost:1433;Database=shrwuserdb;useUnicode=true&amp;characterEncoding=UTF-8"></property>
         <property name="username" value="root"></property>
         <property name="password" value="root"></property>
     </bean>

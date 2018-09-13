@@ -5,7 +5,7 @@ import com.qianxx.qztaxi.common.CommonDataInit;
 import com.qianxx.qztaxi.common.ErrCodeConstants;
 import com.qianxx.qztaxi.common.util.Constants;
 import com.qianxx.qztaxi.common.util.MD5Util;
-import com.qianxx.qztaxi.po.Adminuser;
+import com.qianxx.qztaxi.po.AdminUser;
 import com.qianxx.qztaxi.webService.response.AjaxList;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -60,7 +60,7 @@ public class LoginController {
         } else if (!code.toUpperCase().equals(c.toUpperCase())) {
             return AjaxList.createJsonDate(Constants.API_STATUS_SUCCESS, ErrCodeConstants.ERR_2002_WRONG_PASSWORD, "验证码错误", null);
         }
-        Adminuser adminuser = CommonDataInit.ADMIN_USER_MAP.get(username);
+        AdminUser adminuser = CommonDataInit.ADMIN_USER_MAP.get(username);
         if (MD5Util.MD5Encode(password).equals(adminuser.getPassword())) {
             session.setAttribute("userId", adminuser.getId());
             Map<String, Object> map1 = new HashMap<>();
