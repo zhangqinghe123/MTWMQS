@@ -43,7 +43,7 @@
                     "width": '150',
                     "render": function (data, type, row) {
                         var str = '';
-                        str += '<a id="getDetail" data-id="' + row["versionId"] + '" class="btn btn-info btn-xs" style="margin-right: 5px;">查看</a>';
+                        str += '<a id="downloadApp" data-id="' + row["versionId"] + '" class="btn btn-info btn-xs" style="margin-right: 5px;">下载</a>';
                         str += '<a id="delete" data-id="' + row["versionId"] + '" class="btn btn-info btn-xs" style="margin-right: 5px;">删除</a>';
                         return str;
                     }
