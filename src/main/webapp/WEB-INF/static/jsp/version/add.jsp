@@ -11,11 +11,8 @@
                     window.setTimeout(function () {
                         $.ajax({
                             url: basePath + "admin/version/doAdd",
-                            // data: $("#versionForm").serialize(),
-                            data: {'uploadAppFile': $("input[type=file]").val(), 'appVersion': $("#versionForm").serialize()},
+                            data: $("#versionForm").serialize(),
                             type: 'POST',
-                            cache: false,
-                            contentType: false,
                             success: function (data) {
                                 if (data.errCode == 0) {
                                     apus.ui.toastr.success("保存成功！");
@@ -32,7 +29,6 @@
                                 isCheck = true;
                                 $(".qz_save_btn").attr("disabled", false).find("span").html("提交");
                                 apus.ui.toastr.error("保存失败，请联系管理员");
-
                             },
                         });
                     }, 10)
@@ -57,17 +53,14 @@
             'removeCompleted': true,
             // 浏览器检测不到兼容时触发该事件
             'onFallback': function () {
-                layer.msg("您的浏览器不支持上传组件，请更换谷歌、Firefox等浏览器", {offset: "50px", anim: 6});
+                apus.ui.toastr.error("您的浏览器不支持上传组件，请更换谷歌、Firefox等浏览器");
             },
             'onUploadComplete': function (file, data) {
                 data = eval('(' + data + ')');
                 if(data.status == 0) {
-                    $("#imgUrl").val(data.data.imageUrl);
-                    $("#img_id").attr("src", data.data.showUrl);
-                    $("#img_id").attr("onclick", "showImage('" + data.data.showUrl + "')");
-                    $("#img_id").attr("style", "cursor: pointer;");
+                    $("#downLoadUrl").val(data.data);
                 } else {
-                    layer.msg(data.msg, {offset: "50px", anim: 6});
+                    apus.ui.toastr.error(data.message);
                 }
             }
         });
@@ -107,6 +100,13 @@
                     <div class="col-sm-7">
                         <textarea class="form-control" name="introduce" data-rule-required="true"
                                   placeholder="请输入版本说明"></textarea>
+                    </div>
+                </div>
+                <div class="space-4"></div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">上文路径 ：</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="downLoadUrl" name="downLoadUrl" data-rule-required="true" readonly="readonly"/>
                     </div>
                 </div>
                 <div class="space-4"></div>

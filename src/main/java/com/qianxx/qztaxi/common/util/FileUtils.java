@@ -36,16 +36,13 @@ public class FileUtils {
 //            return null;
 //        }
         // 建立原图上传目录
-        String dirPath = Constants.FILE_UPLOAD_PATH + File.separator + FOLDER_FULL
+        String dirPath = getTomcatPath() + File.separator + FOLDER_FULL
                 + File.separator;
         File dirFile = new File(dirPath);
         if (!dirFile.exists()) {
             dirFile.mkdirs();
         }
-
-        // 上传文件名
         SimpleDateFormat dateFmt = new SimpleDateFormat("yyyyMMdd");
-        // 文件格式，缩略图生成
         String fileName = dateFmt.format(new Date())
                 + UUID.randomUUID()
                 + targetFileName.substring(targetFileName.lastIndexOf("."))
@@ -70,6 +67,9 @@ public class FileUtils {
         return "/" + FOLDER_FULL + "/" + fileName;
     }
 
+    protected static String getTomcatPath() {
+        return FileUtils.class.getResource("/").getPath().substring(0, FileUtils.class.getResource("/").getPath().indexOf("WEB-INF") - 1);
+    }
 
     public static void deleteFile(File file) {
         if (file.exists()) { // 判断文件是否存在

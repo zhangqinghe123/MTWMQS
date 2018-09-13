@@ -98,9 +98,4 @@ public class VersionController extends BaseController {
         return AjaxList.createSuccess("操作成功", FileUtils.uploadApp(uploadfile));
     }
 
-
-    private String getTomcatPath() {
-        return BaseController.class.getResource("/").getPath().substring(0, VersionController.class.getResource("/").getPath().indexOf("WEB-INF") - 1);
-    }
-
 }
