@@ -16,19 +16,7 @@ import com.qianxx.qztaxi.webService.response.datatable.DatatableRequest;
 public class BaseController {
 
 	protected DatatableRequest getRequest(HttpServletRequest request) {
-		DatatableRequest datatableRequest = new DatatableRequest();
-		String start = request.getParameter("start");
-		String length = request.getParameter("length");
-		String draw = request.getParameter("draw");
-		datatableRequest.setDraw(draw == null ? 0 : Integer.parseInt(draw));
-		datatableRequest.setLength(length == null ? 10 : Integer.parseInt(length));
-		datatableRequest.setStart(start == null ? 0 : Integer.parseInt(start));
-		datatableRequest.setSearchValue(request.getParameter("search[value]"));
-		Map<String, Object> searchMap = datatableRequest.getSearchMap();
-		searchMap.put("start", Integer.parseInt(start));
-		searchMap.put("length", Integer.parseInt(length));
-		return datatableRequest;
-
+		return getDatatableRequest(request);
 	}
 
 	protected Integer getCompanyId(HttpServletRequest request) {
@@ -54,6 +42,21 @@ public class BaseController {
 			throw new NullPointerException();
 		String name = session.getAttribute("name").toString();
 		return name;
+	}
+
+	public static DatatableRequest getDatatableRequest(HttpServletRequest request) {
+		DatatableRequest datatableRequest = new DatatableRequest();
+		String start = request.getParameter("start");
+		String length = request.getParameter("length");
+		String draw = request.getParameter("draw");
+		datatableRequest.setDraw(draw == null ? 0 : Integer.parseInt(draw));
+		datatableRequest.setLength(length == null ? 10 : Integer.parseInt(length));
+		datatableRequest.setStart(start == null ? 0 : Integer.parseInt(start));
+		datatableRequest.setSearchValue(request.getParameter("search[value]"));
+		Map<String, Object> searchMap = datatableRequest.getSearchMap();
+		searchMap.put("start", Integer.parseInt(start));
+		searchMap.put("length", Integer.parseInt(length));
+		return datatableRequest;
 	}
 
 }
