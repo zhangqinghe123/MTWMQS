@@ -6,7 +6,6 @@
 	<insert id="doInsert" parameterType="com.qianxx.qztaxi.po.AppVersion">
 		INSERT INTO app_version (
 	   			versionName,
-	   			terminal,
 	   			versionCode,
 	   			versionType,
 	   			md5,
