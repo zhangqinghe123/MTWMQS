@@ -80,8 +80,8 @@
                 $("#qz_userinfo_table_wrapper").on('click', '#update', function () {
                     var id = $(this).attr("data-id");
                     dialog.openUrlModal(
-                        "编辑版本信息",
-                        basePath + "admin/version/update?versionId=" + id,
+                        "编辑用户信息",
+                        basePath + "admin/userInfo/update?id=" + id,
                         {width: 750, height: 680, id: "my_customer_dialog", ajaxOption: {type: "get"}}
                     );
                 });
@@ -97,7 +97,7 @@
                 });
                 $(".add_btn").on('click', function () {
                     dialog.openUrlModal(
-                        "新增版本信息",
+                        "新增用户信息",
                         basePath + "admin/version/add",
                         {width: 750, height: 680, id: "my_customer_dialog", ajaxOption: {type: "get"}}
                     );

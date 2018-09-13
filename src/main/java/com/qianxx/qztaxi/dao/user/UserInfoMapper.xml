@@ -61,7 +61,34 @@
             <if test="mobile != null and mobile != ''">
                 AND mobile = #{mobile}
             </if>
+            <if test="account != null and account != ''">
+                AND account = #{account}
+            </if>
         </where>
     </select>
+
+    <select id="getById" resultType="com.qianxx.qztaxi.po.UserInfo">
+        SELECT
+            id,
+            account,
+            password,
+            mobile,
+            user_name,
+            user_position
+        FROM user_info
+		WHERE id=#{id}
+	</select>
+
+    <update id="update" parameterType="com.qianxx.qztaxi.po.UserInfo" flushCache="true">
+        UPDATE user_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="account != null">account=#{account},</if>
+            <if test="password != null">password=#{password},</if>
+            <if test="mobile != null">mobile=#{mobile},</if>
+            <if test="userName != null">user_name=#{userName},</if>
+            <if test="userPosition != null">user_position=#{userPosition},</if>
+        </trim>
+        WHERE id=#{id}
+    </update>
 
 </mapper> 
