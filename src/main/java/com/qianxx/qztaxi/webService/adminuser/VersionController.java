@@ -1,22 +1,32 @@
 package com.qianxx.qztaxi.webService.adminuser;
 
+import com.qianxx.qztaxi.common.CommonUtils;
+import com.qianxx.qztaxi.common.FileResult;
+import com.qianxx.qztaxi.common.util.FileUtils;
 import com.qianxx.qztaxi.dao.user.AppVersionDao;
 import com.qianxx.qztaxi.po.AppVersion;
 import com.qianxx.qztaxi.service.AppVersionService;
 import com.qianxx.qztaxi.webService.response.AjaxList;
 import com.qianxx.qztaxi.webService.response.datatable.DatatableRequest;
 import com.qianxx.qztaxi.webService.response.datatable.DatatableResponse;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("admin/version")
@@ -80,6 +90,17 @@ public class VersionController extends BaseController {
         }
         appVersionService.doDelete(versionId);
         return AjaxList.createSuccess("操作成功", null);
+    }
+
+    @RequestMapping(value = "uploadAdInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxList uploadAdInfo(@RequestParam() MultipartFile uploadfile) {
+        return AjaxList.createSuccess("操作成功", FileUtils.uploadApp(uploadfile));
+    }
+
+
+    private String getTomcatPath() {
+        return BaseController.class.getResource("/").getPath().substring(0, VersionController.class.getResource("/").getPath().indexOf("WEB-INF") - 1);
     }
 
 }

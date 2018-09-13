@@ -29,7 +29,7 @@ public class Constants {
 	public final static String UPLOAD_FOLDER_MYPIC = "myPic";
 	public final static String UPLOAD_FOLDER_IDCARD = "idCard";
 	public final static String UPLOAD_FOLDER_VEHICLELIC = "vehicleLic";
-	public final static String FILE_UPLOAD_PATH = "/usr/www/images";
+	public final static String FILE_UPLOAD_PATH = "/usr/www/appPackage";
 	public final static int UPLOAD_FILE_SIZE = 1024 * 1024 * 10;
 
 

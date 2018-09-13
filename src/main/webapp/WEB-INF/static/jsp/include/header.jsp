@@ -75,6 +75,10 @@
     <!--maskLlock 全屏锁屏-->
     <link rel="stylesheet" href="${basePath}resources/js/loading/loading.css"/>
     <script src="${basePath}resources/js/loading/loading.js"></script>
+
+    <!--maskLlock 全屏锁屏-->
+    <link rel="stylesheet" href="${basePath}resources/js/uploadify/uploadifive.css"/>
+    <script src="${basePath}resources/js/uploadify/jquery.uploadifive.min.js"></script>
 </head>
 <body>
 <div class="navbar navbar-default" id="navbar" style="height: 10px;">

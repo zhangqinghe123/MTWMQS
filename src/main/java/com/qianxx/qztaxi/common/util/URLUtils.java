@@ -28,8 +28,6 @@ public class URLUtils {
 		ret.append("/");
 		ret.append(Constants.UPLOAD_FOLDER_MYPIC);
 		ret.append("/");
-		ret.append(FileUtils.FOLDER_THUM);
-		ret.append("/");
 		ret.append(fileName);
 
 		return ret.toString();
@@ -66,8 +64,6 @@ public class URLUtils {
 		ret.append("/");
 		ret.append(Constants.UPLOAD_FOLDER_IDCARD);
 		ret.append("/");
-		ret.append(FileUtils.FOLDER_THUM);
-		ret.append("/");
 		ret.append(fileName);
 
 		return ret.toString();
@@ -103,8 +99,6 @@ public class URLUtils {
 		ret.append(userId);
 		ret.append("/");
 		ret.append(Constants.UPLOAD_FOLDER_VEHICLELIC);
-		ret.append("/");
-		ret.append(FileUtils.FOLDER_THUM);
 		ret.append("/");
 		ret.append(fileName);
 
