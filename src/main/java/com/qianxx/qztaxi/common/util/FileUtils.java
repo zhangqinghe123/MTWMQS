@@ -32,9 +32,9 @@ public class FileUtils {
             return null;
         }
         targetFileName = targetFileName.substring(targetFileName.lastIndexOf(".")).toLowerCase();
-//        if (".apk".toLowerCase().indexOf(targetFileName) < 0) {
-//            return null;
-//        }
+        if (".apk".toLowerCase().indexOf(targetFileName) < 0) {
+            return null;
+        }
         // 建立原图上传目录
         String dirPath = getTomcatPath() + File.separator + FOLDER_FULL
                 + File.separator;

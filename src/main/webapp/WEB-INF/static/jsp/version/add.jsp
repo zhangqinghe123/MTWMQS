@@ -106,7 +106,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label">上文路径 ：</label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control" id="downLoadUrl" name="downLoadUrl" data-rule-required="true" readonly="readonly"/>
+                        <input type="text" class="form-control" id="downLoadUrl" name="downLoadUrl" data-rule-required="true" readonly="readonly" placeholder="上传文件后文件路径"/>
                     </div>
                 </div>
                 <div class="space-4"></div>
