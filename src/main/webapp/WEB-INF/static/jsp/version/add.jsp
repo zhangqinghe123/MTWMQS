@@ -65,7 +65,7 @@ $(function ($) {
                 <div class="form-group">
                     <label class="col-sm-3 control-label">版本说明 ：</label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control" name="introduce" data-rule-required="true" placeholder="请输入版本说明"/>
+                        <textarea class="form-control" name="introduce" data-rule-required="true" placeholder="请输入版本说明"></textarea>
                     </div>
                 </div>
                 <div class="space-4"></div>

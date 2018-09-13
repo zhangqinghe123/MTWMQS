@@ -75,7 +75,7 @@
 	</select>
 
     <select id="countByMap" parameterType="map" resultType="int">
-		SELECT COUNT(versionId) FROM app_version
+		SELECT COUNT(version_id) FROM app_version
 	</select>
 
 </mapper> 
