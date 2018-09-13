@@ -1,8 +1,11 @@
 package com.qianxx.qztaxi.webService.adminuser;
 
+import com.qianxx.qztaxi.dao.user.UserInfoDao;
 import com.qianxx.qztaxi.po.AppVersion;
+import com.qianxx.qztaxi.po.UserInfo;
 import com.qianxx.qztaxi.webService.response.datatable.DatatableRequest;
 import com.qianxx.qztaxi.webService.response.datatable.DatatableResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +27,9 @@ import java.util.Map;
 @ApiIgnore
 public class UserInfoController {
 
+    @Autowired
+    private UserInfoDao userInfoDao;
+
     @RequestMapping("")
     public String index(Model model) {
         model.addAttribute("menu", "userInfo");
@@ -33,20 +39,15 @@ public class UserInfoController {
 
     @RequestMapping(value = "getUserInfoList", method = RequestMethod.POST)
     @ResponseBody
-    public DatatableResponse<AppVersion> getUserInfoList(HttpServletRequest request) {
-        DatatableRequest datatableRequest = getRequest(request);
-        datatableRequest.getSearchMap().put("terminal", request.getParameter("terminal"));
-        DatatableResponse<AppVersion> response = new DatatableResponse<>();
-        response.setData(appVersionDao.getPage(datatableRequest.getSearchMap()));
-        response.setRecordsTotal(appVersionDao.countByMap(datatableRequest.getSearchMap()));
+    public DatatableResponse<UserInfo> getUserInfoList(HttpServletRequest request) {
+        DatatableRequest datatableRequest = BaseController.getDatatableRequest(request);
+        datatableRequest.getSearchMap().put("mobile", request.getParameter("mobile"));
+        DatatableResponse<UserInfo> response = new DatatableResponse<>();
+        response.setData(userInfoDao.getPage(datatableRequest.getSearchMap()));
+        response.setRecordsTotal(userInfoDao.countByMap(datatableRequest.getSearchMap()));
         response.setDraw(datatableRequest.getDraw());
         response.setRecordsFiltered(response.getRecordsTotal());
         return response;
     }
-
-    private DatatableRequest getRequest(HttpServletRequest request) {
-        return BaseController.getDatatableRequest(request);
-    }
-
 
 }

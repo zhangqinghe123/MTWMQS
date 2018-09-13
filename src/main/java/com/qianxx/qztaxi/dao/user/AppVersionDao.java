@@ -1,4 +1,4 @@
-package com.qianxx.qztaxi.dao.service;
+package com.qianxx.qztaxi.dao.user;
 
 import java.util.List;
 import java.util.Map;

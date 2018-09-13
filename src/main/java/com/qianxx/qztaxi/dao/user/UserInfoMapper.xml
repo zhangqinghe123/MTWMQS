@@ -35,4 +35,33 @@
 		#{userPosition})
 	</insert>
 
+    <!-- 分页查询 -->
+    <select id="getPage" parameterType="map" resultType="com.qianxx.qztaxi.po.UserInfo">
+        SELECT
+        id,
+        account,
+        password,
+        mobile,
+        user_name,
+        user_position
+        FROM user_info
+        <where>
+            1 = 1
+            <if test="mobile != null and mobile != ''">
+                AND mobile = #{mobile}
+            </if>
+        </where>
+        ORDER BY id
+    </select>
+
+    <select id="countByMap" parameterType="map" resultType="int">
+        SELECT COUNT(id) FROM user_info
+        <where>
+            1 = 1
+            <if test="mobile != null and mobile != ''">
+                AND mobile = #{mobile}
+            </if>
+        </where>
+    </select>
+
 </mapper> 
