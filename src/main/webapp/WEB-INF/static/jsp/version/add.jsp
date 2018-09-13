@@ -56,52 +56,16 @@ $(function ($) {
                 </div>
                 <div class="space-4"></div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">MD5校验码 ：</label>
+                    <label class="col-sm-3 control-label"> 版本号Int值：</label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control" name="md5" data-rule-required="true" placeholder="请输入MD5校验码"/>
+                        <input type="text" class="form-control" name="codeInt" data-rule-required="true" placeholder="请输入版本号Int值"/>
                     </div>
                 </div>
                 <div class="space-4"></div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label"> 终端类型：</label>
+                    <label class="col-sm-3 control-label">版本说明 ：</label>
                     <div class="col-sm-7">
-                        <select class="form-control" name="terminal" id="terminal">
-                            <option value="">请选择终端类型</option>
-                            <option value="1">用户端</option>
-                            <option value="2">司机端</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="space-4"></div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label"> 更新类型：</label>
-                    <div class="col-sm-7">
-                        <select class="form-control" name="versionType" id="versionType">
-                        	<option value="">请选择更新类型</option>
-                            <option value="1">非强制更新</option>
-                            <option value="2">强制更新</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="space-4"></div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">下载地址 ：</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control" name="downLoadUrl" data-rule-required="true" placeholder="请输入下载地址"/>
-                    </div>
-                </div>
-                <div class="space-4"></div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">版本介绍 ：</label>
-                    <div class="col-sm-7">
-                        <textarea class="form-control" rows="4" name="introduce" placeholder="请输入版本介绍"></textarea>
-                    </div>
-                </div>
-                <div class="space-4"></div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">用途：</label>
-                    <div class="col-sm-7">
-                        <textarea class="form-control" rows="4" name="purpose" placeholder="请输入用途"></textarea>
+                        <input type="text" class="form-control" name="introduce" data-rule-required="true" placeholder="请输入版本说明"/>
                     </div>
                 </div>
                 <div class="space-4"></div>

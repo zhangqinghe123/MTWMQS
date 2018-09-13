@@ -10,6 +10,7 @@ public class AppVersion {
     private Integer versionId; // 版本编码
     private String versionName; // 版本名称
     private String versionCode; // 版本号
+    private Integer codeInt; // 版本号
     private String downLoadUrl; // 下载地址
     private String introduce; // 版本介绍
     private Date createTime; // 创建时间
@@ -61,5 +62,13 @@ public class AppVersion {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Integer getCodeInt() {
+        return codeInt;
+    }
+
+    public void setCodeInt(Integer codeInt) {
+        this.codeInt = codeInt;
     }
 }
