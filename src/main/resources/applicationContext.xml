@@ -87,7 +87,7 @@
 	<bean id="changeDBInterceptor" class="com.qianxx.qztaxi.datebase.ChangDBInterceptor"></bean>
 	<aop:config proxy-target-class="true">
 		<aop:pointcut id="txPointcut"
-					  expression="execution(* com.qianxx.qztaxi.webService.controller.*.*(..)) || execution(* com.qianxx.qztaxi.webService.api.service.*.*(..)) || execution(* com.qianxx.qztaxi.webService.api.user.*.*(..))"/>
+					  expression="execution(* com.qianxx.qztaxi.webService.adminuser.*.*(..)) || execution(* com.qianxx.qztaxi.webService.api.service.*.*(..)) || execution(* com.qianxx.qztaxi.webService.api.user.*.*(..))"/>
 		<aop:aspect ref="changeDBInterceptor" order="1">
 			<aop:around pointcut-ref="txPointcut" method="changeDB"/>
 		</aop:aspect>
@@ -95,7 +95,7 @@
 
     <!-- spring declarative transaction management -->
 	<aop:config>
-		<aop:pointcut id="apiServiceAop" expression="execution(* com.qianxx.qztaxi.webService.controller.*.*(..)) || execution(* com.qianxx.qztaxi.webService.api.*.*(..))" />
+		<aop:pointcut id="apiServiceAop" expression="execution(* com.qianxx.qztaxi.webService.adminuser.*.*(..)) || execution(* com.qianxx.qztaxi.webService.api.*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="apiServiceAop" />
 	</aop:config>
 	<tx:advice id="txAdvice" transaction-manager="txManager">

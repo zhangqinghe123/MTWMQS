@@ -1,22 +1,6 @@
 package com.qianxx.qztaxi.po;
 
-/**
- * <p>
- * 字段IDValueObject.
- * </p>
- */
-public class AdminUser implements java.io.Serializable {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-
-    public AdminUser(Integer id, String account, String password, String userName) {
-        this.id = id;
-        this.account = account;
-        this.password = password;
-        this.userName = userName;
-    }
+public class AdminUser {
 
     /**
      * 登录名

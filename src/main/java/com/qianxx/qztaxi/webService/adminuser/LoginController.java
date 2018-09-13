@@ -1,15 +1,17 @@
-package com.qianxx.qztaxi.webService.controller;
+package com.qianxx.qztaxi.webService.adminuser;
 
 import com.qianxx.qztaxi.common.Code;
 import com.qianxx.qztaxi.common.CommonDataInit;
 import com.qianxx.qztaxi.common.ErrCodeConstants;
 import com.qianxx.qztaxi.common.util.Constants;
-import com.qianxx.qztaxi.common.util.MD5Util;
 import com.qianxx.qztaxi.po.AdminUser;
+import com.qianxx.qztaxi.service.AdminUserService;
 import com.qianxx.qztaxi.webService.response.AjaxList;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,11 +22,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
 @ApiIgnore
 public class LoginController {
+
+    @Autowired
+    private AdminUserService adminUserService;
 
     @RequestMapping("/login")
     public String login(Model model) {
@@ -51,7 +57,8 @@ public class LoginController {
 
     @RequestMapping("/login/ajaxLogin")
     @ResponseBody
-    public AjaxList ajaxLogin(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password,
+    public AjaxList ajaxLogin(@RequestParam(value = "username") String username,
+                              @RequestParam(value = "password") String password,
                               @RequestParam(value = "code") String code, HttpServletRequest request) {
         HttpSession session = request.getSession();
         String c = (String) session.getAttribute("code");
@@ -60,16 +67,21 @@ public class LoginController {
         } else if (!code.toUpperCase().equals(c.toUpperCase())) {
             return AjaxList.createJsonDate(Constants.API_STATUS_SUCCESS, ErrCodeConstants.ERR_2002_WRONG_PASSWORD, "验证码错误", null);
         }
-        AdminUser adminuser = CommonDataInit.ADMIN_USER_MAP.get(username);
-        if (MD5Util.MD5Encode(password).equals(adminuser.getPassword())) {
-            session.setAttribute("userId", adminuser.getId());
-            Map<String, Object> map1 = new HashMap<>();
-            map1.put("userId", adminuser.getId());
-            session.setAttribute("name", adminuser.getAccount());
-            // 菜单设置,目前写法只支持二级菜单
-            session.setAttribute("roleResouces", CommonDataInit.MENU_LIST);
-            // 菜单设置结束
-            return AjaxList.createSuccess("登录成功", adminuser);
+        Map<String, Object> params = new HashMap<>();
+        params.put("account", username);
+        List<AdminUser> adminUserList = adminUserService.getAll(params);
+        if (!CollectionUtils.isEmpty(adminUserList)) {
+            AdminUser adminUser = adminUserList.get(0);
+            if ( password.equals(adminUser.getPassword())){
+                session.setAttribute("userId", adminUser.getId());
+                Map<String, Object> map1 = new HashMap<>();
+                map1.put("userId", adminUser.getId());
+                session.setAttribute("name", adminUser.getAccount());
+                // 菜单设置,目前写法只支持二级菜单
+                session.setAttribute("roleResouces", CommonDataInit.MENU_LIST);
+                // 菜单设置结束
+                return AjaxList.createSuccess("登录成功", adminUser);
+            }
         }
         return AjaxList.createJsonDate(Constants.API_STATUS_SUCCESS, ErrCodeConstants.ERR_2002_WRONG_PASSWORD, "账号或密码错误", null);
     }

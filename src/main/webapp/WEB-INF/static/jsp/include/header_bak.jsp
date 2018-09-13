@@ -1,4 +1,4 @@
-<%@ page import="com.qianxx.qztaxi.webService.controller.BaseController" %>
+<%@ page import="com.qianxx.qztaxi.webService.adminuser.BaseController" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page pageEncoding="UTF-8"%>
 <%@ page session="false"%>
