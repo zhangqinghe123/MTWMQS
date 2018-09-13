@@ -1,7 +1,6 @@
 package com.qianxx.qztaxi.webService.adminuser;
 
 import com.qianxx.qztaxi.common.Code;
-import com.qianxx.qztaxi.common.CommonDataInit;
 import com.qianxx.qztaxi.common.ErrCodeConstants;
 import com.qianxx.qztaxi.common.util.Constants;
 import com.qianxx.qztaxi.po.AdminUser;
@@ -84,7 +83,7 @@ public class LoginController {
                 map1.put("userId", adminUser.getId());
                 session.setAttribute("name", adminUser.getAccount());
                 // 菜单设置,目前写法只支持二级菜单
-                session.setAttribute("roleResouces", getRoleResouce());
+                session.setAttribute("roleResouces", getRoleResource());
                 // 菜单设置结束
                 return AjaxList.createSuccess("登录成功", adminUser);
             }
@@ -92,7 +91,7 @@ public class LoginController {
         return AjaxList.createJsonDate(Constants.API_STATUS_SUCCESS, ErrCodeConstants.ERR_2002_WRONG_PASSWORD, "账号或密码错误", null);
     }
 
-    private List<RoleResouce> getRoleResouce() {
+    private List<RoleResouce> getRoleResource() {
         List<RoleResouce> menuList = new ArrayList<>();
         List<Resource> fathers = resourceService.getAllFather();
         for (Resource resource : fathers) {
