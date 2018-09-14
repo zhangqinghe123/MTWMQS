@@ -2,6 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qianxx.qztaxi.dao.user.PatrolRecordDao">
 
+    <select id="getById" resultType="com.qianxx.qztaxi.po.PatrolRecord">
+        SELECT
+        id,
+        create_time,
+        file_path,
+        user_id,
+        explain,
+        longitude,
+        latitude
+        FROM patrol_records
+		WHERE id=#{id}
+	</select>
+
     <select id="getAllByMap" parameterType="map" resultType="com.qianxx.qztaxi.po.PatrolRecord">
         SELECT
         id,
@@ -37,7 +50,7 @@
 	</insert>
 
     <!-- 分页查询 -->
-    <select id="getPage" parameterType="map" resultType="com.qianxx.qztaxi.po.UserInfo">
+    <select id="getPage" parameterType="map" resultType="com.qianxx.qztaxi.po.PatrolRecord">
         SELECT
         id,
         create_time,

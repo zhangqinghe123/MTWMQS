@@ -1,8 +1,8 @@
 package com.qianxx.qztaxi.webService.adminuser;
 
+import com.qianxx.qztaxi.common.util.FileUtils;
 import com.qianxx.qztaxi.common.yingyan.TrackHandler;
 import com.qianxx.qztaxi.common.yingyan.api.track.GetTrackRequest;
-import com.qianxx.qztaxi.dao.user.PatrolRecordDao;
 import com.qianxx.qztaxi.dao.user.UserInfoDao;
 import com.qianxx.qztaxi.po.PatrolRecord;
 import com.qianxx.qztaxi.po.UserInfo;
@@ -12,6 +12,7 @@ import com.qianxx.qztaxi.webService.response.AjaxList;
 import com.qianxx.qztaxi.webService.response.datatable.DatatableRequest;
 import com.qianxx.qztaxi.webService.response.datatable.DatatableResponse;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -174,6 +176,21 @@ public class UserInfoController {
     @ResponseBody
     public DatatableResponse<PatrolRecord> getPatrolRecords(HttpServletRequest request) {
         return patrolRecordsService.getPageData(request);
+    }
+
+    @RequestMapping(value = "getPatrolPic", method = RequestMethod.GET)
+    @ResponseBody
+    public AjaxList getPatrolPic(HttpServletResponse response, @RequestParam() Integer patrolRecordId) {
+        PatrolRecord patrolRecord = patrolRecordsService.getById(patrolRecordId);
+        if (patrolRecord == null) {
+            return AjaxList.createError("您选择的下载地址不存在", null);
+        }
+        try {
+            FileUtils.downloadApp(patrolRecord.getFilePath(), response, DateFormatUtils.format(System.currentTimeMillis(), "yyyyMMddHHmmssSSS") );
+        } catch (Exception e) {
+            return AjaxList.createError("下载失败:"+e.getMessage(), null);
+        }
+        return AjaxList.createSuccess("操作成功", null);
     }
 
 }

@@ -93,7 +93,7 @@ public class VersionController extends BaseController {
     @ResponseBody
     public AjaxList uploadAdInfo(@RequestParam() MultipartFile uploadfile) {
         String fileName = FileUtils.uploadApp(uploadfile);
-        if (StringUtils.isBlank(fileName)){
+        if (StringUtils.isBlank(fileName)) {
             return AjaxList.createError("文件格式不正确", null);
         }
         return AjaxList.createSuccess("操作成功", fileName);
@@ -107,9 +107,9 @@ public class VersionController extends BaseController {
             return AjaxList.createError("您选择的下载地址不存在", null);
         }
         try {
-            FileUtils.downloadApp(appVersion.getDownLoadUrl(), response, "mtwmqs_"+appVersion.getVersionCode()+".apk");
+            FileUtils.downloadApp(appVersion.getDownLoadUrl(), response, "mtwmqs_" + appVersion.getVersionCode());
         } catch (Exception e) {
-            return AjaxList.createError("下载失败:"+e.getMessage(), null);
+            return AjaxList.createError("下载失败:" + e.getMessage(), null);
         }
         return AjaxList.createSuccess("操作成功", null);
     }

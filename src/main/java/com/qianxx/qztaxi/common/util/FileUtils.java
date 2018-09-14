@@ -56,7 +56,7 @@ public class FileUtils {
             return null;
         }
         targetFileName = targetFileName.substring(targetFileName.lastIndexOf(".")).toLowerCase();
-        if (!".GIF,.JPG,.JPEG,.PNG".toLowerCase().contains(targetFileName)) {
+        if (!".JPG,.JPEG,.PNG".toLowerCase().contains(targetFileName)) {
             return null;
         }
         // 建立原图上传目录
@@ -87,6 +87,8 @@ public class FileUtils {
     public static void downloadApp(String filePath, HttpServletResponse response, String fileName)
             throws Exception {
         //设置响应头和客户端保存文件名
+        String suffix = filePath.substring(filePath.lastIndexOf(".")).toLowerCase();
+        fileName = fileName + "." + suffix;
         response.setCharacterEncoding("utf-8");
         response.setContentType("multipart/form-data");
         response.setHeader("Content-Disposition", "attachment;fileName=" + fileName);

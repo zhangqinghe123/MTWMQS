@@ -18,10 +18,8 @@
                     "width": '200',
                     "title": '巡查图片',
                     "render": function (data, type, row) {
-                        var str = '';
-                        // str += '<img src=row["filePath"] width="100px" height="100px">';
-                        str += '<img src="http://localhost:10113/MTWMQS//admin/version/downloadApp?versionId=3" width="100px" height="100px">';
-                        return str;
+                        var str = basePath + 'admin/userInfo/getPatrolPic?patrolRecordId=1';
+                        return '<img src="' + str + '" width="100px" height="100px">';
                     }
                 },
                 {
