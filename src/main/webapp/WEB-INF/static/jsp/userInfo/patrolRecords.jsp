@@ -16,11 +16,11 @@
             "columns": [
                 {
                     "data": "filePath",
-                    "width": '200',
+                    "width": '300',
                     "title": '巡查图片',
                     "render": function (data, type, row) {
                         var str = basePath + 'admin/userInfo/getPatrolPic?patrolRecordId=' + row.id;
-                        return '<img src="' + str + '" width="100px" height="100px">';
+                        return '<img src="' + str + '" width="150px" height="150px">';
                     }
                 },
                 {
