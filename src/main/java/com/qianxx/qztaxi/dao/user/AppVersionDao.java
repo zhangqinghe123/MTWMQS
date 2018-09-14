@@ -24,4 +24,5 @@ public interface AppVersionDao extends IBaseDao<AppVersion> {
 
 	Integer countByMap(Map<String, Object> map);
 
+    List<AppVersion> getNewestVersion(Map<String, Object> map);
 }

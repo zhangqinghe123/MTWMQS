@@ -18,4 +18,5 @@ public interface AppVersionService extends IBaseService<AppVersion> {
      */
     void doDelete(Integer versionId);
 
+    List<AppVersion> getNewestVersion(int versionCode);
 }

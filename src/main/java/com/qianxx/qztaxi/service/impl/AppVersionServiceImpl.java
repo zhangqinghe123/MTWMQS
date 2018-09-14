@@ -45,4 +45,11 @@ public class AppVersionServiceImpl extends BaseService<AppVersion, AppVersionDao
         appVersionDao.doDelete(versionId);
     }
 
+    @Override
+    public List<AppVersion> getNewestVersion(int versionCode) {
+        Map<String,Object> param = new HashMap<>();
+        param.put("codeInt",versionCode);
+        return appVersionDao.getNewestVersion(param);
+    }
+
 }

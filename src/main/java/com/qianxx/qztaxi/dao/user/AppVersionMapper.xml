@@ -59,19 +59,23 @@
     </delete>
 
     <!-- 获取最新版信息 -->
-    <select id="getNewVersion" parameterType="map" resultType="com.qianxx.qztaxi.po.AppVersion">
+    <select id="getNewestVersion" parameterType="map" resultType="com.qianxx.qztaxi.po.AppVersion">
         SELECT
         top 1
-        versionCode,
-        versionType,
-        md5,
-        downLoadUrl,
-        introduce
-        FROM app_version WHERE state = 1 AND isDel = 1 AND terminal = #{terminal}
-        <if test="versionId != null and versionId != ''">
-            AND versionId &gt; #{versionId}
+        version_id,
+        version_name,
+        code_int,
+        version_code,
+        downLoad_url,
+        introduce,
+        create_time
+        FROM app_version
+        WHERE
+        1=1
+        <if test="codeInt != null and codeInt != ''">
+            AND code_int &gt; #{codeInt}
         </if>
-        ORDER BY versionId DESC LIMIT 1
+        ORDER BY version_id DESC
     </select>
 
     <!-- 分页查询 -->
