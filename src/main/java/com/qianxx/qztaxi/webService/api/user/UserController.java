@@ -79,4 +79,12 @@ public class UserController {
         patrolRecordsService.save(patrolRecord);
         return AjaxList.createSuccess("保存成功", null);
     }
+
+    @RequestMapping(value = "getContacts", method = RequestMethod.GET)
+    @ApiOperation(value = "获取系统联系人", notes = "获取系统联系人", httpMethod = "GET")
+    public AjaxList getContacts() {
+        Map<String, Object> params = new HashMap<>();
+        return AjaxList.createSuccess("登录成功", userService.getAll(params));
+    }
+
 }
