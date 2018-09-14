@@ -145,9 +145,9 @@ public class UserInfoController {
         GetTrackRequest getTrackRequest = new GetTrackRequest();
         getTrackRequest.setEntityName(userInfo.getAccount());
         try {
-            getTrackRequest.setEndTime(sdf.parse(endTime).getTime()/1000);
-            getTrackRequest.setStartTime(sdf.parse(startTime).getTime()/1000);
-        }catch (Exception e){
+            getTrackRequest.setEndTime(sdf.parse(endTime).getTime() / 1000);
+            getTrackRequest.setStartTime(sdf.parse(startTime).getTime() / 1000);
+        } catch (Exception e) {
             return AjaxList.createError("起止时间格式不正确", null);
         }
         List<Map<String, String>> pointList = TrackHandler.getTrack(getTrackRequest);
@@ -157,5 +157,11 @@ public class UserInfoController {
         Map<String, Object> sumap = new HashMap<>();
 //        sumap.put("orderList", pointList);
         return AjaxList.createSuccess("成功", sumap);
+    }
+
+    @RequestMapping("getPatrolInfo")
+    public String getPatrolInfo(Model model, Integer userId) {
+        model.addAttribute("userId", userId);
+        return "userInfo/patrolRecords";
     }
 }

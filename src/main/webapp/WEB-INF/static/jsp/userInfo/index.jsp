@@ -16,34 +16,42 @@
             "columns": [
                 {
                     "data": "id",
+                    "width": '50',
                     "title": 'ID',
                 },
                 {
                     "data": "account",
+                    "width": '200',
                     "title": '账号',
                 },
                 {
                     "data": "password",
+                    "width": '200',
                     "title": '密码',
                 },
                 {
                     "data": "mobile",
+                    "width": '200',
                     "title": '手机号',
                 },
                 {
                     "data": "userName",
+                    "width": '200',
                     "title": '姓名',
                 },
                 {
                     "data": "userPosition",
+                    "width": '200',
                     "title": '职位',
                 },
                 {
                     "title": '操作',
+                    "width": '300',
                     "render": function (data, type, row) {
                         var str = '<a id="update" data-id="' + row["id"] + '" class="btn btn-info btn-xs" style="margin-right: 5px;">编辑</a>';
                         str += '<a id="delete" data-id="' + row["id"] + '" class="btn btn-info btn-xs" style="margin-right: 5px;">删除</a>';
-                        str += '<a id="getMap" data-id="'+row["id"]+'" class="btn btn-success btn-xs" style="margin-right: 5px;">查看巡查轨迹</a>';
+                        str += '<a id="getMap" data-id="' + row["id"] + '" class="btn btn-success btn-xs" style="margin-right: 5px;">查看巡查轨迹</a>';
+                        str += '<a id="getPatrolInfo" data-id="' + row["id"] + '" class="btn btn-success btn-xs" style="margin-right: 5px;">查看巡查图片</a>';
                         return str;
                     }
                 }
@@ -108,10 +116,16 @@
                     var id = $(this).attr("data-id");
                     dialog.openUrlModal(
                         "用户巡查轨迹",
-                        basePath+"admin/userInfo/getTrack/"+id,
-                        { width: 1000, height: 700,id:"my_customer_dialog", ajaxOption: { type: "get" } }
+                        basePath + "admin/userInfo/getTrack/" + id,
+                        {width: 1000, height: 700, id: "my_customer_dialog", ajaxOption: {type: "get"}}
                     );
                 });
+                $("#qz_userinfo_table_wrapper").on('click', '#getPatrolInfo', function () {
+                    var id = $(this).attr("data-id");
+                    window.location.href = basePath + '/admin/userInfo/getPatrolInfo?userId=' + id;
+                });
+
+
             }
         });
     });
