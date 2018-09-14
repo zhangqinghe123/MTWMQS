@@ -118,6 +118,7 @@ public class LoginController {
 
     @RequestMapping(value = "/admin/index")
     public String denied(Model model) {
+        model.addAttribute("menu","index");
         return "/login/index";
     }
 
