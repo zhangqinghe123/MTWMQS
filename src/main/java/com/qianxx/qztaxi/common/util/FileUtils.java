@@ -1,19 +1,13 @@
 package com.qianxx.qztaxi.common.util;
 
 import java.io.*;
-import java.math.BigInteger;
-import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
@@ -24,21 +18,21 @@ public class FileUtils {
     /**
      * 原图文件夹名
      **/
-    public final static String FOLDER_FULL = "apk";
+    public final static String FOLDER_APK = "apk";
+    public final static String FOLDER_PATROL = "patrol";
 
     public static String uploadApp(MultipartFile file) {
         // 对象文件名
         String targetFileName = file.getOriginalFilename();
-        if (targetFileName.indexOf(".") < 0) {
+        if (!targetFileName.contains(".")) {
             return null;
         }
         targetFileName = targetFileName.substring(targetFileName.lastIndexOf(".")).toLowerCase();
-        if (".apk".toLowerCase().indexOf(targetFileName) < 0) {
+        if (!".apk".toLowerCase().contains(targetFileName)) {
             return null;
         }
         // 建立原图上传目录
-        String dirPath = getTomcatPath() + File.separator + FOLDER_FULL
-                + File.separator;
+        String dirPath = getTomcatPath() + File.separator + FOLDER_APK + File.separator;
         File dirFile = new File(dirPath);
         if (!dirFile.exists()) {
             dirFile.mkdirs();
@@ -49,23 +43,41 @@ public class FileUtils {
                 + targetFileName.substring(targetFileName.lastIndexOf("."))
                 .toLowerCase();
 
-        try {
-            InputStream inputStream;
-            inputStream = file.getInputStream();
-            byte[] b = new byte[Constants.UPLOAD_FILE_SIZE];
-            int length = inputStream.read(b);
-            dirPath += fileName;
-            // 文件流写到服务器端
-            FileOutputStream outputStream = new FileOutputStream(dirPath);
-            outputStream.write(b, 0, length);
-            inputStream.close();
-            outputStream.close();
-        } catch (IOException e) {
-            log.debug("文件上传服务器失败：" + e.getMessage());
+        if (writeFile(file, dirPath, fileName)) {
             return null;
         }
+        return "/" + FOLDER_APK + "/" + fileName;
+    }
 
-        return "/" + FOLDER_FULL + "/" + fileName;
+    public static String uploadPatrol(MultipartFile file) {
+        // 对象文件名
+        String targetFileName = file.getOriginalFilename();
+        if (!targetFileName.contains(".")) {
+            return null;
+        }
+        targetFileName = targetFileName.substring(targetFileName.lastIndexOf(".")).toLowerCase();
+        if (!".GIF,.JPG,.JPEG,.PNG".toLowerCase().contains(targetFileName)) {
+            return null;
+        }
+        // 建立原图上传目录
+        String dirPath = getTomcatPath() + File.separator + FOLDER_PATROL + File.separator;
+
+        File dirFile = new File(dirPath);
+        if (!dirFile.exists()) {
+            dirFile.mkdirs();
+        }
+        // 上传文件名
+        SimpleDateFormat dateFmt = new SimpleDateFormat("yyyyMMdd");
+        // 文件格式，缩略图生成
+        String fileName = dateFmt.format(new Date())
+                + UUID.randomUUID()
+                + targetFileName.substring(targetFileName.lastIndexOf("."))
+                .toLowerCase();
+
+        if (writeFile(file, dirPath, fileName)) {
+            return null;
+        }
+        return "/" + FOLDER_PATROL + "/" + fileName;
     }
 
     protected static String getTomcatPath() {
@@ -84,14 +96,12 @@ public class FileUtils {
             InputStream inputStream = new FileInputStream(getTomcatPath() + filePath);
             //激活下载操作
             OutputStream os = response.getOutputStream();
-
             //循环写入输出流
             byte[] b = new byte[2048];
             int length;
             while ((length = inputStream.read(b)) > 0) {
                 os.write(b, 0, length);
             }
-
             // 这里主要关闭。
             os.close();
             inputStream.close();
@@ -115,4 +125,24 @@ public class FileUtils {
             log.debug("所删除的文件不存在！" + '\n');
         }
     }
+
+    private static boolean writeFile(MultipartFile file, String dirPath, String fileName) {
+        try {
+            InputStream inputStream;
+            inputStream = file.getInputStream();
+            byte[] b = new byte[Constants.UPLOAD_FILE_SIZE];
+            int length = inputStream.read(b);
+            dirPath += fileName;
+            // 文件流写到服务器端
+            FileOutputStream outputStream = new FileOutputStream(dirPath);
+            outputStream.write(b, 0, length);
+            inputStream.close();
+            outputStream.close();
+        } catch (IOException e) {
+            log.debug("文件上传服务器失败：" + e.getMessage());
+            return true;
+        }
+        return false;
+    }
+
 }

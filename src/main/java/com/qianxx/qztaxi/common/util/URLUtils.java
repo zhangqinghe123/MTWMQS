@@ -45,7 +45,7 @@ public class URLUtils {
 		ret.append("/");
 		ret.append(Constants.UPLOAD_FOLDER_IDCARD);
 		ret.append("/");
-		ret.append(FileUtils.FOLDER_FULL);
+		ret.append(FileUtils.FOLDER_APK);
 		ret.append("/");
 		ret.append(fileName);
 
@@ -81,7 +81,7 @@ public class URLUtils {
 		ret.append("/");
 		ret.append(Constants.UPLOAD_FOLDER_VEHICLELIC);
 		ret.append("/");
-		ret.append(FileUtils.FOLDER_FULL);
+		ret.append(FileUtils.FOLDER_APK);
 		ret.append("/");
 		ret.append(fileName);
 

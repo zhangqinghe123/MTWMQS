@@ -1,5 +1,7 @@
 package com.qianxx.qztaxi.webService.api.user;
 
+import com.qianxx.qztaxi.common.util.*;
+import com.qianxx.qztaxi.log.factory.ApiLoggerFactory;
 import com.qianxx.qztaxi.po.UserInfo;
 import com.qianxx.qztaxi.service.UserService;
 import com.qianxx.qztaxi.webService.response.AjaxList;
@@ -9,11 +11,13 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,5 +48,22 @@ public class UserController {
             return AjaxList.createSuccess("登录成功", null);
         }
         return AjaxList.createError("登录失败", null);
+    }
+
+    @ApiOperation(value = "用户上传巡查图片", notes = "用户上传巡查图片", httpMethod = "POST")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "patrol", value = "巡查图片", dataType = "file", paramType = "query", required = true)})
+    @RequestMapping(value = "/uploadPatrolPic")
+    @ResponseBody
+    public AjaxList uploadPatrolPic(MultipartFile patrol) {
+        if (null == patrol || patrol.isEmpty()) {
+            return AjaxList.createError("请上传巡查图片", null);
+        } else {
+            String fileName = FileUtils.uploadPatrol(patrol);
+            if (StringUtils.isEmpty(fileName)) {
+                AjaxList.createError("保存失败", null);
+            }
+        }
+        return AjaxList.createSuccess("保存成功", null);
     }
 }
