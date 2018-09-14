@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="/WEB-INF/static/jsp/include/header.jsp" %>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=sA85emPOmdhtikFDCmEq1uRaWV2qI5F5"></script>
 <script type="text/javascript">
     $(function ($) {
         var url = basePath + 'admin/userInfo/getUserInfoList';
@@ -42,6 +43,7 @@
                     "render": function (data, type, row) {
                         var str = '<a id="update" data-id="' + row["id"] + '" class="btn btn-info btn-xs" style="margin-right: 5px;">编辑</a>';
                         str += '<a id="delete" data-id="' + row["id"] + '" class="btn btn-info btn-xs" style="margin-right: 5px;">删除</a>';
+                        str += '<a id="getMap" data-id="'+row["id"]+'" class="btn btn-success btn-xs" style="margin-right: 5px;">查看巡查轨迹</a>';
                         return str;
                     }
                 }
@@ -100,6 +102,14 @@
                         "新增用户信息",
                         basePath + "admin/userInfo/add",
                         {width: 750, height: 680, id: "my_customer_dialog", ajaxOption: {type: "get"}}
+                    );
+                });
+                $("#qz_userinfo_table_wrapper").on('click', '#getMap', function () {
+                    var id = $(this).attr("data-id");
+                    dialog.openUrlModal(
+                        "用户巡查轨迹",
+                        basePath+"admin/userInfo/getTrack/"+id,
+                        { width: 1000, height: 700,id:"my_customer_dialog", ajaxOption: { type: "get" } }
                     );
                 });
             }

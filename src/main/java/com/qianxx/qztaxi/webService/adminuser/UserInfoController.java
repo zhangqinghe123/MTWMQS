@@ -1,24 +1,24 @@
 package com.qianxx.qztaxi.webService.adminuser;
 
-import com.qianxx.qztaxi.common.util.Constants;
+import com.qianxx.qztaxi.common.yingyan.TrackHandler;
+import com.qianxx.qztaxi.common.yingyan.api.track.GetTrackRequest;
 import com.qianxx.qztaxi.dao.user.UserInfoDao;
-import com.qianxx.qztaxi.po.AppVersion;
 import com.qianxx.qztaxi.po.UserInfo;
 import com.qianxx.qztaxi.service.UserService;
 import com.qianxx.qztaxi.webService.response.AjaxList;
 import com.qianxx.qztaxi.webService.response.datatable.DatatableRequest;
 import com.qianxx.qztaxi.webService.response.datatable.DatatableResponse;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -115,5 +115,47 @@ public class UserInfoController {
         }
         userService.save(userInfo);
         return AjaxList.createSuccess("保存成功", null);
+    }
+
+    /**
+     * 进入行程地图页面
+     */
+    @RequestMapping(value = "/getTrack/{id}")
+    public String getOrderMap(@PathVariable Integer id, Model model) {
+        model.addAttribute("userId", id);
+        return "/userInfo/trackMap";
+    }
+
+    /**
+     * 查询行程信息
+     */
+    @RequestMapping(value = "/findMapPoint")
+    public @ResponseBody
+    AjaxList findMapPoint(@RequestParam Integer userId, @RequestParam String startTime, @RequestParam String endTime) {
+        if (null == userId) {
+            return AjaxList.createError("用户ID不能为空", null);
+        }
+        UserInfo userInfo = userInfoDao.getById(userId);
+        if (null == userInfo) {
+            return AjaxList.createError("无该用户信息", null);
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        GetTrackRequest getTrackRequest = new GetTrackRequest();
+        getTrackRequest.setEntityName(userInfo.getAccount());
+        try {
+            getTrackRequest.setEndTime(sdf.parse(endTime).getTime()/1000);
+            getTrackRequest.setStartTime(sdf.parse(startTime).getTime()/1000);
+        }catch (Exception e){
+            return AjaxList.createError("起止时间格式不正确", null);
+        }
+        List<Map<String, String>> pointList = TrackHandler.getTrack(getTrackRequest);
+        if (CollectionUtils.isEmpty(pointList)) {
+            return AjaxList.createError("无轨迹数据", null);
+        }
+        Map<String, Object> sumap = new HashMap<>();
+//        sumap.put("orderList", pointList);
+        return AjaxList.createSuccess("成功", sumap);
     }
 }
