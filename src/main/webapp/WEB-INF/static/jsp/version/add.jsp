@@ -42,7 +42,7 @@
             //按钮显示的文字
             'buttonText': '选择上传的APP',
             //允许上传的文件后缀
-            'fileType': 'image/*',
+            'fileType': '*.apk',
             //选择文件后自动上传
             'auto': true,
             //设置为true将允许多文件上传

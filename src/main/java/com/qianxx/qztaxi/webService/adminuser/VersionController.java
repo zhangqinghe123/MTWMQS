@@ -92,7 +92,11 @@ public class VersionController extends BaseController {
     @RequestMapping(value = "uploadAdInfo", method = RequestMethod.POST)
     @ResponseBody
     public AjaxList uploadAdInfo(@RequestParam() MultipartFile uploadfile) {
-        return AjaxList.createSuccess("操作成功", FileUtils.uploadApp(uploadfile));
+        String fileName = FileUtils.uploadApp(uploadfile);
+        if (StringUtils.isBlank(fileName)){
+            return AjaxList.createError("文件格式不正确", null);
+        }
+        return AjaxList.createSuccess("操作成功", fileName);
     }
 
     @RequestMapping(value = "downloadApp", method = RequestMethod.GET)

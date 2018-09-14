@@ -38,8 +38,8 @@
     <insert id="doInsert" parameterType="com.qianxx.qztaxi.po.AppVersion">
 		INSERT INTO app_version (
 	   		version_name,
-	   	  	code_int,
 	   		version_code,
+	   	  	code_int,
 	   		downLoad_url,
 	   		introduce,
 			create_time
