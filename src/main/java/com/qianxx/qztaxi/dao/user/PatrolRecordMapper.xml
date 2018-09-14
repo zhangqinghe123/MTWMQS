@@ -52,6 +52,7 @@
     <!-- 分页查询 -->
     <select id="getPage" parameterType="map" resultType="com.qianxx.qztaxi.po.PatrolRecord">
         SELECT
+        top ${length}
         id,
         create_time,
         file_path,
@@ -64,6 +65,9 @@
             1 = 1
             <if test="userId != null and userId != ''">
                 AND user_id = #{userId}
+            </if>
+            <if test="start != null">
+                AND id not in (select top ${start} id from patrol_records)
             </if>
         </where>
         ORDER BY id

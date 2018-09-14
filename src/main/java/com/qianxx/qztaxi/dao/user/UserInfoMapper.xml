@@ -20,7 +20,8 @@
         </if>
     </select>
 
-    <insert id="save" parameterType="com.qianxx.qztaxi.po.UserInfo" flushCache="true" useGeneratedKeys="true" keyProperty="id">
+    <insert id="save" parameterType="com.qianxx.qztaxi.po.UserInfo" flushCache="true" useGeneratedKeys="true"
+            keyProperty="id">
 		INSERT INTO user_info(
 		account,
         password,
@@ -38,6 +39,7 @@
     <!-- 分页查询 -->
     <select id="getPage" parameterType="map" resultType="com.qianxx.qztaxi.po.UserInfo">
         SELECT
+        top ${length}
         id,
         account,
         password,
@@ -45,12 +47,14 @@
         user_name,
         user_position
         FROM user_info
-        <where>
+        where
             1 = 1
             <if test="mobile != null and mobile != ''">
                 AND mobile = #{mobile}
             </if>
-        </where>
+            <if test="start != null">
+                AND id not in (select top ${start} id from user_info)
+            </if>
         ORDER BY id
     </select>
 
