@@ -125,12 +125,22 @@ public class UserInfoController {
     }
 
     /**
-     * 进入行程地图页面
+     * 查看轨迹
      */
     @RequestMapping(value = "/getTrack/{id}")
     public String getOrderMap(@PathVariable Integer id, Model model) {
         model.addAttribute("userId", id);
         return "/userInfo/trackMap";
+    }
+
+    /**
+     * 查看位置
+     */
+    @RequestMapping(value = "/showPosition")
+    public String showPosition(@RequestParam double longitude,@RequestParam double latitude, Model model) {
+        model.addAttribute("longitude", longitude);
+        model.addAttribute("latitude", latitude);
+        return "/userInfo/pointMap";
     }
 
     /**
