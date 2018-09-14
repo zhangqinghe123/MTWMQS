@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
@@ -74,10 +75,6 @@ public class VersionController extends BaseController {
         return AjaxList.createSuccess("保存成功", null);
     }
 
-    /**
-     * 新增、编辑校验
-     */
-
     @RequestMapping("doDelete")
     @ResponseBody
     public AjaxList doDelete(Integer versionId) {
@@ -97,5 +94,21 @@ public class VersionController extends BaseController {
     public AjaxList uploadAdInfo(@RequestParam() MultipartFile uploadfile) {
         return AjaxList.createSuccess("操作成功", FileUtils.uploadApp(uploadfile));
     }
+
+    @RequestMapping(value = "downloadApp", method = RequestMethod.GET)
+    @ResponseBody
+    public AjaxList downloadApp(HttpServletResponse response, @RequestParam() Integer versionId) {
+        AppVersion appVersion = appVersionService.getById(versionId);
+        if (appVersion == null) {
+            return AjaxList.createError("您选择的下载地址不存在", null);
+        }
+        try {
+            FileUtils.downloadApp(appVersion.getDownLoadUrl(), response, "mtwmqs_"+appVersion.getVersionCode()+".apk");
+        } catch (Exception e) {
+            return AjaxList.createError("下载失败:"+e.getMessage(), null);
+        }
+        return AjaxList.createSuccess("操作成功", null);
+    }
+
 
 }

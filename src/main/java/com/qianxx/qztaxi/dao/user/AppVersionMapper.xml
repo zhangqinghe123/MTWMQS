@@ -20,6 +20,20 @@
         ORDER BY create_time DESC
     </select>
 
+    <select id="getById" resultType="com.qianxx.qztaxi.po.AppVersion">
+        select
+                version_id,
+                version_name,
+                code_int,
+                version_code,
+                downLoad_url,
+                introduce,
+                create_time
+        FROM app_version
+		WHERE
+		version_id=#{id}
+	</select>
+
     <!-- 插入数据 -->
     <insert id="doInsert" parameterType="com.qianxx.qztaxi.po.AppVersion">
 		INSERT INTO app_version (
@@ -63,7 +77,7 @@
     <!-- 分页查询 -->
     <select id="getPage" parameterType="map" resultType="com.qianxx.qztaxi.po.AppVersion">
 	   	SELECT
-			version_id
+			version_id,
 			version_name,
 			code_int,
 			version_code,

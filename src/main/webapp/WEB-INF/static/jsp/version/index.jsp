@@ -80,13 +80,9 @@
                         null
                     );
                 });
-                $("#qz_version_table_wrapper").on('click', '#download', function () {
+                $("#qz_version_table_wrapper").on('click', '#downloadApp', function () {
                     var id = $(this).attr("data-id");
-                    dialog.openUrlModal(
-                        "编辑版本信息",
-                        basePath + "admin/version/update?versionId=" + id,
-                        {width: 750, height: 680, id: "my_customer_dialog", ajaxOption: {type: "get"}}
-                    );
+                    window.location.href = basePath + '/admin/version/downloadApp?versionId='+id;
                 });
                 $(".add_btn").on('click', function () {
                     dialog.openUrlModal(
