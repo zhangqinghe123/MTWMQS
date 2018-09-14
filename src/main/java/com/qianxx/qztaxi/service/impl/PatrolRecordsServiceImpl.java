@@ -5,8 +5,14 @@ import com.qianxx.qztaxi.dao.user.UserInfoDao;
 import com.qianxx.qztaxi.po.PatrolRecord;
 import com.qianxx.qztaxi.po.UserInfo;
 import com.qianxx.qztaxi.service.PatrolRecordsService;
+import com.qianxx.qztaxi.webService.adminuser.BaseController;
+import com.qianxx.qztaxi.webService.response.datatable.DatatableRequest;
+import com.qianxx.qztaxi.webService.response.datatable.DatatableResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * <p>Description: </p>
@@ -23,5 +29,18 @@ public class PatrolRecordsServiceImpl extends BaseService<PatrolRecord, PatrolRe
     @Override
     public PatrolRecordDao getDao() {
         return patrolRecordDao;
+    }
+
+    @Override
+    public DatatableResponse<PatrolRecord> getPageData(HttpServletRequest request) {
+        DatatableRequest datatableRequest = BaseController.getDatatableRequest(request);
+        DatatableResponse<PatrolRecord> response = new DatatableResponse<>();
+        datatableRequest.getSearchMap().put("userId", request.getParameter("userId"));
+        List<PatrolRecord> pageDate = patrolRecordDao.getPage(datatableRequest.getSearchMap());
+        response.setData(pageDate);
+        response.setRecordsTotal(patrolRecordDao.countByMap(datatableRequest.getSearchMap()));
+        response.setDraw(datatableRequest.getDraw());
+        response.setRecordsFiltered(response.getRecordsTotal());
+        return response;
     }
 }

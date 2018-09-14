@@ -51,7 +51,7 @@
                         var str = '<a id="update" data-id="' + row["id"] + '" class="btn btn-info btn-xs" style="margin-right: 5px;">编辑</a>';
                         str += '<a id="delete" data-id="' + row["id"] + '" class="btn btn-info btn-xs" style="margin-right: 5px;">删除</a>';
                         str += '<a id="getMap" data-id="' + row["id"] + '" class="btn btn-success btn-xs" style="margin-right: 5px;">查看巡查轨迹</a>';
-                        str += '<a id="getPatrolInfo" data-id="' + row["id"] + '" class="btn btn-success btn-xs" style="margin-right: 5px;">查看巡查图片</a>';
+                        str += '<a id="getPatrolInfo" data-id="' + row["id"] + '" class="btn btn-success btn-xs" style="margin-right: 5px;">查看巡查记录</a>';
                         return str;
                     }
                 }

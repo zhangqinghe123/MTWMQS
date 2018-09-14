@@ -2,8 +2,11 @@ package com.qianxx.qztaxi.webService.adminuser;
 
 import com.qianxx.qztaxi.common.yingyan.TrackHandler;
 import com.qianxx.qztaxi.common.yingyan.api.track.GetTrackRequest;
+import com.qianxx.qztaxi.dao.user.PatrolRecordDao;
 import com.qianxx.qztaxi.dao.user.UserInfoDao;
+import com.qianxx.qztaxi.po.PatrolRecord;
 import com.qianxx.qztaxi.po.UserInfo;
+import com.qianxx.qztaxi.service.PatrolRecordsService;
 import com.qianxx.qztaxi.service.UserService;
 import com.qianxx.qztaxi.webService.response.AjaxList;
 import com.qianxx.qztaxi.webService.response.datatable.DatatableRequest;
@@ -34,6 +37,8 @@ public class UserInfoController {
 
     @Autowired
     private UserInfoDao userInfoDao;
+    @Autowired
+    private PatrolRecordsService patrolRecordsService;
     @Autowired
     private UserService userService;
 
@@ -164,4 +169,11 @@ public class UserInfoController {
         model.addAttribute("userId", userId);
         return "userInfo/patrolRecords";
     }
+
+    @RequestMapping(value = "getPatrolRecords", method = RequestMethod.POST)
+    @ResponseBody
+    public DatatableResponse<PatrolRecord> getPatrolRecords(HttpServletRequest request) {
+        return patrolRecordsService.getPageData(request);
+    }
+
 }
