@@ -2,7 +2,9 @@ package com.qianxx.qztaxi.webService.api.user;
 
 import com.qianxx.qztaxi.common.util.*;
 import com.qianxx.qztaxi.log.factory.ApiLoggerFactory;
+import com.qianxx.qztaxi.po.PatrolRecord;
 import com.qianxx.qztaxi.po.UserInfo;
+import com.qianxx.qztaxi.service.PatrolRecordsService;
 import com.qianxx.qztaxi.service.UserService;
 import com.qianxx.qztaxi.webService.response.AjaxList;
 import io.swagger.annotations.Api;
@@ -34,6 +36,8 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private PatrolRecordsService patrolRecordsService;
 
     @RequestMapping(value = "userLogin", method = RequestMethod.GET)
     @ApiImplicitParams({
@@ -51,19 +55,28 @@ public class UserController {
     }
 
     @ApiOperation(value = "用户上传巡查图片", notes = "用户上传巡查图片", httpMethod = "POST")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "patrol", value = "巡查图片", dataType = "file", paramType = "query", required = true)})
-    @RequestMapping(value = "/uploadPatrolPic")
+    @RequestMapping(value = "/uploadPatrolInfo")
     @ResponseBody
-    public AjaxList uploadPatrolPic(MultipartFile patrol) {
+    public AjaxList uploadPatrolInfo(@RequestParam MultipartFile patrol, @RequestParam Integer userId, @RequestParam String explain, @RequestParam Double longitude, @RequestParam Double latitude) {
         if (null == patrol || patrol.isEmpty()) {
             return AjaxList.createError("请上传巡查图片", null);
-        } else {
-            String fileName = FileUtils.uploadPatrol(patrol);
-            if (StringUtils.isEmpty(fileName)) {
-                AjaxList.createError("保存失败", null);
-            }
         }
+        if (userService.getById(userId) == null) {
+            return AjaxList.createError("非法用户", null);
+        }
+
+        String fileName = FileUtils.uploadPatrol(patrol);
+        if (StringUtils.isEmpty(fileName)) {
+            AjaxList.createError("上传失败，请重试", null);
+        }
+        PatrolRecord patrolRecord = new PatrolRecord();
+        patrolRecord.setCreateTime(new Date());
+        patrolRecord.setFilePath(fileName);
+        patrolRecord.setUserId(userId);
+        patrolRecord.setExplain(explain);
+        patrolRecord.setLatitude(latitude);
+        patrolRecord.setLongitude(longitude);
+        patrolRecordsService.save(patrolRecord);
         return AjaxList.createSuccess("保存成功", null);
     }
 }

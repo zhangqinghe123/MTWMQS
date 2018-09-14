@@ -88,7 +88,7 @@
                     dialog.openUrlModal(
                         "新增版本信息",
                         basePath + "admin/version/add",
-                        {width: 500, height: 400, id: "my_customer_dialog", ajaxOption: {type: "get"}}
+                        {width: 500, height: 500, id: "my_customer_dialog", ajaxOption: {type: "get"}}
                     );
                 });
             }
