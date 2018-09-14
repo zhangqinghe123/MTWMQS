@@ -35,8 +35,35 @@
                         return sysCfg.formatter.fDateTime(row["createTime"]);
                     }
                 },
+                {
+                    "data": "createTime",
+                    "title": '巡查人',
+                    "width": '150',
+                },
+                {
+                    "data": "createTime",
+                    "title": '巡查人手机号',
+                    "width": '150',
+                },
+                {
+                    "title": '操作',
+                    "width": '300',
+                    "render": function (data, type, row) {
+                        var str = '<a id="showPosition" data-longitude="' + row["longitude"] + '" data-latitude="\' + row["latitude"] + \'" class="btn btn-success btn-xs" style="margin-right: 5px;">查看上传位置</a>';
+                        return str;
+                    }
+                }
             ],
             initComplete: function () {
+                $("#qz_userinfo_table_wrapper").on('click', '#showPosition', function () {
+                    var longitude = $(this).attr("data-longitude");
+                    var latitude = $(this).attr("data-latitude");
+                    dialog.openUrlModal(
+                        "查看上传位置",
+                        basePath + "admin/userInfo/getTrack/" + id,
+                        {width: 1000, height: 700, id: "my_customer_dialog", ajaxOption: {type: "get"}}
+                    );
+                });
             }
         });
     });

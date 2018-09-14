@@ -5,6 +5,7 @@ import com.qianxx.qztaxi.dao.user.UserInfoDao;
 import com.qianxx.qztaxi.po.PatrolRecord;
 import com.qianxx.qztaxi.po.UserInfo;
 import com.qianxx.qztaxi.service.PatrolRecordsService;
+import com.qianxx.qztaxi.service.UserService;
 import com.qianxx.qztaxi.webService.adminuser.BaseController;
 import com.qianxx.qztaxi.webService.response.datatable.DatatableRequest;
 import com.qianxx.qztaxi.webService.response.datatable.DatatableResponse;
@@ -25,6 +26,8 @@ public class PatrolRecordsServiceImpl extends BaseService<PatrolRecord, PatrolRe
 
     @Autowired
     private PatrolRecordDao patrolRecordDao;
+    @Autowired
+    private UserService userService;
 
     @Override
     public PatrolRecordDao getDao() {
@@ -37,6 +40,13 @@ public class PatrolRecordsServiceImpl extends BaseService<PatrolRecord, PatrolRe
         DatatableResponse<PatrolRecord> response = new DatatableResponse<>();
         datatableRequest.getSearchMap().put("userId", request.getParameter("userId"));
         List<PatrolRecord> pageDate = patrolRecordDao.getPage(datatableRequest.getSearchMap());
+        for (PatrolRecord p : pageDate) {
+            UserInfo userInfo = userService.getById(p.getUserId());
+            if (userInfo != null) {
+                p.setUserName(userInfo.getUserName());
+                p.setUserMobile(userInfo.getMobile());
+            }
+        }
         response.setData(pageDate);
         response.setRecordsTotal(patrolRecordDao.countByMap(datatableRequest.getSearchMap()));
         response.setDraw(datatableRequest.getDraw());

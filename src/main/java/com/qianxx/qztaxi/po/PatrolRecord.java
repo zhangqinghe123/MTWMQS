@@ -16,6 +16,8 @@ public class PatrolRecord {
     private String explain;
     private Double longitude;
     private Double latitude;
+    private String userName;
+    private String userMobile;
 
     public Integer getId() {
         return id;
@@ -71,5 +73,21 @@ public class PatrolRecord {
 
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserMobile() {
+        return userMobile;
+    }
+
+    public void setUserMobile(String userMobile) {
+        this.userMobile = userMobile;
     }
 }
