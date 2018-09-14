@@ -69,7 +69,9 @@
             }
         });
     });
+
 </script>
+
 <div class="main-content">
     <div class="appversion" id="appversion">
         <ul class="breadcrumb">
