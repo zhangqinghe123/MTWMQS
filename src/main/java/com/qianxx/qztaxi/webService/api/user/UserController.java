@@ -84,7 +84,7 @@ public class UserController {
     @ApiOperation(value = "获取系统联系人", notes = "获取系统联系人", httpMethod = "GET")
     public AjaxList getContacts() {
         Map<String, Object> params = new HashMap<>();
-        return AjaxList.createSuccess("登录成功", userService.getAll(params));
+        return AjaxList.createSuccess("获取成功", userService.getAll(params));
     }
 
 }
