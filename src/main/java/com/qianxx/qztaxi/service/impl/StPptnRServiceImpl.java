@@ -4,7 +4,6 @@ import com.qianxx.qztaxi.common.CommonUtils;
 import com.qianxx.qztaxi.dao.service.StPptnRDao;
 import com.qianxx.qztaxi.po.StPptnR;
 import com.qianxx.qztaxi.service.StPptnRService;
-import com.qianxx.qztaxi.service.StStbprpBService;
 import com.qianxx.qztaxi.vo.RainFallInfo;
 import com.qianxx.qztaxi.vo.StationRainFallInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +23,6 @@ public class StPptnRServiceImpl extends BaseService<StPptnR, StPptnRDao> impleme
 
     @Autowired
     private StPptnRDao stPptnRDao;
-    @Autowired
-    private StStbprpBService stStbprpBService;
 
     @Override
     public StPptnRDao getDao() {
@@ -43,7 +40,7 @@ public class StPptnRServiceImpl extends BaseService<StPptnR, StPptnRDao> impleme
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(startTime);
             boolean isContinue = true;
-            while (isContinue) {
+            while (true) {
                 RainFallInfo rainFallInfo = new RainFallInfo();
                 rainFallInfo.setStartTime(calendar.getTimeInMillis());
                 long calculateEnd = calendar.getTimeInMillis() + intervalMillisValue;

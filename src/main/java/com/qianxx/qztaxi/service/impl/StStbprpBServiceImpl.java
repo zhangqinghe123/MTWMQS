@@ -63,6 +63,25 @@ public class StStbprpBServiceImpl extends BaseService<StStbprpB, StStbprpBDao> i
     }
 
     @Override
+    public List<String> getAllRiverStationsSTCD() {
+        Map<String, Object> searchParams = new HashMap<>();
+        List<String> result = new ArrayList<>();
+
+        // 这块不知道如何区分，所以全查出来
+//        searchParams.put("STTP", Constants.STATION_TYPE_RIVER);
+        List<String> riverList = stStbprpBDao.getAllSTCDByMap(searchParams);
+        if (!CollectionUtils.isEmpty(riverList)) {
+            result.addAll(riverList);
+        }
+//        searchParams.put("STTP", Constants.STATION_TYPE_HYDROLOGY);
+//        List<String> hydrologyList = stStbprpBDao.getAllSTCDByMap(searchParams);
+//        if (!CollectionUtils.isEmpty(hydrologyList)) {
+//            result.addAll(hydrologyList);
+//        }
+        return result;
+    }
+
+    @Override
     public List<StStbprpB> getAllMountainTorrentStations() {
         Map<String, Object> searchParams = new HashMap<>();
         searchParams.put("ATCUNIT", "山洪");
@@ -85,5 +104,11 @@ public class StStbprpBServiceImpl extends BaseService<StStbprpB, StStbprpBDao> i
             return null;
         }
         return resultList.get(0);
+    }
+
+    @Override
+    public List<StStbprpB> getAllStations() {
+        Map<String, Object> searchParams = new HashMap<>();
+        return stStbprpBDao.getAllByMap(searchParams);
     }
 }

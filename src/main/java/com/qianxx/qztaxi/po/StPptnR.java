@@ -1,6 +1,7 @@
 package com.qianxx.qztaxi.po;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * <p>Description: </p>
@@ -11,7 +12,7 @@ import java.sql.Date;
 public class StPptnR {
 
     private String STCD;
-    private Date TM;
+    private Timestamp TM;
     private double DRP;
     private double INTV;
     private double PDR;
@@ -26,11 +27,11 @@ public class StPptnR {
         this.STCD = STCD;
     }
 
-    public Date getTM() {
+    public Timestamp getTM() {
         return TM;
     }
 
-    public void setTM(Date TM) {
+    public void setTM(Timestamp TM) {
         this.TM = TM;
     }
 

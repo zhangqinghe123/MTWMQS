@@ -48,6 +48,13 @@ public class StStbprpBController {
         return AjaxList.createSuccess("查询成功", stStbprpBService.getAllMountainTorrentStations());
     }
 
+
+    @RequestMapping(value = "getAllStations", method = RequestMethod.GET)
+    @ApiOperation(value = "获取所有站点信息", notes = "获取山洪站信息", httpMethod = "GET")
+    public AjaxList getAllStations() {
+        return AjaxList.createSuccess("查询成功", stStbprpBService.getAllStations());
+    }
+
     @RequestMapping(value = "getStationInfoByStcd", method = RequestMethod.GET)
     @ApiOperation(value = "获取站点详细信息", notes = "获取站点详细信息", httpMethod = "GET")
     public AjaxList getStationInfoByStcd(@RequestParam String stcd) {

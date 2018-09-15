@@ -47,4 +47,22 @@
 		ORDER by STCD;
 	</select>
 
+	<select id="getAllSTCDByMap" parameterType="map" resultType="String">
+		SELECT STCD
+		FROM ST_STBPRP_B
+		<where>
+			<if test="STCD != null and STCD != ''">
+				AND STCD = #{STCD}
+			</if>
+			<if test="STTP != null and STTP != ''">
+				AND STTP = #{STTP}
+			</if>
+			<if test="ATCUNIT != null and ATCUNIT != ''">
+				AND ATCUNIT LIKE '%'+#{ATCUNIT}+'%'
+			</if>
+
+		</where>
+		ORDER by STCD;
+	</select>
+
 </mapper> 

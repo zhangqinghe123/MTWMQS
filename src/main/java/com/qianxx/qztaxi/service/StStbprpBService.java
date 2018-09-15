@@ -28,6 +28,13 @@ public interface StStbprpBService extends IBaseService<StStbprpB> {
     List<StStbprpB> getAllRiverStations();
 
     /**
+     * 查询所有河流站信息
+     *
+     * @return 河流站
+     */
+    List<String> getAllRiverStationsSTCD();
+
+    /**
      * 查询所有山洪站信息
      *
      * @return 山洪站
@@ -47,4 +54,10 @@ public interface StStbprpBService extends IBaseService<StStbprpB> {
      * @return
      */
     StStbprpB getStationInfoByStcd(String stcd);
+
+    /**
+     *
+     * @return
+     */
+    List<StStbprpB> getAllStations();
 }
