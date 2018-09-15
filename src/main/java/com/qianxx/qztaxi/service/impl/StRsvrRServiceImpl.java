@@ -7,6 +7,7 @@ import com.qianxx.qztaxi.po.StRsvrR;
 import com.qianxx.qztaxi.service.StRsvrRService;
 import com.qianxx.qztaxi.service.StStbprpBService;
 import com.qianxx.qztaxi.vo.RiverInfo;
+import com.qianxx.qztaxi.vo.RsvrInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -36,7 +37,7 @@ public class StRsvrRServiceImpl extends BaseService<StRsvrR, StRsvrRDao> impleme
     }
 
     @Override
-    public List<RiverInfo> getNewestRsvrInfo(String stcds) {
+    public List<RsvrInfo> getNewestRsvrInfo(String stcds) {
         List<String> staticRiverStations = new ArrayList<>();
         if (StringUtils.isEmpty(stcds)) {
             staticRiverStations = stStbprpBService.getAllRiverStationsSTCD();
@@ -46,22 +47,24 @@ public class StRsvrRServiceImpl extends BaseService<StRsvrR, StRsvrRDao> impleme
         if (CollectionUtils.isEmpty(staticRiverStations)) {
             return null;
         }
-        List<RiverInfo> result = new ArrayList<>();
+        List<RsvrInfo> result = new ArrayList<>();
         for (String stcd : staticRiverStations) {
             StRsvrR estStRiverR = stRsvrRDao.getNewestRsvrInfo(stcd);
             if (estStRiverR == null) {
                 continue;
             }
-            RiverInfo riverInfo = new RiverInfo();
-            riverInfo.setSTCD(stcd);
-            riverInfo.setCurrentWaterLevel(estStRiverR.getRZ());
-            riverInfo.setCurrentTime(estStRiverR.getTM().getTime());
+            RsvrInfo rsvrInfo = new RsvrInfo();
+            rsvrInfo.setSTCD(stcd);
+            rsvrInfo.setCurrentWaterLevel(estStRiverR.getRZ());
+            rsvrInfo.setINQ(estStRiverR.getINQ());
+            rsvrInfo.setOTQ(estStRiverR.getOTQ());
+            rsvrInfo.setCurrentTime(estStRiverR.getTM().getTime());
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(estStRiverR.getTM());
             // 当前时间小于8点 显示昨天8点的水情
             if (calendar.get(Calendar.HOUR_OF_DAY) < 8) {
-                riverInfo.setYesterdayEightClock(true);
+                rsvrInfo.setYesterdayEightClock(true);
                 calendar.add(Calendar.DAY_OF_MONTH, -1);
             }
             calendar.set(Calendar.HOUR_OF_DAY, 8);
@@ -69,8 +72,8 @@ public class StRsvrRServiceImpl extends BaseService<StRsvrR, StRsvrRDao> impleme
             calendar.set(Calendar.SECOND, 0);
             calendar.set(Calendar.MILLISECOND, 0);
             StRsvrR eightClockStRiverR = stRsvrRDao.getRsvrInfoByTime(stcd, calendar.getTime());
-            riverInfo.setEightClockWaterLevel(eightClockStRiverR.getRZ());
-            result.add(riverInfo);
+            rsvrInfo.setEightClockWaterLevel(eightClockStRiverR.getRZ());
+            result.add(rsvrInfo);
         }
 
         return result;

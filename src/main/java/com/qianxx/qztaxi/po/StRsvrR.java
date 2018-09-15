@@ -13,6 +13,24 @@ public class StRsvrR {
     private String STCD;
     private Timestamp TM;
     private double RZ;
+    private double INQ;
+    private double OTQ;
+
+    public double getINQ() {
+        return INQ;
+    }
+
+    public void setINQ(double INQ) {
+        this.INQ = INQ;
+    }
+
+    public double getOTQ() {
+        return OTQ;
+    }
+
+    public void setOTQ(double OTQ) {
+        this.OTQ = OTQ;
+    }
 
     public String getSTCD() {
         return STCD;
