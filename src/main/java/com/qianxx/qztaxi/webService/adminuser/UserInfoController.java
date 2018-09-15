@@ -137,10 +137,19 @@ public class UserInfoController {
      * 查看位置
      */
     @RequestMapping(value = "/showPosition")
-    public String showPosition(@RequestParam double longitude,@RequestParam double latitude, Model model) {
+    public String showPosition(@RequestParam double longitude, @RequestParam double latitude, Model model) {
         model.addAttribute("longitude", longitude);
         model.addAttribute("latitude", latitude);
         return "/userInfo/pointMap";
+    }
+
+    /**
+     * 查看位置
+     */
+    @RequestMapping(value = "/showBigPic")
+    public String showBigPic(@RequestParam Integer id, Model model) {
+        model.addAttribute("recordId", id);
+        return "/userInfo/bigPatrolPic";
     }
 
     /**
@@ -196,9 +205,9 @@ public class UserInfoController {
             return AjaxList.createError("您选择的下载地址不存在", null);
         }
         try {
-            FileUtils.downloadApp(patrolRecord.getFilePath(), response, DateFormatUtils.format(System.currentTimeMillis(), "yyyyMMddHHmmssSSS") );
+            FileUtils.downloadApp(patrolRecord.getFilePath(), response, DateFormatUtils.format(System.currentTimeMillis(), "yyyyMMddHHmmssSSS"));
         } catch (Exception e) {
-            return AjaxList.createError("下载失败:"+e.getMessage(), null);
+            return AjaxList.createError("下载失败:" + e.getMessage(), null);
         }
         return AjaxList.createSuccess("操作成功", null);
     }

@@ -20,7 +20,7 @@
                     "title": '巡查图片',
                     "render": function (data, type, row) {
                         var str = basePath + 'admin/userInfo/getPatrolPic?patrolRecordId=' + row.id;
-                        return '<img src="' + str + '" width="150px" height="150px">';
+                        return '<img src="' + str + '" height="150px">';
                     }
                 },
                 {
@@ -50,19 +50,27 @@
                     "title": '操作',
                     "width": '300',
                     "render": function (data, type, row) {
-                        var str = '<a id="showPosition" data-longitude="' + row["longitude"] + '" data-latitude="' + row["latitude"] + '" class="btn btn-success btn-xs" style="margin-right: 5px;">查看上传位置</a>';
+                        var str = '<a id="showPosition" data-longitude="' + row["longitude"] + '" data-latitude="' + row["latitude"] + '" class="btn btn-success btn-xs" style="margin-right: 5px;">上传位置</a>';
+                        str += '<a id="showBigPic" data-id="' + row["id"] + '" class="btn btn-success btn-xs" style="margin-right: 5px;">显示大图</a>';
                         return str;
                     }
                 }
             ],
             initComplete: function () {
                 $("#qz_patrol_table").on('click', '#showPosition', function () {
-                    debugger;
                     var longitude = $(this).attr("data-longitude");
                     var latitude = $(this).attr("data-latitude");
                     dialog.openUrlModal(
                         "查看上传位置",
                         basePath + "admin/userInfo/showPosition?longitude=" + longitude + "&latitude=" + latitude,
+                        {width: 1000, height: 700, id: "my_customer_dialog", ajaxOption: {type: "get"}}
+                    );
+                });
+                $("#qz_patrol_table").on('click', '#showBigPic', function () {
+                    var id = $(this).attr("data-id");
+                    dialog.openUrlModal(
+                        "巡查图片",
+                        basePath + "admin/userInfo/showBigPic?id=" + id,
                         {width: 1000, height: 700, id: "my_customer_dialog", ajaxOption: {type: "get"}}
                     );
                 });
