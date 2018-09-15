@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianxx.qztaxi.dao.service.StRsvrRDao">
+
+    <!-- 分页查询 -->
+    <select id="getRsvrInfoByTime" parameterType="map" resultType="com.qianxx.qztaxi.po.StRsvrR">
+        SELECT
+        TOP 1
+        STCD
+        ,TM
+        ,RZ
+        FROM ST_RSVR_R
+        <where>
+            STCD = #{STCD}
+            AND TM = #{staticTIme}
+        </where>
+    </select>
+
+    <select id="getNewestRsvrInfo" parameterType="map" resultType="com.qianxx.qztaxi.po.StRsvrR">
+        SELECT
+        TOP 1
+        STCD
+        ,TM
+        ,RZ
+        FROM ST_RSVR_R
+        <where>
+            STCD = #{STCD}
+        </where>
+        ORDER by TM DESC
+    </select>
+
+</mapper> 
