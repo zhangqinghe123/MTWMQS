@@ -43,13 +43,7 @@
 </head>
 <body class="login-page">
     <div class="login-content">
-        <p class="full-width">
-        	<img class="logobg" src="${basePath}resources/css/images/loginLogo.png"/>
-        </p>
         <div class="full-width m-top">
-            <div class="login-title">
-            	<img class="logobg" src="${basePath}resources/css/images/loginTitle.png"/>
-            </div>
             <div class="logo-page">
                 <div class="logo-area">
                     <img class="logobg" src="${basePath}resources/css/images/logoDown.jpg"/>
@@ -78,9 +72,6 @@
                 </div>
             </div>
         </div>
-        <p class="full-width">
-        	<img class="logobg" src="${basePath}resources/css/images/COPYright.png"/>
-        </p>
     </div>
     <script type="text/javascript">
     $(function() {

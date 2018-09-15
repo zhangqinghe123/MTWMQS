@@ -12,7 +12,6 @@
 
                         <a href="#">首页</a>
                     </li>
-                    <li class="active">控制台</li>
                 </ul><!-- .breadcrumb -->
             </div>
 
@@ -20,6 +19,7 @@
                <div class="row">
                    <div class="col-xs-12">
                        <!-- 内容开始 -->
+                       <h3>你好!欢迎来到 辽宁省朝阳县山洪灾害监测预警移动查询系统 </h3>
                        <!-- 内容介绍-->
                    </div><!-- /.col -->
                </div><!-- /.row -->
