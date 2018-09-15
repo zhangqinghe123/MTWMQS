@@ -20,10 +20,8 @@
 
     <select id="getRainInfoByTime" parameterType="map" resultType="map">
         SELECT
-        AVG (DRP) AS DRP_AVG,
-        AVG (INTV) AS INTV_AVG,
-        AVG (PDR) AS PDR_AVG,
-        AVG (DYP) AS DYP_AVG
+        SUM (DRP) AS DRP_SUM,
+        SUM (INTV) AS INTV_SUM
         FROM
         ST_PPTN_R
         <where>

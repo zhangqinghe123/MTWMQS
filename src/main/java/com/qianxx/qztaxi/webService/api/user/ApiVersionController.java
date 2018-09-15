@@ -21,7 +21,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "api/version")
-@Api(value = "版本更新")
+@Api(value = "【用户】版本更新")
 public class ApiVersionController {
 
     @Autowired
@@ -39,7 +39,7 @@ public class ApiVersionController {
 
     @RequestMapping(value = "downloadApp", method = RequestMethod.GET)
     @ResponseBody
-    @ApiOperation(value = "现在最新版本", notes = "现在最新版本", httpMethod = "GET")
+    @ApiOperation(value = "下载最新版本", notes = "下载最新版本", httpMethod = "GET")
     public AjaxList downloadApp(HttpServletResponse response) {
         List<AppVersion> appVersions = appVersionService.getNewestVersion(0);
         if (appVersions == null) {

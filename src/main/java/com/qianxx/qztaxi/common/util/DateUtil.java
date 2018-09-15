@@ -14,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 public class DateUtil {
 
     final static public String DEFAULT_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    final static public String DEFAULT_WHOLE_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
     final static public String LONG_DEFAULT_FORMAT = "yyyyMMddHHmmss";
 
     public static Timestamp getSystemTime() {

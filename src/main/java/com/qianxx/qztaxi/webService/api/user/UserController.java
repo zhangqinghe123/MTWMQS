@@ -32,7 +32,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping(value = "api/user")
-@Api(value = "用户管理")
+@Api(value = "【用户】用户管理")
 public class UserController {
     @Autowired
     private UserService userService;
