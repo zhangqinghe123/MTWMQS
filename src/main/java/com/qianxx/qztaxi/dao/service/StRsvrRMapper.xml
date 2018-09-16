@@ -31,4 +31,16 @@
         ORDER by TM DESC
     </select>
 
+    <select id="getInfoBetweenTime" parameterType="map" resultType="map">
+        SELECT
+        AVG (RZ) AS RZ_AVG,
+        AVG (INQ) AS INQ_AVG,
+        AVG (OTQ) AS OTQ_AVG
+        FROM ST_RSVR_R
+        <where>
+            STCD = #{STCD}
+            AND TM Between #{startTime} And #{endTime}
+        </where>
+    </select>
+
 </mapper> 
