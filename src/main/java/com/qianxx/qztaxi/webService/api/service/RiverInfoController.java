@@ -31,6 +31,19 @@ public class RiverInfoController {
         } catch (RestServiceException e) {
             return AjaxList.createJsonDate(e.getStatus(), e.getErrorCode(), e.getMessage(), null);
         }
+    }
+
+    @RequestMapping(value = "getRiverInfoByTime", method = RequestMethod.GET)
+    @ApiImplicitParams({ @ApiImplicitParam(name = "startTime", value = "统计起始时间(yyyy-MM-dd HH)", dataType = "String", paramType = "query", required = true) ,
+            @ApiImplicitParam(name = "endTime", value = "统计终止时间(yyyy-MM-dd HH)", dataType = "String", paramType = "query", required = true),
+            @ApiImplicitParam(name = "stcds", value = "河流站的stcd", dataType = "String", paramType = "query", required = true)})
+    @ApiOperation(value = "获取河流站信息", notes = "获取河流站信息", httpMethod = "GET")
+    public AjaxList getRiverInfoByTime(@RequestParam String startTime, @RequestParam String endTime, @RequestParam String stcd) {
+        try {
+            return AjaxList.createSuccess("检查成功", stRiverRService.getRiverInfoByTime(startTime, endTime,stcd));
+        } catch (RestServiceException e) {
+            return AjaxList.createJsonDate(e.getStatus(), e.getErrorCode(), e.getMessage(), null);
+        }
 
     }
 
