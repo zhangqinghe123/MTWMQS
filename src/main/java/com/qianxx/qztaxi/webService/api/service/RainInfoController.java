@@ -1,9 +1,7 @@
 package com.qianxx.qztaxi.webService.api.service;
 
 import com.qianxx.qztaxi.common.exception.RestServiceException;
-import com.qianxx.qztaxi.common.util.Constants;
 import com.qianxx.qztaxi.service.StPptnRService;
-import com.qianxx.qztaxi.service.StStbprpBService;
 import com.qianxx.qztaxi.webService.response.AjaxList;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -37,11 +35,11 @@ public class RainInfoController {
         }
     }
 
-    @RequestMapping(value = "getAvgRainfallInfo", method = RequestMethod.GET)
+    @RequestMapping(value = "getNewAvgRainfallInfo", method = RequestMethod.GET)
     @ApiOperation(value = "获取一个小时以内全县的平均降雨量", notes = "获取一个小时以内全县的平均降雨量", httpMethod = "GET")
-    public AjaxList getAvgRainfallInfo() {
+    public AjaxList getNewAvgRainfallInfo() {
         try {
-            return AjaxList.createSuccess("检查成功", stPptnRService.getAvgRainfallInfo());
+            return AjaxList.createSuccess("检查成功", stPptnRService.getNewAvgRainfallInfo());
         } catch (RestServiceException e) {
             return AjaxList.createJsonDate(e.getStatus(), e.getErrorCode(), e.getMessage(), null);
         }

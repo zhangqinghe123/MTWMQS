@@ -77,7 +77,7 @@ public class StPptnRServiceImpl extends BaseService<StPptnR, StPptnRDao> impleme
     }
 
     @Override
-    public double getAvgRainfallInfo() {
+    public double getNewAvgRainfallInfo() {
         Calendar calendar = Calendar.getInstance();
         Date endTime = calendar.getTime();
         calendar.add(Calendar.HOUR_OF_DAY, -1);
