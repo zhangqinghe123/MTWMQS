@@ -1,5 +1,6 @@
 package com.qianxx.qztaxi.service.impl;
 
+import com.qianxx.qztaxi.common.CommonUtils;
 import com.qianxx.qztaxi.common.ErrCodeConstants;
 import com.qianxx.qztaxi.common.exception.RestServiceException;
 import com.qianxx.qztaxi.dao.service.StRiverRDao;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -94,15 +96,15 @@ public class StRiverRServiceImpl extends BaseService<StRiverR, StRiverRDao> impl
                 riverDetailInfo.setSTCD(stcd);
 
                 String startStr = startTime + ":00:00";
-                String endTimeStr = startStr + ":59:59";
+                String endTimeStr = startTime + ":59:59";
 
                 Date startFullTime = simpleDateFormat.parse(startStr);
                 Date endFullTime = simpleDateFormat.parse(endTimeStr);
                 Map<String, Object> avgResult = stRiverRDao.getInfoBetweenTime(startFullTime, endFullTime, stcd);
-                Object q_avg = avgResult.get("Q_AVG");
-                Object z_avg = avgResult.get("Z_AVG");
-                riverDetailInfo.setWaterFlow(q_avg == null ? 0d : (double) q_avg);
-                riverDetailInfo.setWaterLever(z_avg == null ? 0d : (double) z_avg);
+                BigDecimal q_avg = avgResult.get("Q_AVG") == null ? new BigDecimal("0") : (BigDecimal) avgResult.get("Q_AVG");
+                BigDecimal z_avg = avgResult.get("Z_AVG") == null ? new BigDecimal("0") : (BigDecimal) avgResult.get("Z_AVG");
+                riverDetailInfo.setWaterFlow(CommonUtils.setDoubleScale(q_avg, 2));
+                riverDetailInfo.setWaterLever(CommonUtils.setDoubleScale(z_avg, 2));
                 detailInfoList.add(riverDetailInfo);
                 calendar.setTime(startFullTime);
                 calendar.add(Calendar.HOUR_OF_DAY, 1);
@@ -112,7 +114,10 @@ public class StRiverRServiceImpl extends BaseService<StRiverR, StRiverRDao> impl
                 if (paramFormat.parse(endTime).getTime() == calendar.getTimeInMillis()) {
                     break;
                 }
-                startStr = paramFormat.format(calendar.getTime());
+                if (calendar.getTimeInMillis() > new Date().getTime()) {
+                    break;
+                }
+                startTime = paramFormat.format(calendar.getTime());
             } catch (ParseException e) {
                 throw new RestServiceException("时间戳格式不正确,请使用格式yyyy-MM-dd HH", ErrCodeConstants.ERR_1000_PARAMS_ERR, "0");
             }
