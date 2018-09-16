@@ -10,4 +10,6 @@ import java.util.List;
 public interface StPptnRService extends IBaseService<StPptnR> {
 
     List<StationRainFallInfo> getRainfallInfoByTime(Long startTime, Long endTime, Integer interval, String stcds);
+
+    double getAvgRainfallInfo();
 }

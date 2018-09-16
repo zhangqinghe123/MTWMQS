@@ -30,4 +30,14 @@
         </where>
     </select>
 
+    <select id="getAvgRainfallInfo" parameterType="map" resultType="map">
+        SELECT
+        AVG (DRP) AS AVG_DRP
+        FROM
+        ST_PPTN_R
+        <where>
+            TM Between #{startTime} And #{endTime}
+        </where>
+    </select>
+
 </mapper> 

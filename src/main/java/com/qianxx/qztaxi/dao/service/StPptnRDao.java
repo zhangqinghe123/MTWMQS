@@ -10,4 +10,6 @@ import java.util.Map;
 
 public interface StPptnRDao extends IBaseDao<StPptnR> {
     Map<String, Object> getRainInfoByTime(@Param("STCD") String STCD, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
+
+    Map<String, Object> getAvgRainfallInfo(@Param("startTime") Date startTime, @Param("endTime") Date endTime);
 }

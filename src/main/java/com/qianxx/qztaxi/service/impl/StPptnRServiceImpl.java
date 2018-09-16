@@ -75,4 +75,17 @@ public class StPptnRServiceImpl extends BaseService<StPptnR, StPptnRDao> impleme
 
         return result;
     }
+
+    @Override
+    public double getAvgRainfallInfo() {
+        Calendar calendar = Calendar.getInstance();
+        Date endTime = calendar.getTime();
+        calendar.add(Calendar.HOUR_OF_DAY, -1);
+        Date startTime = calendar.getTime();
+        Map<String, Object> resultMap = stPptnRDao.getAvgRainfallInfo(startTime, endTime);
+        if (resultMap != null) {
+            return CommonUtils.setDoubleScale((BigDecimal) resultMap.get("AVG_DRP"), 1);
+        }
+        return 0;
+    }
 }

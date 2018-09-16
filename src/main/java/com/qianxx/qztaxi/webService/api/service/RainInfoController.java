@@ -24,14 +24,25 @@ public class RainInfoController {
     private StPptnRService stPptnRService;
 
     @RequestMapping(value = "getRainfallInfoByTime", method = RequestMethod.GET)
-    @ApiImplicitParams({ @ApiImplicitParam(name = "startTime", value = "统计起始时间", dataType = "Long", paramType = "query", required = true) ,
+    @ApiImplicitParams({@ApiImplicitParam(name = "startTime", value = "统计起始时间", dataType = "Long", paramType = "query", required = true),
             @ApiImplicitParam(name = "endTime", value = "统计终止时间", dataType = "Long", paramType = "query", required = true),
             @ApiImplicitParam(name = "interval", value = "统计时间间隔（单位小时）", dataType = "Integer", paramType = "query", required = true),
             @ApiImplicitParam(name = "stcds", value = "雨量站的stcd，多个使用英文逗号分隔", dataType = "String", paramType = "query", required = true)})
     @ApiOperation(value = "获取雨量站监控降雨信息", notes = "获取雨量站监控降雨信息", httpMethod = "GET")
     public AjaxList getRainfallInfoByTime(@RequestParam Long startTime, @RequestParam Long endTime, @RequestParam Integer interval, @RequestParam String stcds) {
         try {
-            return AjaxList.createSuccess("检查成功", stPptnRService.getRainfallInfoByTime(startTime, endTime,interval,stcds));
+            return AjaxList.createSuccess("检查成功", stPptnRService.getRainfallInfoByTime(startTime, endTime, interval, stcds));
+        } catch (RestServiceException e) {
+            return AjaxList.createJsonDate(e.getStatus(), e.getErrorCode(), e.getMessage(), null);
+        }
+
+    }
+
+    @RequestMapping(value = "getAvgRainfallInfo", method = RequestMethod.GET)
+    @ApiOperation(value = "获取一个小时以内全县的平均降雨量", notes = "获取一个小时以内全县的平均降雨量", httpMethod = "GET")
+    public AjaxList getAvgRainfallInfo() {
+        try {
+            return AjaxList.createSuccess("检查成功", stPptnRService.getAvgRainfallInfo());
         } catch (RestServiceException e) {
             return AjaxList.createJsonDate(e.getStatus(), e.getErrorCode(), e.getMessage(), null);
         }
