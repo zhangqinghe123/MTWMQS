@@ -32,34 +32,37 @@ public class StStbprpBServiceImpl extends BaseService<StStbprpB, StStbprpBDao> i
 
     @Override
     public List<StStbprpB> getAllRainStations() {
-        Map<String, Object> searchParams = new HashMap<>();
-        searchParams.put("STTP", Constants.STATION_TYPE_RAIN);
-        return stStbprpBDao.getAllByMap(searchParams);
+//        Map<String, Object> searchParams = new HashMap<>();
+//        searchParams.put("STTP", Constants.STATION_TYPE_RAIN);
+//        return stStbprpBDao.getAllByMap(searchParams);
+        return stStbprpBDao.getAllRainStation();
     }
 
     @Override
     public List<StStbprpB> getAllReservoirStations() {
-        Map<String, Object> searchParams = new HashMap<>();
-        searchParams.put("STTP", Constants.STATION_TYPE_RESERVOIR);
-        return stStbprpBDao.getAllByMap(searchParams);
+//        Map<String, Object> searchParams = new HashMap<>();
+//        searchParams.put("STTP", Constants.STATION_TYPE_RESERVOIR);
+//        return stStbprpBDao.getAllByMap(searchParams);
+        return stStbprpBDao.getAllRsvrStation();
     }
 
     @Override
     public List<StStbprpB> getAllRiverStations() {
-        Map<String, Object> searchParams = new HashMap<>();
-        List<StStbprpB> result = new ArrayList<>();
-
-        searchParams.put("STTP", Constants.STATION_TYPE_RIVER);
-        List<StStbprpB> riverList = stStbprpBDao.getAllByMap(searchParams);
-        if (!CollectionUtils.isEmpty(riverList)) {
-            result.addAll(riverList);
-        }
-        searchParams.put("STTP", Constants.STATION_TYPE_HYDROLOGY);
-        List<StStbprpB> hydrologyList = stStbprpBDao.getAllByMap(searchParams);
-        if (!CollectionUtils.isEmpty(hydrologyList)) {
-            result.addAll(hydrologyList);
-        }
-        return result;
+//        Map<String, Object> searchParams = new HashMap<>();
+//        List<StStbprpB> result = new ArrayList<>();
+//
+//        searchParams.put("STTP", Constants.STATION_TYPE_RIVER);
+//        List<StStbprpB> riverList = stStbprpBDao.getAllByMap(searchParams);
+//        if (!CollectionUtils.isEmpty(riverList)) {
+//            result.addAll(riverList);
+//        }
+//        searchParams.put("STTP", Constants.STATION_TYPE_HYDROLOGY);
+//        List<StStbprpB> hydrologyList = stStbprpBDao.getAllByMap(searchParams);
+//        if (!CollectionUtils.isEmpty(hydrologyList)) {
+//            result.addAll(hydrologyList);
+//        }
+//        return result;
+        return stStbprpBDao.getAllRiverStation();
     }
 
     @Override

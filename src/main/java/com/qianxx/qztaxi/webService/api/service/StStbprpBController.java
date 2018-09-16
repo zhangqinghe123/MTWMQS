@@ -19,34 +19,34 @@ public class StStbprpBController {
     private StStbprpBService stStbprpBService;
 
     @RequestMapping(value = "getRainSiteInfo", method = RequestMethod.GET)
-    @ApiOperation(value = "获取雨量站信息【STTP区分】", notes = "获取雨量站信息", httpMethod = "GET")
+    @ApiOperation(value = "获取雨量站信息【有雨量信息上传】", notes = "获取雨量站信息", httpMethod = "GET")
     public AjaxList getRainSiteInfo() {
         return AjaxList.createSuccess("查询成功", stStbprpBService.getAllRainStations());
     }
 
     @RequestMapping(value = "getAllReservoirStations", method = RequestMethod.GET)
-    @ApiOperation(value = "获取水库站信息【STTP区分】", notes = "获取水库站信息", httpMethod = "GET")
+    @ApiOperation(value = "获取水库站信息【有水库水位上传的】", notes = "获取水库站信息", httpMethod = "GET")
     public AjaxList getAllReservoirStations() {
         return AjaxList.createSuccess("查询成功", stStbprpBService.getAllReservoirStations());
     }
 
     @RequestMapping(value = "getAllRiverStations", method = RequestMethod.GET)
-    @ApiOperation(value = "获取河流站信息【STTP区分】", notes = "获取河流站信息", httpMethod = "GET")
+    @ApiOperation(value = "获取河流站信息【有河流水位信息上传的】", notes = "获取河流站信息", httpMethod = "GET")
     public AjaxList getAllRiverStations() {
         return AjaxList.createSuccess("查询成功", stStbprpBService.getAllRiverStations());
     }
-
-    @RequestMapping(value = "getAllHydrologyStations", method = RequestMethod.GET)
-    @ApiOperation(value = "获取水文站信息【ACTUNIT区分】", notes = "获取水文站信息", httpMethod = "GET")
-    public AjaxList getAllHydrologyStations() {
-        return AjaxList.createSuccess("查询成功", stStbprpBService.getAllHydrologyStations());
-    }
-
-    @RequestMapping(value = "getAllMountainTorrentStations", method = RequestMethod.GET)
-    @ApiOperation(value = "获取山洪站信息【ACTUNIT区分】", notes = "获取山洪站信息", httpMethod = "GET")
-    public AjaxList getAllMountainTorrentStations() {
-        return AjaxList.createSuccess("查询成功", stStbprpBService.getAllMountainTorrentStations());
-    }
+//
+//    @RequestMapping(value = "getAllHydrologyStations", method = RequestMethod.GET)
+//    @ApiOperation(value = "获取水文站信息【ACTUNIT区分】", notes = "获取水文站信息", httpMethod = "GET")
+//    public AjaxList getAllHydrologyStations() {
+//        return AjaxList.createSuccess("查询成功", stStbprpBService.getAllHydrologyStations());
+//    }
+//
+//    @RequestMapping(value = "getAllMountainTorrentStations", method = RequestMethod.GET)
+//    @ApiOperation(value = "获取山洪站信息【ACTUNIT区分】", notes = "获取山洪站信息", httpMethod = "GET")
+//    public AjaxList getAllMountainTorrentStations() {
+//        return AjaxList.createSuccess("查询成功", stStbprpBService.getAllMountainTorrentStations());
+//    }
 
 
     @RequestMapping(value = "getAllStations", method = RequestMethod.GET)

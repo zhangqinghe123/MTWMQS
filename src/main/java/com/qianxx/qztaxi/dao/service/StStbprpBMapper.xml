@@ -65,4 +65,109 @@
 		ORDER by STCD;
 	</select>
 
+	<select id="getAllRainStation" resultType="com.qianxx.qztaxi.po.StStbprpB">
+		SELECT STCD
+		,STNM
+		,RVNM
+		,HNNM
+		,BSNM
+		,LGTD
+		,LTTD
+		,STLC
+		,ADDVCD
+		,DTMNM
+		,DTMEL
+		,DTPR
+		,STTP
+		,FRGRD
+		,ESSTYM
+		,BGFRYM
+		,ATCUNIT
+		,ADMAUTH
+		,LOCALITY
+		,STBK
+		,STAZT
+		,DSTRVM
+		,DRNA
+		,PHCD
+		,USFL
+		,COMMENTS
+		,MODITIME
+		FROM ST_STBPRP_B
+		<where>
+			STCD in (select STCD from ST_PPTN_R GROUP BY STCD)
+		</where>
+		ORDER by STCD;
+	</select>
+
+	<select id="getAllRiverStation" resultType="com.qianxx.qztaxi.po.StStbprpB">
+		SELECT STCD
+		,STNM
+		,RVNM
+		,HNNM
+		,BSNM
+		,LGTD
+		,LTTD
+		,STLC
+		,ADDVCD
+		,DTMNM
+		,DTMEL
+		,DTPR
+		,STTP
+		,FRGRD
+		,ESSTYM
+		,BGFRYM
+		,ATCUNIT
+		,ADMAUTH
+		,LOCALITY
+		,STBK
+		,STAZT
+		,DSTRVM
+		,DRNA
+		,PHCD
+		,USFL
+		,COMMENTS
+		,MODITIME
+		FROM ST_STBPRP_B
+		<where>
+			STCD in (select STCD from ST_RIVER_R GROUP BY STCD)
+		</where>
+		ORDER by STCD;
+	</select>
+
+	<select id="getAllRsvrStation" resultType="com.qianxx.qztaxi.po.StStbprpB">
+		SELECT STCD
+		,STNM
+		,RVNM
+		,HNNM
+		,BSNM
+		,LGTD
+		,LTTD
+		,STLC
+		,ADDVCD
+		,DTMNM
+		,DTMEL
+		,DTPR
+		,STTP
+		,FRGRD
+		,ESSTYM
+		,BGFRYM
+		,ATCUNIT
+		,ADMAUTH
+		,LOCALITY
+		,STBK
+		,STAZT
+		,DSTRVM
+		,DRNA
+		,PHCD
+		,USFL
+		,COMMENTS
+		,MODITIME
+		FROM ST_STBPRP_B
+		<where>
+			STCD in (select STCD from ST_RSVR_R GROUP BY STCD)
+		</where>
+		ORDER by STCD;
+	</select>
+
 </mapper> 

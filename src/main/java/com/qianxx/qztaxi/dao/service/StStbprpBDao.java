@@ -10,4 +10,10 @@ import java.util.Map;
 public interface StStbprpBDao extends IBaseDao<StStbprpB> {
 
     List<String> getAllSTCDByMap(Map<String, Object> searchParams);
+
+    List<StStbprpB> getAllRainStation();
+
+    List<StStbprpB> getAllRiverStation();
+
+    List<StStbprpB> getAllRsvrStation();
 }
