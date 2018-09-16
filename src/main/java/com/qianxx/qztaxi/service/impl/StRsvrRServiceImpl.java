@@ -91,7 +91,7 @@ public class StRsvrRServiceImpl extends BaseService<StRsvrR, StRsvrRDao> impleme
             throw new RestServiceException("无站点信息", ErrCodeConstants.ERR_1000_PARAMS_ERR, "0");
         }
         try {
-            if (paramFormat.parse(endTime).getTime() <= paramFormat.parse(startTime).getTime()) {
+            if (paramFormat.parse(endTime).getTime() < paramFormat.parse(startTime).getTime()) {
                 throw new RestServiceException("终止时间需要晚于起始时间", ErrCodeConstants.ERR_1000_PARAMS_ERR, "0");
             }
         } catch (ParseException e) {
@@ -124,12 +124,13 @@ public class StRsvrRServiceImpl extends BaseService<StRsvrR, StRsvrRDao> impleme
                 calendar.set(Calendar.MINUTE, 0);
                 calendar.set(Calendar.SECOND, 0);
                 calendar.set(Calendar.MILLISECOND, 0);
-                if (paramFormat.parse(endTime).getTime() == calendar.getTimeInMillis()) {
+                if (paramFormat.parse(endTime).getTime() <= calendar.getTimeInMillis()) {
                     break;
                 }
                 if (calendar.getTimeInMillis() > new Date().getTime()) {
                     break;
                 }
+
                 startTime = paramFormat.format(calendar.getTime());
             } catch (ParseException e) {
                 throw new RestServiceException("时间戳格式不正确,请使用格式yyyy-MM-dd HH", ErrCodeConstants.ERR_1000_PARAMS_ERR, "0");

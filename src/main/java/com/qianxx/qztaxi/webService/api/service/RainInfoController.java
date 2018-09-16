@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
+
 @RestController
 @RequestMapping(value = "api/rainFallInfo")
 @Api(value = "【业务】查询降雨量信息")
@@ -50,6 +52,18 @@ public class RainInfoController {
     public AjaxList getRainfallGt50Num() {
         try {
             return AjaxList.createSuccess("检查成功", stPptnRService.getRainfallGt50Num());
+        } catch (RestServiceException e) {
+            return AjaxList.createJsonDate(e.getStatus(), e.getErrorCode(), e.getMessage(), null);
+        }
+    }
+
+    @RequestMapping(value = "getPlaneRainfallByTime", method = RequestMethod.GET)
+    @ApiImplicitParams({@ApiImplicitParam(name = "startTime", value = "统计起始时间(yyyy-MM-dd)", dataType = "String", paramType = "query", required = true),
+            @ApiImplicitParam(name = "endTime", value = "统计终止时间(yyyy-MM-dd)", dataType = "String", paramType = "query", required = true)})
+    @ApiOperation(value = "按照时间查询面雨量", notes = "按照时间查询面雨量", httpMethod = "GET")
+    public AjaxList getPlaneRainfallByTime(@RequestParam String startTime, @RequestParam String endTime) {
+        try {
+            return AjaxList.createSuccess("检查成功", stPptnRService.getPlaneRainfallByTime(startTime, endTime));
         } catch (RestServiceException e) {
             return AjaxList.createJsonDate(e.getStatus(), e.getErrorCode(), e.getMessage(), null);
         }

@@ -1,15 +1,21 @@
 package com.qianxx.qztaxi.service.impl;
 
 import com.qianxx.qztaxi.common.CommonUtils;
+import com.qianxx.qztaxi.common.ErrCodeConstants;
+import com.qianxx.qztaxi.common.exception.RestServiceException;
 import com.qianxx.qztaxi.dao.service.StPptnRDao;
 import com.qianxx.qztaxi.po.StPptnR;
 import com.qianxx.qztaxi.service.StPptnRService;
+import com.qianxx.qztaxi.vo.PlaneRainFallInfo;
 import com.qianxx.qztaxi.vo.RainFallInfo;
+import com.qianxx.qztaxi.vo.RiverDetailInfo;
 import com.qianxx.qztaxi.vo.StationRainFallInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -96,5 +102,53 @@ public class StPptnRServiceImpl extends BaseService<StPptnR, StPptnRDao> impleme
         calendar.add(Calendar.HOUR_OF_DAY, -1);
         Date startTime = calendar.getTime();
         return stPptnRDao.getRainfallGt50Num(startTime, endTime);
+    }
+
+    @Override
+    public List<PlaneRainFallInfo> getPlaneRainfallByTime(String startTime, String endTime) {
+        SimpleDateFormat paramFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar calendar = Calendar.getInstance();
+        try {
+            if (paramFormat.parse(endTime).getTime() < paramFormat.parse(startTime).getTime()) {
+                throw new RestServiceException("终止时间需要晚于起始时间", ErrCodeConstants.ERR_1000_PARAMS_ERR, "0");
+            }
+        } catch (ParseException e) {
+            throw new RestServiceException("时间戳格式不正确,请使用格式yyyy-MM-dd HH", ErrCodeConstants.ERR_1000_PARAMS_ERR, "0");
+        }
+
+        List<PlaneRainFallInfo> result = new ArrayList<>();
+
+        while (true) {
+            PlaneRainFallInfo planeRainFallInfo = new PlaneRainFallInfo();
+            try {
+                planeRainFallInfo.setStaticTime(startTime);
+                String startStr = startTime + " 00:00:00";
+                String endTimeStr = startTime + " 23:59:59";
+                Date startFullTime = simpleDateFormat.parse(startStr);
+                Date endFullTime = simpleDateFormat.parse(endTimeStr);
+                Map<String, Object> avgResult = stPptnRDao.getAvgRainfallInfo(startFullTime, endFullTime);
+                if (avgResult != null) {
+                    BigDecimal avg_drp = avgResult.get("AVG_DRP") == null ? new BigDecimal("0") : (BigDecimal) avgResult.get("AVG_DRP");
+                    planeRainFallInfo.setDRP_SUM(CommonUtils.setDoubleScale(avg_drp, 2));
+                    result.add(planeRainFallInfo);
+                }
+                calendar.setTime(startFullTime);
+                calendar.add(Calendar.DAY_OF_MONTH, 1);
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
+                if (paramFormat.parse(endTime).getTime() <= calendar.getTimeInMillis()) {
+                    break;
+                }
+                if (calendar.getTimeInMillis() > new Date().getTime()) {
+                    break;
+                }
+                startTime = paramFormat.format(calendar.getTime());
+            } catch (ParseException e) {
+                throw new RestServiceException("时间戳格式不正确,请使用格式yyyy-MM-dd", ErrCodeConstants.ERR_1000_PARAMS_ERR, "0");
+            }
+        }
+        return result;
     }
 }

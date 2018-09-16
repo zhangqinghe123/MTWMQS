@@ -2,6 +2,7 @@ package com.qianxx.qztaxi.service;
 
 import com.qianxx.qztaxi.po.StPptnR;
 import com.qianxx.qztaxi.po.StStbprpB;
+import com.qianxx.qztaxi.vo.PlaneRainFallInfo;
 import com.qianxx.qztaxi.vo.RainFallInfo;
 import com.qianxx.qztaxi.vo.StationRainFallInfo;
 
@@ -14,4 +15,6 @@ public interface StPptnRService extends IBaseService<StPptnR> {
     double getNewAvgRainfallInfo();
 
     Integer getRainfallGt50Num();
+
+    List<PlaneRainFallInfo> getPlaneRainfallByTime(String startTime, String endTime);
 }
