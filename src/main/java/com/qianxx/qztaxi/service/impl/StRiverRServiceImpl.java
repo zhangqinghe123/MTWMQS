@@ -119,7 +119,7 @@ public class StRiverRServiceImpl extends BaseService<StRiverR, StRiverRDao> impl
                 calendar.set(Calendar.MINUTE, 0);
                 calendar.set(Calendar.SECOND, 0);
                 calendar.set(Calendar.MILLISECOND, 0);
-                if (paramFormat.parse(endTime).getTime() <= calendar.getTimeInMillis()) {
+                if (paramFormat.parse(endTime).getTime() < calendar.getTimeInMillis()) {
                     break;
                 }
                 if (calendar.getTimeInMillis() > new Date().getTime()) {
