@@ -32,6 +32,20 @@
 
     <select id="getAvgRainfallInfo" parameterType="map" resultType="map">
         SELECT
+          AVG (DRP_SUM) AS AVG_DRP
+        FROM
+        (
+            SELECT
+              SUM (DRP) AS DRP_SUM
+            FROM
+              ST_PPTN_R
+            <where>
+                TM Between #{startTime} And #{endTime}
+            </where>
+            GROUP BY STCD
+        ) A
+
+        SELECT
         AVG (DRP) AS AVG_DRP
         FROM
         ST_PPTN_R
@@ -40,4 +54,22 @@
         </where>
     </select>
 
+    <select id="getRainfallGt50Num" parameterType="map" resultType="Integer">
+        SELECT
+         COUNT(1)
+        FROM
+        (
+            SELECT
+              SUM (DRP) AS DRP_SUM
+            FROM
+              ST_PPTN_R
+            <where>
+                TM Between #{startTime} And #{endTime}
+                AND DRP>=50
+            </where>
+            GROUP BY STCD
+        ) A
+        WHERE A.DRP_SUM>50
+
+    </select>
 </mapper> 

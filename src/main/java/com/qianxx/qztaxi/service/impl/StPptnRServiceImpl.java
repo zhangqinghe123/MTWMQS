@@ -88,4 +88,13 @@ public class StPptnRServiceImpl extends BaseService<StPptnR, StPptnRDao> impleme
         }
         return 0;
     }
+
+    @Override
+    public Integer getRainfallGt50Num() {
+        Calendar calendar = Calendar.getInstance();
+        Date endTime = calendar.getTime();
+        calendar.add(Calendar.HOUR_OF_DAY, -1);
+        Date startTime = calendar.getTime();
+        return stPptnRDao.getRainfallGt50Num(startTime, endTime);
+    }
 }

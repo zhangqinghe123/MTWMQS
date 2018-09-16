@@ -35,7 +35,6 @@ public class RainInfoController {
         } catch (RestServiceException e) {
             return AjaxList.createJsonDate(e.getStatus(), e.getErrorCode(), e.getMessage(), null);
         }
-
     }
 
     @RequestMapping(value = "getAvgRainfallInfo", method = RequestMethod.GET)
@@ -46,7 +45,16 @@ public class RainInfoController {
         } catch (RestServiceException e) {
             return AjaxList.createJsonDate(e.getStatus(), e.getErrorCode(), e.getMessage(), null);
         }
+    }
 
+    @RequestMapping(value = "getRainfallGt50Num", method = RequestMethod.GET)
+    @ApiOperation(value = "获取一个小时内降雨量超过50Mm的站点数量", notes = "获取一个小时内降雨量超过50Mm的站点数量", httpMethod = "GET")
+    public AjaxList getRainfallGt50Num() {
+        try {
+            return AjaxList.createSuccess("检查成功", stPptnRService.getRainfallGt50Num());
+        } catch (RestServiceException e) {
+            return AjaxList.createJsonDate(e.getStatus(), e.getErrorCode(), e.getMessage(), null);
+        }
     }
 
 }
