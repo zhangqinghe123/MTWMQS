@@ -86,7 +86,7 @@ public class StPptnRServiceImpl extends BaseService<StPptnR, StPptnRDao> impleme
     public double getNewAvgRainfallInfo() {
         Calendar calendar = Calendar.getInstance();
         Date endTime = calendar.getTime();
-        calendar.add(Calendar.HOUR_OF_DAY, -1);
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
         Date startTime = calendar.getTime();
         Map<String, Object> resultMap = stPptnRDao.getAvgRainfallInfo(startTime, endTime);
         if (resultMap != null) {
@@ -99,7 +99,7 @@ public class StPptnRServiceImpl extends BaseService<StPptnR, StPptnRDao> impleme
     public Integer getRainfallGt50Num() {
         Calendar calendar = Calendar.getInstance();
         Date endTime = calendar.getTime();
-        calendar.add(Calendar.HOUR_OF_DAY, -1);
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
         Date startTime = calendar.getTime();
         return stPptnRDao.getRainfallGt50Num(startTime, endTime);
     }

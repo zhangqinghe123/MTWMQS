@@ -27,7 +27,7 @@ public class RsvrInfoController {
     @ApiOperation(value = "获取水库站最新水位信息(上报数据里面最新的)", notes = "获取水库站最新水位信息", httpMethod = "GET")
     public AjaxList getNewestRsvrInfo(@RequestParam(required = false) String stcds) {
         try {
-            return AjaxList.createSuccess("检查成功", stRsvrRService.getNewestRsvrInfo(stcds));
+            return AjaxList.createSuccess("成功", stRsvrRService.getNewestRsvrInfo(stcds));
         } catch (RestServiceException e) {
             return AjaxList.createJsonDate(e.getStatus(), e.getErrorCode(), e.getMessage(), null);
         }
@@ -40,7 +40,7 @@ public class RsvrInfoController {
     @ApiOperation(value = "获取水库站水位流量信息", notes = "获取水库站水位流量信息", httpMethod = "GET")
     public AjaxList getRsvrInfoByTime(@RequestParam String startTime, @RequestParam String endTime, @RequestParam String stcd) {
         try {
-            return AjaxList.createSuccess("检查成功", stRsvrRService.getRsvrInfoByTime(startTime, endTime,stcd));
+            return AjaxList.createSuccess("成功", stRsvrRService.getRsvrInfoByTime(startTime, endTime,stcd));
         } catch (RestServiceException e) {
             return AjaxList.createJsonDate(e.getStatus(), e.getErrorCode(), e.getMessage(), null);
         }
