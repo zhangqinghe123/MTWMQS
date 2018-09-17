@@ -18,9 +18,9 @@ public class StStbprpBController {
     @Autowired
     private StStbprpBService stStbprpBService;
 
-    @RequestMapping(value = "getRainSiteInfo", method = RequestMethod.GET)
+    @RequestMapping(value = "getAllRainStations", method = RequestMethod.GET)
     @ApiOperation(value = "获取雨量站信息【有雨量信息上传】", notes = "获取雨量站信息", httpMethod = "GET")
-    public AjaxList getRainSiteInfo() {
+    public AjaxList getAllRainStations() {
         return AjaxList.createSuccess("查询成功", stStbprpBService.getAllRainStations());
     }
 

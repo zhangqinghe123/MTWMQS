@@ -38,7 +38,7 @@ public class RainInfoController {
     }
 
     @RequestMapping(value = "getNewAvgRainfallInfo", method = RequestMethod.GET)
-    @ApiOperation(value = "获取一个小时以内全县的平均降雨量", notes = "获取一个小时以内全县的平均降雨量", httpMethod = "GET")
+    @ApiOperation(value = "获取一个小时以内全县的平均降雨量（首页面雨量）", notes = "获取一个小时以内全县的平均降雨量", httpMethod = "GET")
     public AjaxList getNewAvgRainfallInfo() {
         try {
             return AjaxList.createSuccess("检查成功", stPptnRService.getNewAvgRainfallInfo());
@@ -48,7 +48,7 @@ public class RainInfoController {
     }
 
     @RequestMapping(value = "getRainfallGt50Num", method = RequestMethod.GET)
-    @ApiOperation(value = "获取一个小时内降雨量超过50Mm的站点数量", notes = "获取一个小时内降雨量超过50Mm的站点数量", httpMethod = "GET")
+    @ApiOperation(value = "获取一个小时内降雨量超过50Mm的站点数量（首页）", notes = "获取一个小时内降雨量超过50Mm的站点数量", httpMethod = "GET")
     public AjaxList getRainfallGt50Num() {
         try {
             return AjaxList.createSuccess("检查成功", stPptnRService.getRainfallGt50Num());

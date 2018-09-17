@@ -24,7 +24,7 @@ public class RsvrInfoController {
 
     @RequestMapping(value = "getNewestRsvrInfo", method = RequestMethod.GET)
     @ApiImplicitParams({@ApiImplicitParam(name = "stcds", value = "河流站的stcd，多个使用英文逗号分隔，不携带默认返回全部", dataType = "String", paramType = "query")})
-    @ApiOperation(value = "获取水库站最新水位信息", notes = "获取水库站最新水位信息", httpMethod = "GET")
+    @ApiOperation(value = "获取水库站最新水位信息(上报数据里面最新的)", notes = "获取水库站最新水位信息", httpMethod = "GET")
     public AjaxList getNewestRsvrInfo(@RequestParam(required = false) String stcds) {
         try {
             return AjaxList.createSuccess("检查成功", stRsvrRService.getNewestRsvrInfo(stcds));

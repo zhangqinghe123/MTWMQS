@@ -12,7 +12,7 @@ import java.util.Map;
 
 public interface StRiverRDao extends IBaseDao<StRiverR> {
 
-    StRiverR getRiverInfoByTime(@Param("STCD") String STCD, @Param("staticTIme") Date staticTime);
+    StRiverR getRiverInfoByTime(@Param("STCD") String STCD, @Param("staticTime") Date staticTime);
 
     StRiverR getNewestRiverInfo(@Param("STCD") String STCD);
 
