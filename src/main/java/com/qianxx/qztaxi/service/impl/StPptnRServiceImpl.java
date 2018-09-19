@@ -6,10 +6,7 @@ import com.qianxx.qztaxi.common.exception.RestServiceException;
 import com.qianxx.qztaxi.dao.service.StPptnRDao;
 import com.qianxx.qztaxi.po.StPptnR;
 import com.qianxx.qztaxi.service.StPptnRService;
-import com.qianxx.qztaxi.vo.PlaneRainFallInfo;
-import com.qianxx.qztaxi.vo.RainFallInfo;
-import com.qianxx.qztaxi.vo.RiverDetailInfo;
-import com.qianxx.qztaxi.vo.StationRainFallInfo;
+import com.qianxx.qztaxi.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -150,5 +147,10 @@ public class StPptnRServiceImpl extends BaseService<StPptnR, StPptnRDao> impleme
             }
         }
         return result;
+    }
+
+    @Override
+    public RealTimeRainInfo getRealTimeRainInfoByTime(Long startTime, Long endTime) {
+        return null;
     }
 }

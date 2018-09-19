@@ -49,7 +49,7 @@ public class UserController {
         params.put("account", account);
         List<UserInfo> users = userService.getAll(params);
         if (!CollectionUtils.isEmpty(users) && users.get(0).getPassword().equals(password)) {
-            return AjaxList.createSuccess("登录成功", null);
+            return AjaxList.createSuccess("登录成功", users.get(0));
         }
         return AjaxList.createError("登录失败", null);
     }
