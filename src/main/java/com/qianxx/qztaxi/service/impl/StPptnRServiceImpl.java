@@ -215,31 +215,58 @@ public class StPptnRServiceImpl extends BaseService<StPptnR, StPptnRDao> impleme
         return result;
     }
 
+    @Override
+    public List<StationRainInfo> getRealTimeRainStationList(Long startTime, Long endTime) {
+        List<StationRainInfo> result = new ArrayList<>();
+        List<StStbprpB> allRainStations = stStbprpBService.getAllRainStations();
+
+        if (!CollectionUtils.isEmpty(allRainStations)) {
+            for (StStbprpB station : allRainStations) {
+                Map<String, Object> resultMap = stPptnRDao.getRainInfoByTime(station.getSTCD(), new Date(startTime), new Date(endTime));
+                if (resultMap != null) {
+                    BigDecimal totalRainFall = resultMap.get("DRP_SUM") == null ? new BigDecimal("0") : (BigDecimal) resultMap.get("DRP_SUM");
+                    double totalRainFallD = CommonUtils.setDoubleScale(totalRainFall, 1);
+                    if (totalRainFallD == 0) {
+                        continue;
+                    }
+                    StationRainInfo stationRainInfo = new StationRainInfo();
+                    stationRainInfo.setStcd(station.getSTCD());
+                    stationRainInfo.setName(station.getSTNM());
+                    stationRainInfo.setLatitude(station.getLGTD());
+                    stationRainInfo.setLongitude(station.getLTTD());
+                    stationRainInfo.setRainfall(totalRainFallD);
+                    result.add(stationRainInfo);
+                }
+            }
+        }
+        return result;
+    }
+
     private void setRainLevel(RainFallLevel level1, RainFallLevel level2, RainFallLevel level3, RainFallLevel level4, RainFallLevel level5, RainFallLevel level6, StStbprpB station, double totalRainFallD) {
-        StationInfo stationInfo = new StationInfo();
-        stationInfo.setLatitude(station.getLGTD());
-        stationInfo.setLongitude(station.getLTTD());
-        stationInfo.setName(station.getSTNM());
-        stationInfo.setStcd(station.getSTCD());
-        stationInfo.setRainfall(totalRainFallD);
+        StationRainInfo stationRainInfo = new StationRainInfo();
+        stationRainInfo.setLatitude(station.getLGTD());
+        stationRainInfo.setLongitude(station.getLTTD());
+        stationRainInfo.setName(station.getSTNM());
+        stationRainInfo.setStcd(station.getSTCD());
+        stationRainInfo.setRainfall(totalRainFallD);
         if (totalRainFallD >= 250) {
             level1.setStationNum(level1.getStationNum() + 1);
-            level1.getStationInfos().add(stationInfo);
+            level1.getStationRainInfos().add(stationRainInfo);
         } else if (totalRainFallD >= 100 && totalRainFallD < 250) {
             level2.setStationNum(level2.getStationNum() + 1);
-            level2.getStationInfos().add(stationInfo);
+            level2.getStationRainInfos().add(stationRainInfo);
         } else if (totalRainFallD >= 50 && totalRainFallD < 100) {
             level3.setStationNum(level3.getStationNum() + 1);
-            level3.getStationInfos().add(stationInfo);
+            level3.getStationRainInfos().add(stationRainInfo);
         } else if (totalRainFallD >= 25 && totalRainFallD < 50) {
             level4.setStationNum(level4.getStationNum() + 1);
-            level4.getStationInfos().add(stationInfo);
+            level4.getStationRainInfos().add(stationRainInfo);
         } else if (totalRainFallD >= 10 && totalRainFallD < 25) {
             level5.setStationNum(level5.getStationNum() + 1);
-            level5.getStationInfos().add(stationInfo);
+            level5.getStationRainInfos().add(stationRainInfo);
         } else if (totalRainFallD > 0 && totalRainFallD < 10) {
             level6.setStationNum(level6.getStationNum() + 1);
-            level6.getStationInfos().add(stationInfo);
+            level6.getStationRainInfos().add(stationRainInfo);
         }
     }
 }

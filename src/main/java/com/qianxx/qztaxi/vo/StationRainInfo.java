@@ -1,11 +1,20 @@
 package com.qianxx.qztaxi.vo;
 
-public class StationInfo {
+public class StationRainInfo {
     private String stcd;
     private String name;
     private double latitude;
     private double longitude;
     private double rainfall;
+    private String adminTownName;
+
+    public String getAdminTownName() {
+        return adminTownName;
+    }
+
+    public void setAdminTownName(String adminTownName) {
+        this.adminTownName = adminTownName;
+    }
 
     public String getStcd() {
         return stcd;

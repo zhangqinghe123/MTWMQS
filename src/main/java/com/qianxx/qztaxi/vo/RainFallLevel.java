@@ -8,14 +8,14 @@ public class RainFallLevel {
     private String levelName;
     private int stationNum = 0;
 
-    private List<StationInfo> stationInfos = new ArrayList<>();
+    private List<StationRainInfo> stationRainInfos = new ArrayList<>();
 
-    public List<StationInfo> getStationInfos() {
-        return stationInfos;
+    public List<StationRainInfo> getStationRainInfos() {
+        return stationRainInfos;
     }
 
-    public void setStationInfos(List<StationInfo> stationInfos) {
-        this.stationInfos = stationInfos;
+    public void setStationRainInfos(List<StationRainInfo> stationRainInfos) {
+        this.stationRainInfos = stationRainInfos;
     }
 
     public String getLevelName() {
