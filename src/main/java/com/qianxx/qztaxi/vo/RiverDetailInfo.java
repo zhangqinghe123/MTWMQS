@@ -14,9 +14,36 @@ import java.util.Date;
  */
 public class RiverDetailInfo {
     private String STCD;
+    private String name;
     private String staticTime;
     private double waterLever;
     private double waterFlow;
+    private Integer upper;
+    private Double alertWaterLevel;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getUpper() {
+        return upper;
+    }
+
+    public void setUpper(Integer upper) {
+        this.upper = upper;
+    }
+
+    public Double getAlertWaterLevel() {
+        return alertWaterLevel;
+    }
+
+    public void setAlertWaterLevel(Double alertWaterLevel) {
+        this.alertWaterLevel = alertWaterLevel;
+    }
 
     public String getSTCD() {
         return STCD;

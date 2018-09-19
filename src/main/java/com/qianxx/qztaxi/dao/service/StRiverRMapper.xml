@@ -19,7 +19,7 @@
 
     <select id="getNewestRiverInfo" parameterType="map" resultType="com.qianxx.qztaxi.po.StRiverR">
         SELECT
-        TOP 1
+        TOP 2
         STCD
         ,TM
         ,Z

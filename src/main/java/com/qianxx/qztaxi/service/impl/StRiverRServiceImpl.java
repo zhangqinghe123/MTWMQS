@@ -8,8 +8,10 @@ import com.qianxx.qztaxi.po.StRiverR;
 import com.qianxx.qztaxi.po.StStbprpB;
 import com.qianxx.qztaxi.service.StRiverRService;
 import com.qianxx.qztaxi.service.StStbprpBService;
+import com.qianxx.qztaxi.vo.RealTimeRiverInfo;
 import com.qianxx.qztaxi.vo.RiverDetailInfo;
 import com.qianxx.qztaxi.vo.RiverInfo;
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -51,7 +53,11 @@ public class StRiverRServiceImpl extends BaseService<StRiverR, StRiverRDao> impl
         }
         List<RiverInfo> result = new ArrayList<>();
         for (String stcd : staticRiverStations) {
-            StRiverR estStRiverR = stRiverRDao.getNewestRiverInfo(stcd);
+            List<StRiverR> estStRiverRList = stRiverRDao.getNewestRiverInfo(stcd);
+            if (CollectionUtils.isEmpty(estStRiverRList)) {
+                return null;
+            }
+            StRiverR estStRiverR = estStRiverRList.get(0);
             if (estStRiverR == null) {
                 continue;
             }
@@ -132,5 +138,44 @@ public class StRiverRServiceImpl extends BaseService<StRiverR, StRiverRDao> impl
         }
 
         return detailInfoList;
+    }
+
+    @Override
+    public RealTimeRiverInfo getRiverInfoList() {
+        RealTimeRiverInfo realTimeRiverInfo = new RealTimeRiverInfo();
+        List<StStbprpB> staticRiverStations = stStbprpBService.getAllRiverStations();
+        if (CollectionUtils.isEmpty(staticRiverStations)) {
+            return null;
+        }
+        realTimeRiverInfo.setTotalStationNum(staticRiverStations.size());
+        int alertNum = 0;
+        List<RiverDetailInfo> result = new ArrayList<>();
+        for (StStbprpB stcd : staticRiverStations) {
+            List<StRiverR> estStRiverRList = stRiverRDao.getNewestRiverInfo(stcd.getSTCD());
+            if (CollectionUtils.isEmpty(estStRiverRList)) {
+                continue;
+            }
+            StRiverR estStRiverR = estStRiverRList.get(0);
+            RiverDetailInfo riverInfo = new RiverDetailInfo();
+            riverInfo.setSTCD(stcd.getSTCD());
+            riverInfo.setName(stcd.getSTNM());
+            riverInfo.setStaticTime(DateFormatUtils.format(estStRiverR.getTM(), "MM-dd HH:mm"));
+            riverInfo.setWaterLever(estStRiverR.getZ());
+            riverInfo.setWaterFlow(estStRiverR.getQ());
+            if (estStRiverRList.get(1) != null && estStRiverRList.get(1).getZ() > estStRiverRList.get(0).getZ()) {
+                // 下降
+                riverInfo.setUpper(-1);
+            } else if (estStRiverRList.get(1) != null && estStRiverRList.get(1).getZ() == estStRiverRList.get(0).getZ()) {
+                // 持平
+                riverInfo.setUpper(0);
+            } else {
+                // 上升
+                riverInfo.setUpper(1);
+            }
+            result.add(riverInfo);
+        }
+        realTimeRiverInfo.setAlertNum(alertNum);
+        realTimeRiverInfo.setRiverDetailInfoList(result);
+        return realTimeRiverInfo;
     }
 }
