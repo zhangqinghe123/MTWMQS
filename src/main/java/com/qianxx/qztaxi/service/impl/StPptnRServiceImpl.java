@@ -5,10 +5,13 @@ import com.qianxx.qztaxi.common.ErrCodeConstants;
 import com.qianxx.qztaxi.common.exception.RestServiceException;
 import com.qianxx.qztaxi.dao.service.StPptnRDao;
 import com.qianxx.qztaxi.po.StPptnR;
+import com.qianxx.qztaxi.po.StStbprpB;
 import com.qianxx.qztaxi.service.StPptnRService;
+import com.qianxx.qztaxi.service.StStbprpBService;
 import com.qianxx.qztaxi.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -26,6 +29,8 @@ public class StPptnRServiceImpl extends BaseService<StPptnR, StPptnRDao> impleme
 
     @Autowired
     private StPptnRDao stPptnRDao;
+    @Autowired
+    private StStbprpBService stStbprpBService;
 
     @Override
     public StPptnRDao getDao() {
@@ -150,7 +155,91 @@ public class StPptnRServiceImpl extends BaseService<StPptnR, StPptnRDao> impleme
     }
 
     @Override
-    public RealTimeRainInfo getRealTimeRainInfoByTime(Long startTime, Long endTime) {
-        return null;
+    public RealTimeRainInfo getRealTimeRainStaticInfo(Long startTime, Long endTime) {
+        RealTimeRainInfo result = new RealTimeRainInfo();
+        List<StStbprpB> allRainStations = stStbprpBService.getAllRainStations();
+        result.setTotalStationNum(allRainStations.size());
+        int rainStationNum = 0;
+        double maxRainfall = 0d;
+        String maxRainStationName = "";
+        String maxRainStationSTCD = "";
+        List<RainFallLevel> rainFallLevelList = new ArrayList<>();
+
+        RainFallLevel level1 = new RainFallLevel();
+        level1.setLevelName(">=250");
+        RainFallLevel level2 = new RainFallLevel();
+        level2.setLevelName("100 ~ 250");
+        RainFallLevel level3 = new RainFallLevel();
+        level3.setLevelName("50 ~ 100");
+        RainFallLevel level4 = new RainFallLevel();
+        level4.setLevelName("25 ~ 50");
+        RainFallLevel level5 = new RainFallLevel();
+        level5.setLevelName("10 ~ 25");
+        RainFallLevel level6 = new RainFallLevel();
+        level6.setLevelName("0 ~ 10");
+
+        if (!CollectionUtils.isEmpty(allRainStations)) {
+            for (StStbprpB station : allRainStations) {
+                Map<String, Object> resultMap = stPptnRDao.getRainInfoByTime(station.getSTCD(), new Date(startTime), new Date(endTime));
+                if (resultMap != null) {
+                    BigDecimal totalRainFall = resultMap.get("DRP_SUM") == null ? new BigDecimal("0") : (BigDecimal) resultMap.get("DRP_SUM");
+                    double totalRainFallD = CommonUtils.setDoubleScale(totalRainFall, 1);
+                    if (totalRainFallD == 0) {
+                        continue;
+                    }
+                    if (totalRainFallD > maxRainfall) {
+                        // 设置最大降雨量
+                        maxRainfall = totalRainFallD;
+                        maxRainStationSTCD = station.getSTCD();
+                        maxRainStationName = station.getSTNM();
+                    }
+                    setRainLevel(level1, level2, level3, level4, level5, level6, station, totalRainFallD);
+                    if (totalRainFallD > 0) {
+                        rainStationNum++;
+                    }
+                }
+            }
+        }
+        rainFallLevelList.add(level1);
+        rainFallLevelList.add(level2);
+        rainFallLevelList.add(level3);
+        rainFallLevelList.add(level4);
+        rainFallLevelList.add(level5);
+        rainFallLevelList.add(level6);
+
+        result.setRainStationNum(rainStationNum);
+        result.setMaxRainfall(maxRainfall);
+        result.setMaxRainStationSTCD(maxRainStationSTCD);
+        result.setMaxRainStationName(maxRainStationName);
+        result.setRainFallLevel(rainFallLevelList);
+        return result;
+    }
+
+    private void setRainLevel(RainFallLevel level1, RainFallLevel level2, RainFallLevel level3, RainFallLevel level4, RainFallLevel level5, RainFallLevel level6, StStbprpB station, double totalRainFallD) {
+        StationInfo stationInfo = new StationInfo();
+        stationInfo.setLatitude(station.getLGTD());
+        stationInfo.setLongitude(station.getLTTD());
+        stationInfo.setName(station.getSTNM());
+        stationInfo.setStcd(station.getSTCD());
+        stationInfo.setRainfall(totalRainFallD);
+        if (totalRainFallD >= 250) {
+            level1.setStationNum(level1.getStationNum() + 1);
+            level1.getStationInfos().add(stationInfo);
+        } else if (totalRainFallD >= 100 && totalRainFallD < 250) {
+            level2.setStationNum(level2.getStationNum() + 1);
+            level2.getStationInfos().add(stationInfo);
+        } else if (totalRainFallD >= 50 && totalRainFallD < 100) {
+            level3.setStationNum(level3.getStationNum() + 1);
+            level3.getStationInfos().add(stationInfo);
+        } else if (totalRainFallD >= 25 && totalRainFallD < 50) {
+            level4.setStationNum(level4.getStationNum() + 1);
+            level4.getStationInfos().add(stationInfo);
+        } else if (totalRainFallD >= 10 && totalRainFallD < 25) {
+            level5.setStationNum(level5.getStationNum() + 1);
+            level5.getStationInfos().add(stationInfo);
+        } else if (totalRainFallD > 0 && totalRainFallD < 10) {
+            level6.setStationNum(level6.getStationNum() + 1);
+            level6.getStationInfos().add(stationInfo);
+        }
     }
 }

@@ -4,47 +4,12 @@ import java.util.List;
 
 public class RealTimeRainInfo {
 
-    private Long startTime;
-    private String startTimeStr;
-    private Long endTime;
-    private String endTimeStr;
     private Integer totalStationNum;
     private Integer rainStationNum;
-    private String maxRainStation;
+    private String maxRainStationSTCD;
+    private String maxRainStationName;
     private Double maxRainfall;
     private List<RainFallLevel> rainFallLevel;
-
-    public Long getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Long startTime) {
-        this.startTime = startTime;
-    }
-
-    public String getStartTimeStr() {
-        return startTimeStr;
-    }
-
-    public void setStartTimeStr(String startTimeStr) {
-        this.startTimeStr = startTimeStr;
-    }
-
-    public Long getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Long endTime) {
-        this.endTime = endTime;
-    }
-
-    public String getEndTimeStr() {
-        return endTimeStr;
-    }
-
-    public void setEndTimeStr(String endTimeStr) {
-        this.endTimeStr = endTimeStr;
-    }
 
     public Integer getTotalStationNum() {
         return totalStationNum;
@@ -62,12 +27,20 @@ public class RealTimeRainInfo {
         this.rainStationNum = rainStationNum;
     }
 
-    public String getMaxRainStation() {
-        return maxRainStation;
+    public String getMaxRainStationSTCD() {
+        return maxRainStationSTCD;
     }
 
-    public void setMaxRainStation(String maxRainStation) {
-        this.maxRainStation = maxRainStation;
+    public void setMaxRainStationSTCD(String maxRainStationSTCD) {
+        this.maxRainStationSTCD = maxRainStationSTCD;
+    }
+
+    public String getMaxRainStationName() {
+        return maxRainStationName;
+    }
+
+    public void setMaxRainStationName(String maxRainStationName) {
+        this.maxRainStationName = maxRainStationName;
     }
 
     public Double getMaxRainfall() {

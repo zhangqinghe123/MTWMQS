@@ -17,5 +17,5 @@ public interface StPptnRService extends IBaseService<StPptnR> {
 
     List<PlaneRainFallInfo> getPlaneRainfallByTime(String startTime, String endTime);
 
-    RealTimeRainInfo getRealTimeRainInfoByTime(Long startTime, Long endTime);
+    RealTimeRainInfo getRealTimeRainStaticInfo(Long startTime, Long endTime);
 }

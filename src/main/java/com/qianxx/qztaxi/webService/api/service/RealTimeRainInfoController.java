@@ -20,15 +20,18 @@ public class RealTimeRainInfoController {
     @Autowired
     private StPptnRService stPptnRService;
 
-    @RequestMapping(value = "getRealTimeRainInfoByTime", method = RequestMethod.GET)
+    @RequestMapping(value = "getRealTimeRainStaticInfo", method = RequestMethod.GET)
     @ApiImplicitParams({@ApiImplicitParam(name = "startTime", value = "统计起始时间", dataType = "Long", paramType = "query", required = true),
             @ApiImplicitParam(name = "endTime", value = "统计终止时间", dataType = "Long", paramType = "query", required = true)})
-    @ApiOperation(value = "根据时间查询雨情信息", notes = "根据时间查询雨情信息", httpMethod = "GET")
-    public AjaxList getRealTimeRainInfoByTime(@RequestParam Long startTime, @RequestParam Long endTime) {
+    @ApiOperation(value = "根据时间查询雨情统计信息", notes = "根据时间查询雨情信息", httpMethod = "GET")
+    public AjaxList getRealTimeRainStaticInfo(@RequestParam Long startTime, @RequestParam Long endTime) {
         try {
-            return AjaxList.createSuccess("成功", stPptnRService.getRealTimeRainInfoByTime(startTime, endTime));
+            return AjaxList.createSuccess("成功", stPptnRService.getRealTimeRainStaticInfo(startTime, endTime));
         } catch (RestServiceException e) {
             return AjaxList.createJsonDate(e.getStatus(), e.getErrorCode(), e.getMessage(), null);
         }
     }
+
 }
+
+
