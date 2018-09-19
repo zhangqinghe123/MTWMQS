@@ -53,11 +53,7 @@ public class StRiverRServiceImpl extends BaseService<StRiverR, StRiverRDao> impl
         }
         List<RiverInfo> result = new ArrayList<>();
         for (String stcd : staticRiverStations) {
-            List<StRiverR> estStRiverRList = stRiverRDao.getNewestRiverInfo(stcd);
-            if (CollectionUtils.isEmpty(estStRiverRList)) {
-                return null;
-            }
-            StRiverR estStRiverR = estStRiverRList.get(0);
+            StRiverR estStRiverR = stRiverRDao.getNewestRiverInfo(stcd);
             if (estStRiverR == null) {
                 continue;
             }
@@ -151,26 +147,22 @@ public class StRiverRServiceImpl extends BaseService<StRiverR, StRiverRDao> impl
         int alertNum = 0;
         List<RiverDetailInfo> result = new ArrayList<>();
         for (StStbprpB stcd : staticRiverStations) {
-            List<StRiverR> estStRiverRList = stRiverRDao.getNewestRiverInfo(stcd.getSTCD());
-            if (CollectionUtils.isEmpty(estStRiverRList)) {
+            StRiverR estStRiverR = stRiverRDao.getNewestRiverInfo(stcd.getSTCD());
+            if (estStRiverR == null) {
                 continue;
             }
-            StRiverR estStRiverR = estStRiverRList.get(0);
             RiverDetailInfo riverInfo = new RiverDetailInfo();
             riverInfo.setSTCD(stcd.getSTCD());
             riverInfo.setName(stcd.getSTNM());
             riverInfo.setStaticTime(DateFormatUtils.format(estStRiverR.getTM(), "MM-dd HH:mm"));
-            riverInfo.setWaterLever(estStRiverR.getZ());
-            riverInfo.setWaterFlow(estStRiverR.getQ());
-            if (estStRiverRList.get(1) != null && estStRiverRList.get(1).getZ() > estStRiverRList.get(0).getZ()) {
-                // 下降
-                riverInfo.setUpper(-1);
-            } else if (estStRiverRList.get(1) != null && estStRiverRList.get(1).getZ() == estStRiverRList.get(0).getZ()) {
-                // 持平
-                riverInfo.setUpper(0);
-            } else {
-                // 上升
-                riverInfo.setUpper(1);
+            if (estStRiverR.getZ() != null) {
+                riverInfo.setWaterLever(estStRiverR.getZ());
+            }
+            if (estStRiverR.getQ() != null) {
+                riverInfo.setWaterFlow(estStRiverR.getQ());
+            }
+            if (estStRiverR.getWPTN() != null) {
+                riverInfo.setWptn(estStRiverR.getWPTN());
             }
             result.add(riverInfo);
         }

@@ -12,4 +12,6 @@ public interface StRsvrRService extends IBaseService<StRsvrR> {
     List<RsvrInfo> getNewestRsvrInfo(String stcds);
 
     List<RsvrDetailInfo> getRsvrInfoByTime(String startTime, String endTime, String stcd);
+
+    List<RsvrDetailInfo> getRsvrInfoList();
 }

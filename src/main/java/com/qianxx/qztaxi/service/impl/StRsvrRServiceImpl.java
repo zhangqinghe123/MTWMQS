@@ -10,6 +10,7 @@ import com.qianxx.qztaxi.service.StRsvrRService;
 import com.qianxx.qztaxi.service.StStbprpBService;
 import com.qianxx.qztaxi.vo.RsvrDetailInfo;
 import com.qianxx.qztaxi.vo.RsvrInfo;
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -138,5 +139,39 @@ public class StRsvrRServiceImpl extends BaseService<StRsvrR, StRsvrRDao> impleme
         }
 
         return detailInfoList;
+    }
+
+    @Override
+    public List<RsvrDetailInfo> getRsvrInfoList() {
+        List<StStbprpB> staticRiverStations = stStbprpBService.getAllReservoirStations();
+        List<RsvrDetailInfo> result = new ArrayList<>();
+        for (StStbprpB stcd : staticRiverStations) {
+            StRsvrR estStRiverR = stRsvrRDao.getNewestRsvrInfo(stcd.getSTCD());
+            if (estStRiverR == null) {
+                continue;
+            }
+            RsvrDetailInfo rsvrInfo = new RsvrDetailInfo();
+            rsvrInfo.setSTCD(stcd.getSTCD());
+            rsvrInfo.setName(stcd.getSTNM());
+            rsvrInfo.setStaticTime(DateFormatUtils.format(estStRiverR.getTM(), "MM-dd HH:mm"));
+            if (estStRiverR.getRZ() != null) {
+                rsvrInfo.setWaterLever(estStRiverR.getRZ());
+            }
+            if (estStRiverR.getINQ() != null) {
+                rsvrInfo.setInWaterFlow(estStRiverR.getINQ());
+            }
+            if (estStRiverR.getOTQ() != null) {
+                rsvrInfo.setOutWaterFlow(estStRiverR.getOTQ());
+            }
+            if (estStRiverR.getRWPTN() != null) {
+                rsvrInfo.setRwptn(estStRiverR.getRWPTN());
+            }
+            if (estStRiverR.getW() != null) {
+                rsvrInfo.setCapacity(estStRiverR.getW());
+            }
+            result.add(rsvrInfo);
+        }
+
+        return result;
     }
 }

@@ -19,11 +19,12 @@
 
     <select id="getNewestRiverInfo" parameterType="map" resultType="com.qianxx.qztaxi.po.StRiverR">
         SELECT
-        TOP 2
+        TOP 1
         STCD
         ,TM
         ,Z
         ,Q
+        ,WPTN
         FROM ST_RIVER_R
         <where>
             STCD = #{STCD}

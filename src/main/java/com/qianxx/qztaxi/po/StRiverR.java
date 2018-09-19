@@ -13,8 +13,9 @@ public class StRiverR {
 
     private String STCD;
     private Timestamp TM;
-    private double Z;
-    private double Q;
+    private Double Z;
+    private Double Q;
+    private Integer WPTN;
 
     public String getSTCD() {
         return STCD;
@@ -32,19 +33,27 @@ public class StRiverR {
         this.TM = TM;
     }
 
-    public double getZ() {
+    public Double getZ() {
         return Z;
     }
 
-    public void setZ(double z) {
+    public void setZ(Double z) {
         Z = z;
     }
 
-    public double getQ() {
+    public Double getQ() {
         return Q;
     }
 
-    public void setQ(double q) {
+    public void setQ(Double q) {
         Q = q;
+    }
+
+    public Integer getWPTN() {
+        return WPTN;
+    }
+
+    public void setWPTN(Integer WPTN) {
+        this.WPTN = WPTN;
     }
 }

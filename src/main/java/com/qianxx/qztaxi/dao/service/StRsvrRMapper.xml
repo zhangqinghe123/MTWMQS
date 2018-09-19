@@ -24,6 +24,8 @@
         ,RZ
         ,INQ
         ,OTQ
+        ,RWPTN
+        ,W
         FROM ST_RSVR_R
         <where>
             STCD = #{STCD}

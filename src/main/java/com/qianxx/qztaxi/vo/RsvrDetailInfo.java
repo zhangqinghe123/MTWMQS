@@ -14,10 +14,14 @@ import java.util.Date;
  */
 public class RsvrDetailInfo {
     private String STCD;
+    private String name;
     private String staticTime;
     private double waterLever;
     private double inWaterFlow;
     private double outWaterFlow;
+    private Integer rwptn;
+    private Double alertWaterLevel;
+    private Double capacity;
 
     public String getSTCD() {
         return STCD;
@@ -57,5 +61,38 @@ public class RsvrDetailInfo {
 
     public void setOutWaterFlow(double outWaterFlow) {
         this.outWaterFlow = outWaterFlow;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    public Double getAlertWaterLevel() {
+        return alertWaterLevel;
+    }
+
+    public void setAlertWaterLevel(Double alertWaterLevel) {
+        this.alertWaterLevel = alertWaterLevel;
+    }
+
+    public Integer getRwptn() {
+        return rwptn;
+    }
+
+    public void setRwptn(Integer rwptn) {
+        this.rwptn = rwptn;
+    }
+
+    public Double getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Double capacity) {
+        this.capacity = capacity;
     }
 }

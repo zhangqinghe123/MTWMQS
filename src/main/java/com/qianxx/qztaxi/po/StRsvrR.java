@@ -12,25 +12,11 @@ public class StRsvrR {
 
     private String STCD;
     private Timestamp TM;
-    private double RZ;
-    private double INQ;
-    private double OTQ;
-
-    public double getINQ() {
-        return INQ;
-    }
-
-    public void setINQ(double INQ) {
-        this.INQ = INQ;
-    }
-
-    public double getOTQ() {
-        return OTQ;
-    }
-
-    public void setOTQ(double OTQ) {
-        this.OTQ = OTQ;
-    }
+    private Double RZ;
+    private Double INQ;
+    private Double OTQ;
+    private Double W;
+    private Integer RWPTN;
 
     public String getSTCD() {
         return STCD;
@@ -48,11 +34,43 @@ public class StRsvrR {
         this.TM = TM;
     }
 
-    public double getRZ() {
+    public Double getRZ() {
         return RZ;
     }
 
-    public void setRZ(double RZ) {
+    public void setRZ(Double RZ) {
         this.RZ = RZ;
+    }
+
+    public Double getINQ() {
+        return INQ;
+    }
+
+    public void setINQ(Double INQ) {
+        this.INQ = INQ;
+    }
+
+    public Double getOTQ() {
+        return OTQ;
+    }
+
+    public void setOTQ(Double OTQ) {
+        this.OTQ = OTQ;
+    }
+
+    public Double getW() {
+        return W;
+    }
+
+    public void setW(Double w) {
+        W = w;
+    }
+
+    public Integer getRWPTN() {
+        return RWPTN;
+    }
+
+    public void setRWPTN(Integer RWPTN) {
+        this.RWPTN = RWPTN;
     }
 }

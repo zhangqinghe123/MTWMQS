@@ -18,7 +18,7 @@ public class RiverDetailInfo {
     private String staticTime;
     private double waterLever;
     private double waterFlow;
-    private Integer upper;
+    private Integer wptn;
     private Double alertWaterLevel;
 
     public String getName() {
@@ -29,12 +29,12 @@ public class RiverDetailInfo {
         this.name = name;
     }
 
-    public Integer getUpper() {
-        return upper;
+    public Integer getWptn() {
+        return wptn;
     }
 
-    public void setUpper(Integer upper) {
-        this.upper = upper;
+    public void setWptn(Integer wptn) {
+        this.wptn = wptn;
     }
 
     public Double getAlertWaterLevel() {

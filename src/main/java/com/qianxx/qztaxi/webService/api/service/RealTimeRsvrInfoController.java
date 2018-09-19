@@ -1,7 +1,7 @@
 package com.qianxx.qztaxi.webService.api.service;
 
 import com.qianxx.qztaxi.common.exception.RestServiceException;
-import com.qianxx.qztaxi.service.StRiverRService;
+import com.qianxx.qztaxi.service.StRsvrRService;
 import com.qianxx.qztaxi.webService.response.AjaxList;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -14,20 +14,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "api/realTimeRiverInfo")
-@Api(value = "【业务】查询实时汛情-河道水情")
-public class RealTimeRiverInfoController {
+@RequestMapping(value = "api/riverInfo")
+@Api(value = "【业务】查询实时汛情-水库水情")
+public class RealTimeRsvrInfoController {
 
     @Autowired
-    private StRiverRService stRiverRService;
+    private StRsvrRService stRsvrRService;
 
-    @RequestMapping(value = "getRiverInfoList", method = RequestMethod.GET)
-    @ApiOperation(value = "获取河流站最新水情信息", notes = "获取河流站最新水情信息", httpMethod = "GET")
-    public AjaxList getRiverInfoList() {
+    @RequestMapping(value = "getRsvrInfoList", method = RequestMethod.GET)
+    @ApiOperation(value = "获取水库站最新水情信息", notes = "获取水库站最新水情信息", httpMethod = "GET")
+    public AjaxList getRsvrInfoList() {
         try {
-            return AjaxList.createSuccess("成功", stRiverRService.getRiverInfoList());
+            return AjaxList.createSuccess("成功", stRsvrRService.getRsvrInfoList());
         } catch (RestServiceException e) {
             return AjaxList.createJsonDate(e.getStatus(), e.getErrorCode(), e.getMessage(), null);
         }
     }
+
 }
