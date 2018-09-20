@@ -1,161 +1,163 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:task="http://www.springframework.org/schema/task"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
 						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
 						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
 						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
 						http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
 						http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.1.xsd">
 
-	<!-- <context:property-placeholder location="classpath:db-config.properties" ignore-unresolvable="true" /> -->
+    <!-- <context:property-placeholder location="classpath:db-config.properties" ignore-unresolvable="true" /> -->
 
-	<bean id="environmentVariablesConfiguration" class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
-		<property name="algorithm" value="PBEWithMD5AndDES" />
-		<property name="password" value="yubin" />
-	</bean>
-
-	<bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
-		<property name="config" ref="environmentVariablesConfiguration" />
-	</bean>
-
-	<!-- Spring属性文件解密组件 -->
-	<bean id="propertyConfigurer" class="org.jasypt.spring31.properties.EncryptablePropertyPlaceholderConfigurer">
-		<constructor-arg ref="configurationEncryptor" />
-		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
-		<property name="ignoreResourceNotFound" value="true" />
-		<property name="locations">
-			<list>
-				<value>/WEB-INF/classes/db-config.properties</value>
-				<value>/WEB-INF/classes/redis.properties</value>
-			</list>
-		</property>
-		<property name="fileEncoding" value="utf-8" />
-	</bean>
-
-	<!-- 业务数据源 -->
-	<bean id="dataSource_service" class="org.apache.commons.dbcp.BasicDataSource"  destroy-method="close">
-		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"></property>
-		<property name="url" value="jdbc:sqlserver://localhost:1433;Database=shrwdb;useUnicode=true&amp;characterEncoding=UTF-8"></property>
-		<property name="username" value="root"></property>
-		<property name="password" value="root"></property>
-	</bean>
-	<!-- 用户数据源 -->
-    <bean id="dataSource_user" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"></property>
-        <property name="url" value="jdbc:sqlserver://localhost:1433;Database=shrwuserdb;useUnicode=true&amp;characterEncoding=UTF-8"></property>
-        <property name="username" value="root"></property>
-        <property name="password" value="root"></property>
+    <bean id="environmentVariablesConfiguration" class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
+        <property name="algorithm" value="PBEWithMD5AndDES"/>
+        <property name="password" value="yubin"/>
     </bean>
 
-    <bean id ="dataSource" class= "com.qianxx.qztaxi.datebase.DynamicDataSource" >
-        <property name ="targetDataSources">
-            <map key-type ="java.lang.String">
-                <entry value-ref ="dataSource_service" key="dataSource_service"></entry >
-                <entry value-ref ="dataSource_user" key="dataSource_user"></entry >
+    <bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+        <property name="config" ref="environmentVariablesConfiguration"/>
+    </bean>
+
+    <!-- Spring属性文件解密组件 -->
+    <bean id="propertyConfigurer" class="org.jasypt.spring31.properties.EncryptablePropertyPlaceholderConfigurer">
+        <constructor-arg ref="configurationEncryptor"/>
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="locations">
+            <list>
+                <value>/WEB-INF/classes/db-config.properties</value>
+                <value>/WEB-INF/classes/redis.properties</value>
+            </list>
+        </property>
+        <property name="fileEncoding" value="utf-8"/>
+    </bean>
+
+    <!-- 业务数据源 -->
+    <bean id="dataSource_service" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${service.db.dirverClass}"></property>
+        <property name="url" value="${service.db.url}"></property>
+        <property name="username" value="${service.db.username}"></property>
+        <property name="password" value="${service.db.password}"></property>
+    </bean>
+    <!-- 用户数据源 -->
+    <bean id="dataSource_user" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${user.db.dirverClass}"></property>
+        <property name="url" value="${user.db.url}"></property>
+        <property name="username" value="${user.db.username}"></property>
+        <property name="password" value="${user.db.password}"></property>
+    </bean>
+
+    <bean id="dataSource" class="com.qianxx.qztaxi.datebase.DynamicDataSource">
+        <property name="targetDataSources">
+            <map key-type="java.lang.String">
+                <entry value-ref="dataSource_service" key="dataSource_service"></entry>
+                <entry value-ref="dataSource_user" key="dataSource_user"></entry>
             </map>
-        </property >
-        <property name ="defaultTargetDataSource" ref= "dataSource_service"></property >
-    </bean >
+        </property>
+        <property name="defaultTargetDataSource" ref="dataSource_service"></property>
+    </bean>
 
-	<!-- 与mybatis集成 -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
-		<property name="mapperLocations" value="classpath:com/qianxx/qztaxi/dao/*/*.xml"></property>
-	</bean>
+    <!-- 与mybatis集成 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+        <property name="mapperLocations" value="classpath:com/qianxx/qztaxi/dao/*/*.xml"></property>
+    </bean>
 
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
-		<property name="basePackage" value="com.qianxx" />
-		<property name="markerInterface" value="com.qianxx.qztaxi.dao.IBaseDao" />
-	</bean>
+        <property name="basePackage" value="com.qianxx"/>
+        <property name="markerInterface" value="com.qianxx.qztaxi.dao.IBaseDao"/>
+    </bean>
 
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg index="0" name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
-	</bean>
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+    </bean>
 
-	<!-- 事务管理配置 -->
-	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource_service" />
-	</bean>
+    <!-- 事务管理配置 -->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource_service"/>
+    </bean>
 
-	<!-- 事务控制 -->
-	<tx:annotation-driven proxy-target-class="true" transaction-manager="txManager"/>
-	<bean id="changeDBInterceptor" class="com.qianxx.qztaxi.datebase.ChangDBInterceptor"></bean>
-	<aop:config proxy-target-class="true">
-		<aop:pointcut id="txPointcut"
-					  expression="execution(* com.qianxx.qztaxi.webService.adminuser.*.*(..)) || execution(* com.qianxx.qztaxi.webService.api.service.*.*(..)) || execution(* com.qianxx.qztaxi.webService.api.user.*.*(..))"/>
-		<aop:aspect ref="changeDBInterceptor" order="1">
-			<aop:around pointcut-ref="txPointcut" method="changeDB"/>
-		</aop:aspect>
-	</aop:config>
+    <!-- 事务控制 -->
+    <tx:annotation-driven proxy-target-class="true" transaction-manager="txManager"/>
+    <bean id="changeDBInterceptor" class="com.qianxx.qztaxi.datebase.ChangDBInterceptor"></bean>
+    <aop:config proxy-target-class="true">
+        <aop:pointcut id="txPointcut"
+                      expression="execution(* com.qianxx.qztaxi.webService.adminuser.*.*(..)) || execution(* com.qianxx.qztaxi.webService.api.service.*.*(..)) || execution(* com.qianxx.qztaxi.webService.api.user.*.*(..))"/>
+        <aop:aspect ref="changeDBInterceptor" order="1">
+            <aop:around pointcut-ref="txPointcut" method="changeDB"/>
+        </aop:aspect>
+    </aop:config>
 
     <!-- spring declarative transaction management -->
-	<aop:config>
-		<aop:pointcut id="apiServiceAop" expression="execution(* com.qianxx.qztaxi.webService.adminuser.*.*(..)) || execution(* com.qianxx.qztaxi.webService.api.*.*(..))" />
-		<aop:advisor advice-ref="txAdvice" pointcut-ref="apiServiceAop" />
-	</aop:config>
-	<tx:advice id="txAdvice" transaction-manager="txManager">
-		<tx:attributes>
-			<tx:method name="srh*" read-only="true" />
-			<tx:method name="ins*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException" />
-			<tx:method name="upd*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException" />
-			<tx:method name="del*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException" />
-			<tx:method name="*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException" />
-		</tx:attributes>
-	</tx:advice>
+    <aop:config>
+        <aop:pointcut id="apiServiceAop"
+                      expression="execution(* com.qianxx.qztaxi.webService.adminuser.*.*(..)) || execution(* com.qianxx.qztaxi.webService.api.*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="apiServiceAop"/>
+    </aop:config>
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <tx:method name="srh*" read-only="true"/>
+            <tx:method name="ins*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException"/>
+            <tx:method name="upd*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException"/>
+            <tx:method name="del*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException"/>
+            <tx:method name="*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException"/>
+        </tx:attributes>
+    </tx:advice>
 
-	<!-- SpringMVC自动扫描路径 -->
-	<context:component-scan base-package="com.qianxx">
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
-	</context:component-scan>
-	<mvc:resources mapping="/swagger/**" location="/WEB-INF/swagger/" />
-	<!-- 注解驱动 -->
-	<mvc:annotation-driven />
-	<!-- Task任务扫描 -->
-	<task:annotation-driven />
-	<mvc:interceptors>
-		<!-- api服务器请求拦截器 -->
-		<mvc:interceptor>
-			<mvc:mapping path="/api/**" />
-			<bean class="com.qianxx.qztaxi.interceptor.ApiInterceptor">
-				<property name="uris">
-					<list>
-					</list>
-				</property>
-			</bean>
-		</mvc:interceptor>
-		<mvc:interceptor>
-			<mvc:mapping path="/admin/**" />
-			<bean class="com.qianxx.qztaxi.interceptor.AdminInterceptor">
-				<property name="urls">
-					<list>
-					</list>
-				</property>
-			</bean>
-		</mvc:interceptor>
-	</mvc:interceptors>
+    <!-- SpringMVC自动扫描路径 -->
+    <context:component-scan base-package="com.qianxx">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <mvc:resources mapping="/swagger/**" location="/WEB-INF/swagger/"/>
+    <!-- 注解驱动 -->
+    <mvc:annotation-driven/>
+    <!-- Task任务扫描 -->
+    <task:annotation-driven/>
+    <mvc:interceptors>
+        <!-- api服务器请求拦截器 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/api/**"/>
+            <bean class="com.qianxx.qztaxi.interceptor.ApiInterceptor">
+                <property name="uris">
+                    <list>
+                    </list>
+                </property>
+            </bean>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/admin/**"/>
+            <bean class="com.qianxx.qztaxi.interceptor.AdminInterceptor">
+                <property name="urls">
+                    <list>
+                    </list>
+                </property>
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
-	<bean id="exceptionResolver" class="com.qianxx.qztaxi.interceptor.ExceptionHandler"></bean>
+    <bean id="exceptionResolver" class="com.qianxx.qztaxi.interceptor.ExceptionHandler"></bean>
 
-	<bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>
-	<bean id="stringConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
-		<property name="supportedMediaTypes">
-			<list>
-				<value>application/json;charset=UTF-8</value>
-			</list>
-		</property>
-	</bean>
-	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-		<property name="messageConverters">
-			<list>
-				<ref bean="stringConverter" />
-				<ref bean="jsonConverter" />
-			</list>
-		</property>
-	</bean>
-	<import resource="applicationContext-redis.xml"/>
+    <bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>
+    <bean id="stringConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>application/json;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="stringConverter"/>
+                <ref bean="jsonConverter"/>
+            </list>
+        </property>
+    </bean>
+    <import resource="applicationContext-redis.xml"/>
 </beans>
