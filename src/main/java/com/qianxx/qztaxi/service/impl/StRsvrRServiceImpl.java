@@ -174,4 +174,56 @@ public class StRsvrRServiceImpl extends BaseService<StRsvrR, StRsvrRDao> impleme
 
         return result;
     }
+
+    @Override
+    public List<RsvrDetailInfo> getEightRsvrInfoByTime(String startTime, String endTime, String stcd) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        StStbprpB stStbprpB = stStbprpBService.getStationInfoByStcd(stcd);
+        SimpleDateFormat paramFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        if (stStbprpB == null) {
+            throw new RestServiceException("无站点信息", ErrCodeConstants.ERR_1000_PARAMS_ERR, "0");
+        }
+        try {
+            if (paramFormat.parse(endTime).getTime() < paramFormat.parse(startTime).getTime()) {
+                throw new RestServiceException("终止时间需要晚于起始时间", ErrCodeConstants.ERR_1000_PARAMS_ERR, "0");
+            }
+        } catch (ParseException e) {
+            throw new RestServiceException("时间戳格式不正确,请使用格式yyyy-MM-dd", ErrCodeConstants.ERR_1000_PARAMS_ERR, "0");
+        }
+        List<RsvrDetailInfo> detailInfoList = new ArrayList<>();
+        while (true) {
+            RsvrDetailInfo rsvrDetailInfo = new RsvrDetailInfo();
+            try {
+                rsvrDetailInfo.setStaticTime(startTime.substring(startTime.indexOf("-") + 1) + " 08:00");
+                rsvrDetailInfo.setSTCD(stcd);
+
+                String startStr = startTime + " 08:00:00";
+                Date startFullTime = simpleDateFormat.parse(startStr);
+                Map<String, Object> avgResult = stRsvrRDao.getInfoBetweenTime(startFullTime, startFullTime, stcd);
+                if (avgResult != null) {
+                    BigDecimal RZ_AVG = avgResult.get("RZ_AVG") == null ? new BigDecimal("0") : (BigDecimal) avgResult.get("RZ_AVG");
+                    BigDecimal INQ_AVG = avgResult.get("INQ_AVG") == null ? new BigDecimal("0") : (BigDecimal) avgResult.get("INQ_AVG");
+                    BigDecimal OTQ_AVG = avgResult.get("OTQ_AVG") == null ? new BigDecimal("0") : (BigDecimal) avgResult.get("OTQ_AVG");
+                    rsvrDetailInfo.setInWaterFlow(CommonUtils.setDoubleScale(INQ_AVG, 2));
+                    rsvrDetailInfo.setWaterLever(CommonUtils.setDoubleScale(RZ_AVG, 2));
+                    rsvrDetailInfo.setOutWaterFlow(CommonUtils.setDoubleScale(OTQ_AVG, 2));
+                    detailInfoList.add(rsvrDetailInfo);
+                }
+                calendar.setTime(startFullTime);
+                if (paramFormat.parse(endTime).getTime() < calendar.getTimeInMillis()) {
+                    break;
+                }
+                if (calendar.getTimeInMillis() > new Date().getTime()) {
+                    break;
+                }
+                calendar.add(Calendar.DAY_OF_MONTH, 1);
+                startTime = paramFormat.format(calendar.getTime());
+            } catch (ParseException e) {
+                throw new RestServiceException("时间戳格式不正确,请使用格式yyyy-MM-dd HH", ErrCodeConstants.ERR_1000_PARAMS_ERR, "0");
+            }
+        }
+
+        return detailInfoList;
+    }
 }

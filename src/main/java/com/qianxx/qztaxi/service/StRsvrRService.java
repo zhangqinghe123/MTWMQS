@@ -1,7 +1,6 @@
 package com.qianxx.qztaxi.service;
 
 import com.qianxx.qztaxi.po.StRsvrR;
-import com.qianxx.qztaxi.vo.RiverInfo;
 import com.qianxx.qztaxi.vo.RsvrDetailInfo;
 import com.qianxx.qztaxi.vo.RsvrInfo;
 
@@ -14,4 +13,6 @@ public interface StRsvrRService extends IBaseService<StRsvrR> {
     List<RsvrDetailInfo> getRsvrInfoByTime(String startTime, String endTime, String stcd);
 
     List<RsvrDetailInfo> getRsvrInfoList();
+
+    List<RsvrDetailInfo> getEightRsvrInfoByTime(String startTime, String endTime, String stcd);
 }
