@@ -14,7 +14,7 @@ public interface StRiverRDao extends IBaseDao<StRiverR> {
 
     StRiverR getRiverInfoByTime(@Param("STCD") String STCD, @Param("staticTime") Date staticTime);
 
-    StRiverR getNewestRiverInfo(@Param("STCD") String STCD);
+    List<StRiverR> getNewestRiverInfo(@Param("STCD") String STCD);
 
     Map<String, Object> getInfoBetweenTime(@Param("startTime") Date startFullTime, @Param("endTime") Date endFullTime, @Param("STCD") String stcd);
 }

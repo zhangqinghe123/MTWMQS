@@ -19,7 +19,7 @@ public class RsvrDetailInfo {
     private double waterLever;
     private double inWaterFlow;
     private double outWaterFlow;
-    private Integer rwptn;
+    private UpAndDownStatus upAndDownStatus;
     private Double alertWaterLevel;
     private Double capacity;
 
@@ -80,19 +80,32 @@ public class RsvrDetailInfo {
         this.alertWaterLevel = alertWaterLevel;
     }
 
-    public Integer getRwptn() {
-        return rwptn;
-    }
-
-    public void setRwptn(Integer rwptn) {
-        this.rwptn = rwptn;
-    }
-
     public Double getCapacity() {
         return capacity;
     }
 
     public void setCapacity(Double capacity) {
         this.capacity = capacity;
+    }
+
+    public UpAndDownStatus getUpAndDownStatus() {
+        return upAndDownStatus;
+    }
+
+    public void setUpAndDownStatus(UpAndDownStatus upAndDownStatus) {
+        this.upAndDownStatus = upAndDownStatus;
+    }
+
+    public enum UpAndDownStatus {
+        UP("上升"), DOWN("下降"), HOLD_LINE("持平");
+        private String displayName;
+
+        UpAndDownStatus(String displayName) {
+            this.displayName = displayName;
+        }
+
+        public String getDisplayName() {
+            return displayName;
+        }
     }
 }

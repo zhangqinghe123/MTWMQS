@@ -18,7 +18,7 @@ public class RiverDetailInfo {
     private String staticTime;
     private double waterLever;
     private double waterFlow;
-    private Integer wptn;
+    private UpAndDownStatus upAndDownStatus;
     private Double alertWaterLevel;
 
     public String getName() {
@@ -27,14 +27,6 @@ public class RiverDetailInfo {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getWptn() {
-        return wptn;
-    }
-
-    public void setWptn(Integer wptn) {
-        this.wptn = wptn;
     }
 
     public Double getAlertWaterLevel() {
@@ -75,5 +67,26 @@ public class RiverDetailInfo {
 
     public void setWaterFlow(double waterFlow) {
         this.waterFlow = waterFlow;
+    }
+
+    public UpAndDownStatus getUpAndDownStatus() {
+        return upAndDownStatus;
+    }
+
+    public void setUpAndDownStatus(UpAndDownStatus upAndDownStatus) {
+        this.upAndDownStatus = upAndDownStatus;
+    }
+
+    public enum UpAndDownStatus {
+        UP("上升"), DOWN("下降"), HOLD_LINE("持平");
+        private String displayName;
+
+        UpAndDownStatus(String displayName) {
+            this.displayName = displayName;
+        }
+
+        public String getDisplayName() {
+            return displayName;
+        }
     }
 }

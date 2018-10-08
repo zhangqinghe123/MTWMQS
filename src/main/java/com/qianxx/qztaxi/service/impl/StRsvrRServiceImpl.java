@@ -52,10 +52,11 @@ public class StRsvrRServiceImpl extends BaseService<StRsvrR, StRsvrRDao> impleme
         }
         List<RsvrInfo> result = new ArrayList<>();
         for (String stcd : staticRiverStations) {
-            StRsvrR estStRiverR = stRsvrRDao.getNewestRsvrInfo(stcd);
-            if (estStRiverR == null) {
+            List<StRsvrR> estStRiverRList = stRsvrRDao.getNewestRsvrInfo(stcd);
+            if (CollectionUtils.isEmpty(estStRiverRList)) {
                 continue;
             }
+            StRsvrR estStRiverR = estStRiverRList.get(0);
             RsvrInfo rsvrInfo = new RsvrInfo();
             rsvrInfo.setSTCD(stcd);
             rsvrInfo.setCurrentWaterLevel(estStRiverR.getRZ());
@@ -146,10 +147,11 @@ public class StRsvrRServiceImpl extends BaseService<StRsvrR, StRsvrRDao> impleme
         List<StStbprpB> staticRiverStations = stStbprpBService.getAllReservoirStations();
         List<RsvrDetailInfo> result = new ArrayList<>();
         for (StStbprpB stcd : staticRiverStations) {
-            StRsvrR estStRiverR = stRsvrRDao.getNewestRsvrInfo(stcd.getSTCD());
-            if (estStRiverR == null) {
+            List<StRsvrR> estStRiverRList = stRsvrRDao.getNewestRsvrInfo(stcd.getSTCD());
+            if (CollectionUtils.isEmpty(estStRiverRList)) {
                 continue;
             }
+            StRsvrR estStRiverR = estStRiverRList.get(0);
             RsvrDetailInfo rsvrInfo = new RsvrDetailInfo();
             rsvrInfo.setSTCD(stcd.getSTCD());
             rsvrInfo.setName(stcd.getSTNM());
@@ -163,8 +165,17 @@ public class StRsvrRServiceImpl extends BaseService<StRsvrR, StRsvrRDao> impleme
             if (estStRiverR.getOTQ() != null) {
                 rsvrInfo.setOutWaterFlow(estStRiverR.getOTQ());
             }
-            if (estStRiverR.getRWPTN() != null) {
-                rsvrInfo.setRwptn(estStRiverR.getRWPTN());
+            if (estStRiverRList.size() == 2) {
+                int compareResult = estStRiverRList.get(0).getRZ().compareTo(estStRiverRList.get(1).getRZ());
+                if (compareResult > 0) {
+                    rsvrInfo.setUpAndDownStatus(RsvrDetailInfo.UpAndDownStatus.UP);
+                } else if (compareResult < 0) {
+                    rsvrInfo.setUpAndDownStatus(RsvrDetailInfo.UpAndDownStatus.DOWN);
+                } else {
+                    rsvrInfo.setUpAndDownStatus(RsvrDetailInfo.UpAndDownStatus.HOLD_LINE);
+                }
+            } else {
+                rsvrInfo.setUpAndDownStatus(RsvrDetailInfo.UpAndDownStatus.HOLD_LINE);
             }
             if (estStRiverR.getW() != null) {
                 rsvrInfo.setCapacity(estStRiverR.getW());
