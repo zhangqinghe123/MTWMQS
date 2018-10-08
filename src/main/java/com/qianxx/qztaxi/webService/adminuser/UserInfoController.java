@@ -169,7 +169,7 @@ public class UserInfoController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         GetTrackRequest getTrackRequest = new GetTrackRequest();
-        getTrackRequest.setEntityName(userInfo.getAccount());
+        getTrackRequest.setEntityName("user_" + userId);
         try {
             getTrackRequest.setEndTime(sdf.parse(endTime).getTime() / 1000);
             getTrackRequest.setStartTime(sdf.parse(startTime).getTime() / 1000);
@@ -181,7 +181,7 @@ public class UserInfoController {
             return AjaxList.createError("无轨迹数据", null);
         }
         Map<String, Object> sumap = new HashMap<>();
-//        sumap.put("orderList", pointList);
+        sumap.put("orderList", pointList);
         return AjaxList.createSuccess("成功", sumap);
     }
 
