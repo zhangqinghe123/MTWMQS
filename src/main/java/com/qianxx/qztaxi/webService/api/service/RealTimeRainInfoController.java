@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,9 +37,12 @@ public class RealTimeRainInfoController {
     @ApiImplicitParams({@ApiImplicitParam(name = "startTime", value = "统计起始时间", dataType = "Long", paramType = "query", required = true),
             @ApiImplicitParam(name = "endTime", value = "统计终止时间", dataType = "Long", paramType = "query", required = true)})
     @ApiOperation(value = "根据时间查询站点雨情信息", notes = "根据时间查询站点雨情信息", httpMethod = "GET")
-    public AjaxList getRealTimeRainStationList(@RequestParam Long startTime, @RequestParam Long endTime) {
+    public AjaxList getRealTimeRainStationList(@RequestParam Long startTime, @RequestParam Long endTime, @RequestParam(required = false) Boolean needNoRainStation) {
         try {
-            return AjaxList.createSuccess("成功", stPptnRService.getRealTimeRainStationList(startTime, endTime));
+            if (needNoRainStation == null) {
+                needNoRainStation = false;
+            }
+            return AjaxList.createSuccess("成功", stPptnRService.getRealTimeRainStationList(startTime, endTime, needNoRainStation));
         } catch (RestServiceException e) {
             return AjaxList.createJsonDate(e.getStatus(), e.getErrorCode(), e.getMessage(), null);
         }

@@ -216,7 +216,7 @@ public class StPptnRServiceImpl extends BaseService<StPptnR, StPptnRDao> impleme
     }
 
     @Override
-    public List<StationRainInfo> getRealTimeRainStationList(Long startTime, Long endTime) {
+    public List<StationRainInfo> getRealTimeRainStationList(Long startTime, Long endTime, Boolean needNoRainStation) {
         List<StationRainInfo> result = new ArrayList<>();
         List<StStbprpB> allRainStations = stStbprpBService.getAllRainStations();
 
@@ -226,7 +226,7 @@ public class StPptnRServiceImpl extends BaseService<StPptnR, StPptnRDao> impleme
                 if (resultMap != null) {
                     BigDecimal totalRainFall = resultMap.get("DRP_SUM") == null ? new BigDecimal("0") : (BigDecimal) resultMap.get("DRP_SUM");
                     double totalRainFallD = CommonUtils.setDoubleScale(totalRainFall, 1);
-                    if (totalRainFallD == 0) {
+                    if (!needNoRainStation && totalRainFallD == 0) {
                         continue;
                     }
                     StationRainInfo stationRainInfo = new StationRainInfo();

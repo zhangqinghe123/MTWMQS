@@ -53,10 +53,11 @@ public class StRiverRServiceImpl extends BaseService<StRiverR, StRiverRDao> impl
         }
         List<RiverInfo> result = new ArrayList<>();
         for (String stcd : staticRiverStations) {
-            StRiverR estStRiverR = stRiverRDao.getNewestRiverInfo(stcd);
-            if (estStRiverR == null) {
+            List<StRiverR> estStRiverRList = stRiverRDao.getNewestRiverInfo(stcd);
+            if (CollectionUtils.isEmpty(estStRiverRList)) {
                 continue;
             }
+            StRiverR estStRiverR = estStRiverRList.get(0);
             RiverInfo riverInfo = new RiverInfo();
             riverInfo.setSTCD(stcd);
             riverInfo.setCurrentWaterLevel(estStRiverR.getZ());
@@ -147,10 +148,11 @@ public class StRiverRServiceImpl extends BaseService<StRiverR, StRiverRDao> impl
         int alertNum = 0;
         List<RiverDetailInfo> result = new ArrayList<>();
         for (StStbprpB stcd : staticRiverStations) {
-            StRiverR estStRiverR = stRiverRDao.getNewestRiverInfo(stcd.getSTCD());
-            if (estStRiverR == null) {
+            List<StRiverR> estStRiverRList = stRiverRDao.getNewestRiverInfo(stcd.getSTCD());
+            if (CollectionUtils.isEmpty(estStRiverRList)) {
                 continue;
             }
+            StRiverR estStRiverR = estStRiverRList.get(0);
             RiverDetailInfo riverInfo = new RiverDetailInfo();
             riverInfo.setSTCD(stcd.getSTCD());
             riverInfo.setName(stcd.getSTNM());
@@ -161,8 +163,17 @@ public class StRiverRServiceImpl extends BaseService<StRiverR, StRiverRDao> impl
             if (estStRiverR.getQ() != null) {
                 riverInfo.setWaterFlow(estStRiverR.getQ());
             }
-            if (estStRiverR.getWPTN() != null) {
-                riverInfo.setWptn(estStRiverR.getWPTN());
+            if (estStRiverRList.size() == 2) {
+                int compareResult = estStRiverRList.get(0).getZ().compareTo(estStRiverRList.get(1).getZ());
+                if (compareResult > 0) {
+                    riverInfo.setUpAndDownStatus(RiverDetailInfo.UpAndDownStatus.UP);
+                } else if (compareResult < 0) {
+                    riverInfo.setUpAndDownStatus(RiverDetailInfo.UpAndDownStatus.DOWN);
+                } else {
+                    riverInfo.setUpAndDownStatus(RiverDetailInfo.UpAndDownStatus.HOLD_LINE);
+                }
+            } else {
+                riverInfo.setUpAndDownStatus(RiverDetailInfo.UpAndDownStatus.HOLD_LINE);
             }
             result.add(riverInfo);
         }

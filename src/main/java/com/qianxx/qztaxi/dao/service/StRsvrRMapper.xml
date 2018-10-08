@@ -18,7 +18,7 @@
 
     <select id="getNewestRsvrInfo" parameterType="map" resultType="com.qianxx.qztaxi.po.StRsvrR">
         SELECT
-        TOP 1
+        TOP 2
         STCD
         ,TM
         ,RZ
