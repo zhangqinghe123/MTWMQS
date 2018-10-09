@@ -222,6 +222,12 @@ public class StPptnRServiceImpl extends BaseService<StPptnR, StPptnRDao> impleme
 
         if (!CollectionUtils.isEmpty(allRainStations)) {
             for (StStbprpB station : allRainStations) {
+                StationRainInfo stationRainInfo = new StationRainInfo();
+                stationRainInfo.setStcd(station.getSTCD());
+                stationRainInfo.setName(station.getSTNM());
+                stationRainInfo.setLatitude(station.getLGTD());
+                stationRainInfo.setLongitude(station.getLTTD());
+                stationRainInfo.setAdminTownName(station.getSTLC());
                 Map<String, Object> resultMap = stPptnRDao.getRainInfoByTime(station.getSTCD(), new Date(startTime), new Date(endTime));
                 if (resultMap != null) {
                     BigDecimal totalRainFall = resultMap.get("DRP_SUM") == null ? new BigDecimal("0") : (BigDecimal) resultMap.get("DRP_SUM");
@@ -229,13 +235,10 @@ public class StPptnRServiceImpl extends BaseService<StPptnR, StPptnRDao> impleme
                     if (!needNoRainStation && totalRainFallD == 0) {
                         continue;
                     }
-                    StationRainInfo stationRainInfo = new StationRainInfo();
-                    stationRainInfo.setStcd(station.getSTCD());
-                    stationRainInfo.setName(station.getSTNM());
-                    stationRainInfo.setLatitude(station.getLGTD());
-                    stationRainInfo.setLongitude(station.getLTTD());
                     stationRainInfo.setRainfall(totalRainFallD);
-                    stationRainInfo.setAdminTownName(station.getSTLC());
+                    result.add(stationRainInfo);
+                } else if (needNoRainStation) {
+                    stationRainInfo.setRainfall(0);
                     result.add(stationRainInfo);
                 }
             }
