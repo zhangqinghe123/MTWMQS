@@ -18,7 +18,7 @@
 <html>
 <head>
     <META http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>辽宁省朝阳县山洪灾害监测预警移动查询系统</title>
+    <title>山洪灾害监测预警移动查询系统</title>
     <!-- Libraries -->
     <script type="text/javascript">basePath = '${basePath}';rule = ${_CURR_RULE} </script>
     <link href="${basePath}resources/css/bootstrap.min.css" rel="stylesheet" />

@@ -19,7 +19,7 @@
 <html>
 <head>
     <META http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>辽宁省朝阳县山洪灾害监测预警移动查询系统</title>
+    <title>山洪灾害监测预警移动查询系统</title>
     <!-- Libraries -->
     <script type="text/javascript">basePath = '${basePath}'</script>
     <link href="${basePath}resources/css/bootstrap.min.css" rel="stylesheet" />
@@ -88,7 +88,7 @@
     <div class="navbar-container" id="navbar-container">
         <div class="navbar-header pull-left">
             <a href="#" class="navbar-brand">
-               <span>辽宁省朝阳县山洪灾害监测预警移动查询系统</span>
+               <span>山洪灾害监测预警移动查询系统</span>
             </a><!-- /.brand -->
         </div><!-- /.navbar-header -->
         <div class="navbar-header pull-right" role="navigation">
