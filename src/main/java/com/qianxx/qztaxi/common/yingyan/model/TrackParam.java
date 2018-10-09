@@ -20,13 +20,13 @@ public class TrackParam {
 	private int needDenoise = 1;
 
 	// 2.绑路
-	private int needMapmatch = 1;
+	private int needMapmatch = 0;
 
 	// 3. 定位精度过滤，用于过滤掉定位精度较差的轨迹点
 	private int radiusThreshold = 100;
 
 	// 4.交通方式，鹰眼将根据不同交通工具选择不同的纠偏策略，目前支持：自动（即鹰眼自动识别的交通方式）、驾车、骑行和步行
-	private String transportMode = "driving";
+	private String transportMode = "auto";
 
 	public int getNeedDenoise() {
 		return needDenoise;

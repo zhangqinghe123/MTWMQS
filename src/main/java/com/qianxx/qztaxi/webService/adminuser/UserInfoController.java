@@ -1,5 +1,6 @@
 package com.qianxx.qztaxi.webService.adminuser;
 
+import com.qianxx.qztaxi.common.exception.RestServiceException;
 import com.qianxx.qztaxi.common.util.FileUtils;
 import com.qianxx.qztaxi.common.yingyan.TrackHandler;
 import com.qianxx.qztaxi.common.yingyan.api.track.GetTrackRequest;
@@ -176,13 +177,17 @@ public class UserInfoController {
         } catch (Exception e) {
             return AjaxList.createError("起止时间格式不正确", null);
         }
-        List<Map<String, String>> pointList = TrackHandler.getTrack(getTrackRequest);
-        if (CollectionUtils.isEmpty(pointList)) {
-            return AjaxList.createError("无轨迹数据", null);
+        try {
+            List<Map<String, String>> pointList = TrackHandler.getTrack(getTrackRequest);
+            if (CollectionUtils.isEmpty(pointList)) {
+                return AjaxList.createError("无轨迹数据", null);
+            }
+            Map<String, Object> sumap = new HashMap<>();
+            sumap.put("orderList", pointList);
+            return AjaxList.createSuccess("成功", sumap);
+        } catch (RestServiceException e) {
+            return AjaxList.createError(e.getMessage(), null);
         }
-        Map<String, Object> sumap = new HashMap<>();
-        sumap.put("orderList", pointList);
-        return AjaxList.createSuccess("成功", sumap);
     }
 
     @RequestMapping("getPatrolInfo")

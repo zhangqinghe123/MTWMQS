@@ -239,8 +239,8 @@ public class HttpClient {
      *
      * @throws IOException
      */
-    private static String handleInputStream(InputStream inputStream) {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+    private static String handleInputStream(InputStream inputStream) throws UnsupportedEncodingException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
         StringBuffer result = new StringBuffer("");
         String line;
         try {

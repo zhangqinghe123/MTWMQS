@@ -235,6 +235,7 @@ public class StPptnRServiceImpl extends BaseService<StPptnR, StPptnRDao> impleme
                     stationRainInfo.setLatitude(station.getLGTD());
                     stationRainInfo.setLongitude(station.getLTTD());
                     stationRainInfo.setRainfall(totalRainFallD);
+                    stationRainInfo.setAdminTownName(station.getSTLC());
                     result.add(stationRainInfo);
                 }
             }
