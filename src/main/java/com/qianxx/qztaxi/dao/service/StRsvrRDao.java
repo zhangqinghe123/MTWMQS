@@ -17,4 +17,6 @@ public interface StRsvrRDao extends IBaseDao<StRsvrR> {
     List<StRsvrR> getNewestRsvrInfo(@Param("STCD") String STCD);
 
     Map<String, Object> getInfoBetweenTime(@Param("startTime") Date startFullTime, @Param("endTime") Date endFullTime, @Param("STCD") String stcd);
+
+    List<StRsvrR> getDataBetweenTime(@Param("startTime") Date startFullTime, @Param("endTime") Date endFullTime, @Param("STCD") String stcd);
 }

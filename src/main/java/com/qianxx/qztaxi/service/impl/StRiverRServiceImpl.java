@@ -1,6 +1,5 @@
 package com.qianxx.qztaxi.service.impl;
 
-import com.qianxx.qztaxi.common.CommonUtils;
 import com.qianxx.qztaxi.common.ErrCodeConstants;
 import com.qianxx.qztaxi.common.exception.RestServiceException;
 import com.qianxx.qztaxi.dao.service.StRiverRDao;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -116,7 +114,7 @@ public class StRiverRServiceImpl extends BaseService<StRiverR, StRiverRDao> impl
         }
         return detailInfoList;
     }
-    
+
 //    @Override
 //    public List<RiverDetailInfo> getRiverInfoByTime(String startTime, String endTime, String stcd) {
 //        StStbprpB stStbprpB = stStbprpBService.getStationInfoByStcd(stcd);
