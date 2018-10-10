@@ -61,9 +61,9 @@ public class UserController {
     public AjaxList getUserById(@RequestParam() Integer userId) {
         UserInfo user = userService.getById(userId);
         if (user != null) {
-            return AjaxList.createSuccess("登录成功", user);
+            return AjaxList.createSuccess("查询成功", user);
         }
-        return AjaxList.createError("登录失败", null);
+        return AjaxList.createError("查询失败", null);
     }
 
     @ApiOperation(value = "用户上传巡查图片", notes = "用户上传巡查图片", httpMethod = "POST")
