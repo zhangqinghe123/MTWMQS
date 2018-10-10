@@ -85,14 +85,17 @@ public class StRiverRServiceImpl extends BaseService<StRiverR, StRiverRDao> impl
     @Override
     public List<RiverDetailInfo> getRiverInfoByTime(String startTime, String endTime, String stcd) {
         StStbprpB stStbprpB = stStbprpBService.getStationInfoByStcd(stcd);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat paramFormat = new SimpleDateFormat("yyyy-MM-dd HH");
-        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat paramFormatFull = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if (stStbprpB == null) {
             throw new RestServiceException("无站点信息", ErrCodeConstants.ERR_1000_PARAMS_ERR, "0");
         }
+        Date startFullTime;
+        Date endFullTime;
         try {
-            if (paramFormat.parse(endTime).getTime() < paramFormat.parse(startTime).getTime()) {
+            endFullTime = paramFormat.parse(endTime);
+            startFullTime = paramFormat.parse(startTime);
+            if (endFullTime.getTime() < startFullTime.getTime()) {
                 throw new RestServiceException("终止时间需要晚于起始时间", ErrCodeConstants.ERR_1000_PARAMS_ERR, "0");
             }
         } catch (ParseException e) {
@@ -100,42 +103,74 @@ public class StRiverRServiceImpl extends BaseService<StRiverR, StRiverRDao> impl
         }
         List<RiverDetailInfo> detailInfoList = new ArrayList<>();
 
-        while (true) {
-            RiverDetailInfo riverDetailInfo = new RiverDetailInfo();
-            try {
-                riverDetailInfo.setStaticTime(startTime);
+        List<StRiverR> result = stRiverRDao.getDataBetweenTime(startFullTime, endFullTime, stcd);
+        if (!CollectionUtils.isEmpty(result)) {
+            for (StRiverR stRiverR : result) {
+                RiverDetailInfo riverDetailInfo = new RiverDetailInfo();
+                riverDetailInfo.setStaticTime(paramFormatFull.format(stRiverR.getTM()));
                 riverDetailInfo.setSTCD(stcd);
-                String startStr = startTime + ":00:00";
-                String endTimeStr = startTime + ":59:59";
-                Date startFullTime = simpleDateFormat.parse(startStr);
-                Date endFullTime = simpleDateFormat.parse(endTimeStr);
-                Map<String, Object> avgResult = stRiverRDao.getInfoBetweenTime(startFullTime, endFullTime, stcd);
-                if (avgResult != null) {
-                    BigDecimal q_avg = avgResult.get("Q_AVG") == null ? new BigDecimal("0") : (BigDecimal) avgResult.get("Q_AVG");
-                    BigDecimal z_avg = avgResult.get("Z_AVG") == null ? new BigDecimal("0") : (BigDecimal) avgResult.get("Z_AVG");
-                    riverDetailInfo.setWaterFlow(CommonUtils.setDoubleScale(q_avg, 2));
-                    riverDetailInfo.setWaterLever(CommonUtils.setDoubleScale(z_avg, 2));
-                    detailInfoList.add(riverDetailInfo);
-                }
-                calendar.setTime(startFullTime);
-                calendar.add(Calendar.HOUR_OF_DAY, 1);
-                calendar.set(Calendar.MINUTE, 0);
-                calendar.set(Calendar.SECOND, 0);
-                calendar.set(Calendar.MILLISECOND, 0);
-                if (paramFormat.parse(endTime).getTime() < calendar.getTimeInMillis()) {
-                    break;
-                }
-                if (calendar.getTimeInMillis() > new Date().getTime()) {
-                    break;
-                }
-                startTime = paramFormat.format(calendar.getTime());
-            } catch (ParseException e) {
-                throw new RestServiceException("时间戳格式不正确,请使用格式yyyy-MM-dd HH", ErrCodeConstants.ERR_1000_PARAMS_ERR, "0");
+                riverDetailInfo.setWaterFlow(stRiverR.getQ());
+                riverDetailInfo.setWaterLever(stRiverR.getZ());
+                detailInfoList.add(riverDetailInfo);
             }
         }
-
         return detailInfoList;
     }
+    
+//    @Override
+//    public List<RiverDetailInfo> getRiverInfoByTime(String startTime, String endTime, String stcd) {
+//        StStbprpB stStbprpB = stStbprpBService.getStationInfoByStcd(stcd);
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        SimpleDateFormat paramFormat = new SimpleDateFormat("yyyy-MM-dd HH");
+//        Calendar calendar = Calendar.getInstance();
+//        if (stStbprpB == null) {
+//            throw new RestServiceException("无站点信息", ErrCodeConstants.ERR_1000_PARAMS_ERR, "0");
+//        }
+//        try {
+//            if (paramFormat.parse(endTime).getTime() < paramFormat.parse(startTime).getTime()) {
+//                throw new RestServiceException("终止时间需要晚于起始时间", ErrCodeConstants.ERR_1000_PARAMS_ERR, "0");
+//            }
+//        } catch (ParseException e) {
+//            throw new RestServiceException("时间戳格式不正确,请使用格式yyyy-MM-dd HH", ErrCodeConstants.ERR_1000_PARAMS_ERR, "0");
+//        }
+//        List<RiverDetailInfo> detailInfoList = new ArrayList<>();
+//
+//        while (true) {
+//            RiverDetailInfo riverDetailInfo = new RiverDetailInfo();
+//            try {
+//                riverDetailInfo.setStaticTime(startTime);
+//                riverDetailInfo.setSTCD(stcd);
+//                String startStr = startTime + ":00:00";
+//                String endTimeStr = startTime + ":59:59";
+//                Date startFullTime = simpleDateFormat.parse(startStr);
+//                Date endFullTime = simpleDateFormat.parse(endTimeStr);
+//                Map<String, Object> avgResult = stRiverRDao.getInfoBetweenTime(startFullTime, endFullTime, stcd);
+//                if (avgResult != null) {
+//                    BigDecimal q_avg = avgResult.get("Q_AVG") == null ? new BigDecimal("0") : (BigDecimal) avgResult.get("Q_AVG");
+//                    BigDecimal z_avg = avgResult.get("Z_AVG") == null ? new BigDecimal("0") : (BigDecimal) avgResult.get("Z_AVG");
+//                    riverDetailInfo.setWaterFlow(CommonUtils.setDoubleScale(q_avg, 2));
+//                    riverDetailInfo.setWaterLever(CommonUtils.setDoubleScale(z_avg, 2));
+//                    detailInfoList.add(riverDetailInfo);
+//                }
+//                calendar.setTime(startFullTime);
+//                calendar.add(Calendar.HOUR_OF_DAY, 1);
+//                calendar.set(Calendar.MINUTE, 0);
+//                calendar.set(Calendar.SECOND, 0);
+//                calendar.set(Calendar.MILLISECOND, 0);
+//                if (paramFormat.parse(endTime).getTime() < calendar.getTimeInMillis()) {
+//                    break;
+//                }
+//                if (calendar.getTimeInMillis() > new Date().getTime()) {
+//                    break;
+//                }
+//                startTime = paramFormat.format(calendar.getTime());
+//            } catch (ParseException e) {
+//                throw new RestServiceException("时间戳格式不正确,请使用格式yyyy-MM-dd HH", ErrCodeConstants.ERR_1000_PARAMS_ERR, "0");
+//            }
+//        }
+//
+//        return detailInfoList;
+//    }
 
     @Override
     public RealTimeRiverInfo getRiverInfoList() {
