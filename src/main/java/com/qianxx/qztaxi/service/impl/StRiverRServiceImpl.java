@@ -60,7 +60,6 @@ public class StRiverRServiceImpl extends BaseService<StRiverR, StRiverRDao> impl
             riverInfo.setSTCD(stcd);
             riverInfo.setCurrentWaterLevel(estStRiverR.getZ());
             riverInfo.setCurrentTime(estStRiverR.getTM().getTime());
-
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(estStRiverR.getTM());
             // 当前时间小于8点 显示昨天8点的水情
@@ -76,7 +75,6 @@ public class StRiverRServiceImpl extends BaseService<StRiverR, StRiverRDao> impl
             riverInfo.setEightClockWaterLevel(eightClockStRiverR.getZ());
             result.add(riverInfo);
         }
-
         return result;
     }
 
@@ -100,7 +98,6 @@ public class StRiverRServiceImpl extends BaseService<StRiverR, StRiverRDao> impl
             throw new RestServiceException("时间戳格式不正确,请使用格式yyyy-MM-dd HH", ErrCodeConstants.ERR_1000_PARAMS_ERR, "0");
         }
         List<RiverDetailInfo> detailInfoList = new ArrayList<>();
-
         List<StRiverR> result = stRiverRDao.getDataBetweenTime(startFullTime, endFullTime, stcd);
         if (!CollectionUtils.isEmpty(result)) {
             for (StRiverR stRiverR : result) {

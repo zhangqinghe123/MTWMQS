@@ -45,4 +45,20 @@
         </where>
     </select>
 
+    <select id="getDataBetweenTime" parameterType="map" resultType="com.qianxx.qztaxi.po.StRsvrR">
+        SELECT
+        STCD
+        ,TM
+        ,RZ
+        ,INQ
+        ,OTQ
+        ,RWPTN
+        ,W
+        FROM ST_RSVR_R
+        <where>
+            STCD = #{STCD}
+            AND TM Between #{startTime} And #{endTime}
+        </where>
+    </select>
+
 </mapper> 

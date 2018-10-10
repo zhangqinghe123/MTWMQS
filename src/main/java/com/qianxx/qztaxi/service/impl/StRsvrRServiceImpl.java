@@ -88,7 +88,6 @@ public class StRsvrRServiceImpl extends BaseService<StRsvrR, StRsvrRDao> impleme
         StStbprpB stStbprpB = stStbprpBService.getStationInfoByStcd(stcd);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat paramFormat = new SimpleDateFormat("yyyy-MM-dd HH");
-        Calendar calendar = Calendar.getInstance();
         if (stStbprpB == null) {
             throw new RestServiceException("无站点信息", ErrCodeConstants.ERR_1000_PARAMS_ERR, "0");
         }
@@ -104,9 +103,7 @@ public class StRsvrRServiceImpl extends BaseService<StRsvrR, StRsvrRDao> impleme
             throw new RestServiceException("时间戳格式不正确,请使用格式yyyy-MM-dd HH。", ErrCodeConstants.ERR_1000_PARAMS_ERR, "0");
         }
         List<RsvrDetailInfo> detailInfoList = new ArrayList<>();
-
         List<StRsvrR> result = stRsvrRDao.getDataBetweenTime(startFullTime, endFullTime, stcd);
-
         if (!CollectionUtils.isEmpty(result)) {
             for (StRsvrR stRsvrR : result) {
                 RsvrDetailInfo rsvrDetailInfo = new RsvrDetailInfo();
