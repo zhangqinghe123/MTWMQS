@@ -54,6 +54,18 @@ public class UserController {
         return AjaxList.createError("登录失败", null);
     }
 
+    @RequestMapping(value = "getUserById", method = RequestMethod.GET)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户ID", dataType = "int", paramType = "query", required = true)})
+    @ApiOperation(value = "根据用户ID查询用户信息", notes = "根据用户ID查询用户信息", httpMethod = "GET")
+    public AjaxList getUserById(@RequestParam() Integer userId) {
+        UserInfo user = userService.getById(userId);
+        if (user != null) {
+            return AjaxList.createSuccess("登录成功", user);
+        }
+        return AjaxList.createError("登录失败", null);
+    }
+
     @ApiOperation(value = "用户上传巡查图片", notes = "用户上传巡查图片", httpMethod = "POST")
     @RequestMapping(value = "/uploadPatrolInfo")
     @ResponseBody
