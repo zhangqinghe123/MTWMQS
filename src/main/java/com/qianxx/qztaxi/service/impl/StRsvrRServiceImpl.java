@@ -109,9 +109,9 @@ public class StRsvrRServiceImpl extends BaseService<StRsvrR, StRsvrRDao> impleme
                 RsvrDetailInfo rsvrDetailInfo = new RsvrDetailInfo();
                 rsvrDetailInfo.setStaticTime(simpleDateFormat.format(stRsvrR.getTM()));
                 rsvrDetailInfo.setSTCD(stcd);
-                rsvrDetailInfo.setWaterLever(stRsvrR.getRZ());
-                rsvrDetailInfo.setInWaterFlow(stRsvrR.getINQ());
-                rsvrDetailInfo.setOutWaterFlow(stRsvrR.getOTQ());
+                rsvrDetailInfo.setWaterLever(stRsvrR.getRZ() == null ? 0 : stRsvrR.getRZ());
+                rsvrDetailInfo.setInWaterFlow(stRsvrR.getINQ() == null ? 0 : stRsvrR.getINQ());
+                rsvrDetailInfo.setOutWaterFlow(stRsvrR.getOTQ() == null ? 0 : stRsvrR.getOTQ());
                 detailInfoList.add(rsvrDetailInfo);
             }
         }
