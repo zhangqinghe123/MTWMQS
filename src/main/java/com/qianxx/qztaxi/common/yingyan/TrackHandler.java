@@ -111,13 +111,13 @@ public class TrackHandler {
             String rspString = getTrackReq(request);
             JSONObject jsonRsp = JSONObject.parseObject(rspString);
             if (jsonRsp == null){
-                continue;
+                break;
             }
             if (!"0".equals(jsonRsp.getString("status"))) {
                 throw new RestServiceException(jsonRsp.getString("message"), ErrCodeConstants.ERR_1000_PARAMS_ERR, "0");
             }
             if (jsonRsp.getInteger("total") <= 0){
-                continue;
+                break;
             }
             int size = jsonRsp.getInteger("size");
             for (Object t : jsonRsp.getJSONArray("points")) {
