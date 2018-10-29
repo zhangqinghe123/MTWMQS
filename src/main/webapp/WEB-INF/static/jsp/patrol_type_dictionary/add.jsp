@@ -16,7 +16,7 @@ $(function ($) {
                         if (data.errCode == 0) {
                             apus.ui.toastr.success("保存成功！");
                             window.setTimeout(function () {
-                                location.href = basePath + "admin/userInfo"
+                                location.href = basePath + "admin/patrolTypeDictionary/index"
                             }, 1500);
                         } else {
                             isCheck = true;
@@ -44,7 +44,7 @@ $(function ($) {
                 <div class="form-group">
                     <label class="col-sm-3 control-label"> 类型：</label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control" name="account" data-rule-required="true" placeholder="请输入类型"/>
+                        <input type="text" class="form-control" name="name" data-rule-required="true" placeholder="请输入类型"/>
                     </div>
                 </div>
                 <div class="space-4"></div>

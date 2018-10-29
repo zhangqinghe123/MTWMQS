@@ -67,14 +67,14 @@
                     dialog.openUrlModal(
                         "编辑巡查类型",
                         basePath + "admin/patrolTypeDictionary/update?id=" + id,
-                        {width: 250, height: 180, id: "my_customer_dialog", ajaxOption: {type: "get"}}
+                        {width: 350, height: 150, id: "my_customer_dialog", ajaxOption: {type: "get"}}
                     );
                 });
                 $(".add_btn").on('click', function () {
                     dialog.openUrlModal(
                         "新增巡查类型",
                         basePath + "admin/patrolTypeDictionary/add",
-                        {width: 250, height: 180, id: "my_customer_dialog", ajaxOption: {type: "get"}}
+                        {width: 350, height: 150, id: "my_customer_dialog", ajaxOption: {type: "get"}}
                     );
                 });
             }
