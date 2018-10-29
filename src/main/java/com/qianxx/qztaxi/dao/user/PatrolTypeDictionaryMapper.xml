@@ -43,4 +43,19 @@
         SELECT COUNT(id) FROM patrol_type_dictionary
     </select>
 
+    <update id="update" parameterType="com.qianxx.qztaxi.po.PatrolTypeDictionary" flushCache="true">
+        UPDATE patrol_type_dictionary
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name=#{name},</if>
+        </trim>
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteByIds" parameterType="String">
+        DELETE FROM patrol_type_dictionary WHERE id in
+        <foreach item="item" index="index" collection="array" open="("
+                 separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
 </mapper> 

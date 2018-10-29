@@ -38,7 +38,7 @@
                         "确认删除所选类型吗？",
                         function () {
                             $.ajax({
-                                url: basePath + "admin/userInfo/doDelete",
+                                url: basePath + "admin/patrolTypeDictionary/doDelete",
                                 data: {id: id},
                                 type: 'POST',
                                 success: function (data) {
@@ -65,32 +65,18 @@
                 $("#qz_userinfo_table_wrapper").on('click', '#update', function () {
                     var id = $(this).attr("data-id");
                     dialog.openUrlModal(
-                        "编辑用户信息",
-                        basePath + "admin/userInfo/update?id=" + id,
-                        {width: 750, height: 680, id: "my_customer_dialog", ajaxOption: {type: "get"}}
+                        "编辑巡查类型",
+                        basePath + "admin/patrolTypeDictionary/update?id=" + id,
+                        {width: 250, height: 180, id: "my_customer_dialog", ajaxOption: {type: "get"}}
                     );
                 });
                 $(".add_btn").on('click', function () {
                     dialog.openUrlModal(
-                        "新增用户信息",
-                        basePath + "admin/userInfo/add",
-                        {width: 750, height: 680, id: "my_customer_dialog", ajaxOption: {type: "get"}}
+                        "新增巡查类型",
+                        basePath + "admin/patrolTypeDictionary/add",
+                        {width: 250, height: 180, id: "my_customer_dialog", ajaxOption: {type: "get"}}
                     );
                 });
-                $("#qz_userinfo_table_wrapper").on('click', '#getMap', function () {
-                    var id = $(this).attr("data-id");
-                    dialog.openUrlModal(
-                        "用户巡查轨迹",
-                        basePath + "admin/userInfo/getTrack/" + id,
-                        {width: 1000, height: 700, id: "my_customer_dialog", ajaxOption: {type: "get"}}
-                    );
-                });
-                $("#qz_userinfo_table_wrapper").on('click', '#getPatrolInfo', function () {
-                    var id = $(this).attr("data-id");
-                    window.location.href = basePath + '/admin/userInfo/getPatrolInfo?userId=' + id;
-                });
-
-
             }
         });
     });
@@ -98,8 +84,8 @@
 <div class="main-content">
     <div class="appversion" id="appversion">
         <ul class="breadcrumb">
-            <li>巡游类型管理</li>
-            <li class="active">巡游类型管理</li>
+            <li>巡查类型管理</li>
+            <li class="active">巡查类型管理</li>
         </ul>
     </div>
     <div class="page-content">
