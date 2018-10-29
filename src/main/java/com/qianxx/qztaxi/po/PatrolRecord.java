@@ -18,6 +18,7 @@ public class PatrolRecord {
     private Double latitude;
     private String userName;
     private String userMobile;
+    private Integer patrolTypeId;
 
     public Integer getId() {
         return id;
@@ -89,5 +90,13 @@ public class PatrolRecord {
 
     public void setUserMobile(String userMobile) {
         this.userMobile = userMobile;
+    }
+
+    public Integer getPatrolTypeId() {
+        return patrolTypeId;
+    }
+
+    public void setPatrolTypeId(Integer patrolTypeId) {
+        this.patrolTypeId = patrolTypeId;
     }
 }

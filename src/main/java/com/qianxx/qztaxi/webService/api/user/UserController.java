@@ -3,8 +3,10 @@ package com.qianxx.qztaxi.webService.api.user;
 import com.qianxx.qztaxi.common.util.*;
 import com.qianxx.qztaxi.log.factory.ApiLoggerFactory;
 import com.qianxx.qztaxi.po.PatrolRecord;
+import com.qianxx.qztaxi.po.PatrolTypeDictionary;
 import com.qianxx.qztaxi.po.UserInfo;
 import com.qianxx.qztaxi.service.PatrolRecordsService;
+import com.qianxx.qztaxi.service.PatrolTypeDictionaryService;
 import com.qianxx.qztaxi.service.UserService;
 import com.qianxx.qztaxi.webService.response.AjaxList;
 import io.swagger.annotations.Api;
@@ -38,6 +40,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private PatrolRecordsService patrolRecordsService;
+    @Autowired
+    private PatrolTypeDictionaryService patrolTypeDictionaryService;
 
     @RequestMapping(value = "userLogin", method = RequestMethod.GET)
     @ApiImplicitParams({
@@ -69,14 +73,19 @@ public class UserController {
     @ApiOperation(value = "用户上传巡查图片", notes = "用户上传巡查图片", httpMethod = "POST")
     @RequestMapping(value = "/uploadPatrolInfo")
     @ResponseBody
-    public AjaxList uploadPatrolInfo(@RequestParam MultipartFile patrol, @RequestParam Integer userId, @RequestParam String explain, @RequestParam Double longitude, @RequestParam Double latitude) {
+    public AjaxList uploadPatrolInfo(@RequestParam MultipartFile patrol, @RequestParam Integer userId, @RequestParam String explain, @RequestParam Double longitude, @RequestParam Double latitude, @RequestParam(required = false) Integer patrolTypeId) {
         if (null == patrol || patrol.isEmpty()) {
             return AjaxList.createError("请上传巡查图片", null);
         }
         if (userService.getById(userId) == null) {
             return AjaxList.createError("非法用户", null);
         }
-
+        if (!StringUtils.isEmpty(patrolTypeId)) {
+            PatrolTypeDictionary patrolTypeDictionary = patrolTypeDictionaryService.getById(patrolTypeId);
+            if (null == patrolTypeDictionary) {
+                return AjaxList.createError("上传类型错误", null);
+            }
+        }
         String fileName = FileUtils.uploadPatrol(patrol);
         if (StringUtils.isEmpty(fileName)) {
             AjaxList.createError("上传失败，请重试", null);
@@ -88,6 +97,7 @@ public class UserController {
         patrolRecord.setExplain(explain);
         patrolRecord.setLatitude(latitude);
         patrolRecord.setLongitude(longitude);
+        patrolRecord.setPatrolTypeId(patrolTypeId);
         patrolRecordsService.save(patrolRecord);
         return AjaxList.createSuccess("保存成功", null);
     }

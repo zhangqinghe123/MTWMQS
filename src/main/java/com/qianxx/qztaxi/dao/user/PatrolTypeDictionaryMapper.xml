@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianxx.qztaxi.dao.user.PatrolTypeDictionaryDao">
+
+    <select id="getAllByMap" parameterType="map" resultType="com.qianxx.qztaxi.po.PatrolTypeDictionary">
+        SELECT
+        id,
+        name
+        FROM patrol_type_dictionary
+        WHERE 1=1
+        <if test="id != null">
+            AND id=#{id}
+        </if>
+    </select>
+
+    <select id="getById" resultType="com.qianxx.qztaxi.po.PatrolTypeDictionary">
+        SELECT
+            id,
+        name
+        FROM patrol_type_dictionary
+		WHERE id=#{id}
+	</select>
+
+    <insert id="save" parameterType="com.qianxx.qztaxi.po.PatrolTypeDictionary" flushCache="true"
+            useGeneratedKeys="true"
+            keyProperty="id">
+		INSERT INTO patrol_type_dictionary(
+		name)
+		VALUES (
+		#{name})
+	</insert>
+
+    <!-- 分页查询 -->
+    <select id="getPage" parameterType="map" resultType="com.qianxx.qztaxi.po.PatrolTypeDictionary">
+        SELECT
+        id,
+        name
+        FROM patrol_type_dictionary
+        ORDER BY id
+    </select>
+
+    <select id="countByMap" parameterType="map" resultType="int">
+        SELECT COUNT(id) FROM patrol_type_dictionary
+    </select>
+
+</mapper> 
