@@ -19,6 +19,7 @@ public class PatrolRecord {
     private String userName;
     private String userMobile;
     private Integer patrolTypeId;
+    private String patrolTypeName;
 
     public Integer getId() {
         return id;
@@ -98,5 +99,13 @@ public class PatrolRecord {
 
     public void setPatrolTypeId(Integer patrolTypeId) {
         this.patrolTypeId = patrolTypeId;
+    }
+
+    public String getPatrolTypeName() {
+        return patrolTypeName;
+    }
+
+    public void setPatrolTypeName(String patrolTypeName) {
+        this.patrolTypeName = patrolTypeName;
     }
 }

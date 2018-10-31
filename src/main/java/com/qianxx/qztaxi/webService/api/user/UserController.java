@@ -80,17 +80,18 @@ public class UserController {
         if (userService.getById(userId) == null) {
             return AjaxList.createError("非法用户", null);
         }
+        PatrolRecord patrolRecord = new PatrolRecord();
         if (!StringUtils.isEmpty(patrolTypeId)) {
             PatrolTypeDictionary patrolTypeDictionary = patrolTypeDictionaryService.getById(patrolTypeId);
             if (null == patrolTypeDictionary) {
                 return AjaxList.createError("上传类型错误", null);
             }
+            patrolRecord.setPatrolTypeName(patrolTypeDictionary.getName());
         }
         String fileName = FileUtils.uploadPatrol(patrol);
         if (StringUtils.isEmpty(fileName)) {
             AjaxList.createError("上传失败，请重试", null);
         }
-        PatrolRecord patrolRecord = new PatrolRecord();
         patrolRecord.setCreateTime(new Date());
         patrolRecord.setFilePath(fileName);
         patrolRecord.setUserId(userId);

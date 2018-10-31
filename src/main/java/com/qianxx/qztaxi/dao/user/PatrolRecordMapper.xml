@@ -11,7 +11,8 @@
         explain,
         longitude,
         latitude,
-        patrol_type_id
+        patrol_type_id,
+        patrol_type_name
         FROM patrol_records
 		WHERE id=#{id}
 	</select>
@@ -25,7 +26,8 @@
         explain,
         longitude,
         latitude,
-        patrol_type_id
+        patrol_type_id,
+        patrol_type_name
         FROM patrol_records
         WHERE 1=1
         <if test="userId != null and userId != ''">
@@ -42,7 +44,8 @@
         explain,
         longitude,
         latitude,
-        patrol_type_id)
+        patrol_type_id,
+        patrol_type_name)
 		VALUES (
 		#{createTime},
 		#{filePath},
@@ -50,7 +53,8 @@
 		#{explain},
 		#{longitude},
 		#{latitude},
-		#{patrolTypeId})
+		#{patrolTypeId},
+		#{patrolTypeName})
 	</insert>
 
     <!-- 分页查询 -->
@@ -64,7 +68,8 @@
         explain,
         longitude,
         latitude,
-        patrol_type_id
+        patrol_type_id,
+        patrol_type_name
         FROM patrol_records
         <where>
             1 = 1
