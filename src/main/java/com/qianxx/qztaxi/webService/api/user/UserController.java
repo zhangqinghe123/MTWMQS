@@ -110,4 +110,10 @@ public class UserController {
         return AjaxList.createSuccess("获取成功", userService.getAll(params));
     }
 
+    @RequestMapping(value = "getPatrolType", method = RequestMethod.GET)
+    @ApiOperation(value = "获取系统联系人", notes = "获取系统联系人", httpMethod = "GET")
+    public AjaxList getPatrolType() {
+        return AjaxList.createSuccess("获取成功", patrolTypeDictionaryService.getAll());
+    }
+
 }
