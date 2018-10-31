@@ -9,7 +9,7 @@
                 'url': url,
                 'type': "POST",
                 'data': function (d) {
-                    d.patrolTypeId = "1";
+                    d.patrolTypeId = $("select[name='patrolType'] option:selected").val();
                 },
             },
             'searching': false,
@@ -110,8 +110,12 @@
                     <form class="form-horizontal" role="form" id="selectForm" modelAttribute="form">
                         <div class="control-group">
                             <div class="input-control">
-                                <span>巡游类型: <input type="text" name="mobile" data-rule-digits="ture"
-                                                   data-rule-maxlength="11" placeholder="请输入手机号码"/></span>
+                                <select name="patrolType" style="width: 100px">
+                                    <option value="">请选择类型</option>
+                                    <c:forEach items="${patrolType}" var="z" varStatus="s">
+                                        <option value="${z.id}">${z.name}</option>
+                                    </c:forEach>
+                                </select>
                                 <span class="btn btn-primary btn-sm query_btn">搜索</span>
                             </div>
                         </div>

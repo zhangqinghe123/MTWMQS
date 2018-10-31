@@ -2,6 +2,7 @@ package com.qianxx.qztaxi.webService.adminuser;
 
 import com.qianxx.qztaxi.po.PatrolRecord;
 import com.qianxx.qztaxi.service.PatrolRecordsService;
+import com.qianxx.qztaxi.service.PatrolTypeDictionaryService;
 import com.qianxx.qztaxi.webService.response.datatable.DatatableResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,9 +26,12 @@ import javax.servlet.http.HttpServletRequest;
 public class PatrolListController {
     @Autowired
     private PatrolRecordsService patrolRecordsService;
+    @Autowired
+    private PatrolTypeDictionaryService patrolTypeDictionaryService;
 
     @RequestMapping("index")
     public String getPatrolTypeDictionary(Model model) {
+        model.addAttribute("patrolType", patrolTypeDictionaryService.getAll());
         return "patrolInfo/index";
     }
 
