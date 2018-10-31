@@ -35,4 +35,6 @@ public class UrlDomain {
     
     public static final String ACTION_ANALYSIS_STAYPOINT = "analysis/staypoint";
 
+    public static final String FENCE_CREATE_POLYGON_FENCE = "fence/createpolygonfence";
+
 }
