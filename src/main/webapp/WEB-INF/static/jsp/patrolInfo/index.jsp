@@ -3,13 +3,13 @@
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=sA85emPOmdhtikFDCmEq1uRaWV2qI5F5"></script>
 <script type="text/javascript">
     $(function ($) {
-        var url = basePath + '/admin/userInfo/getPatrolRecords';
+        var url = basePath + '/admin/patrolList/getPatrolRecords';
         var table = apus.ui.dataTables('#qz_patrol_table', {
             'ajax': {
                 'url': url,
                 'type': "POST",
                 'data': function (d) {
-                    d.userId = $("input[name='userId']").val();
+                    d.patrolTypeId = "1";
                 },
             },
             'searching': false,
@@ -47,6 +47,11 @@
                     "width": '150',
                 },
                 {
+                    "data": "patrolTypeName",
+                    "title": '巡查类型',
+                    "width": '150',
+                },
+                {
                     "title": '操作',
                     "width": '300',
                     "render": function (data, type, row) {
@@ -74,6 +79,16 @@
                         {width: 1000, height: 700, id: "my_customer_dialog", ajaxOption: {type: "get"}}
                     );
                 });
+                $(".query_btn").on('click', function () {
+                    if ($("#selectForm").valid()) {
+                        var load = sysCfg.loading(true);
+                        table.ajax.reload();
+                        setTimeout(function () {
+                            load.stop();
+                        }, 500)
+                    }
+                });
+
             }
         });
     });
@@ -84,7 +99,6 @@
     <div class="appversion" id="appversion">
         <ul class="breadcrumb">
             <li>用户管理</li>
-            <li>用户管理</li>
             <li class="active">用户巡查记录</li>
         </ul>
     </div>
@@ -93,6 +107,15 @@
             <div class="col-xs-12">
                 <input type="hidden" name="userId" value="${userId}">
                 <div class="tab-pane">
+                    <form class="form-horizontal" role="form" id="selectForm" modelAttribute="form">
+                        <div class="control-group">
+                            <div class="input-control">
+                                <span>巡游类型: <input type="text" name="mobile" data-rule-digits="ture"
+                                                   data-rule-maxlength="11" placeholder="请输入手机号码"/></span>
+                                <span class="btn btn-primary btn-sm query_btn">搜索</span>
+                            </div>
+                        </div>
+                    </form>
                     <table id="qz_patrol_table" class="table table-bordered"></table>
                 </div>
             </div>

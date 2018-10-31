@@ -47,6 +47,11 @@
                     "width": '150',
                 },
                 {
+                    "data": "patrolTypeName",
+                    "title": '巡查类型',
+                    "width": '150',
+                },
+                {
                     "title": '操作',
                     "width": '300',
                     "render": function (data, type, row) {
@@ -83,7 +88,6 @@
 <div class="main-content">
     <div class="appversion" id="appversion">
         <ul class="breadcrumb">
-            <li>用户管理</li>
             <li>用户管理</li>
             <li class="active">用户巡查记录</li>
         </ul>

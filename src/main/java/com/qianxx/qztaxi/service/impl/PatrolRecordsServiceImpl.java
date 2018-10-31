@@ -1,5 +1,6 @@
 package com.qianxx.qztaxi.service.impl;
 
+import com.qianxx.qztaxi.common.util.StringUtil;
 import com.qianxx.qztaxi.dao.user.PatrolRecordDao;
 import com.qianxx.qztaxi.dao.user.UserInfoDao;
 import com.qianxx.qztaxi.po.PatrolRecord;
@@ -9,6 +10,7 @@ import com.qianxx.qztaxi.service.UserService;
 import com.qianxx.qztaxi.webService.adminuser.BaseController;
 import com.qianxx.qztaxi.webService.response.datatable.DatatableRequest;
 import com.qianxx.qztaxi.webService.response.datatable.DatatableResponse;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +40,12 @@ public class PatrolRecordsServiceImpl extends BaseService<PatrolRecord, PatrolRe
     public DatatableResponse<PatrolRecord> getPageData(HttpServletRequest request) {
         DatatableRequest datatableRequest = BaseController.getDatatableRequest(request);
         DatatableResponse<PatrolRecord> response = new DatatableResponse<>();
-        datatableRequest.getSearchMap().put("userId", request.getParameter("userId"));
+        if (StringUtils.isNotBlank(request.getParameter("userId"))) {
+            datatableRequest.getSearchMap().put("userId", request.getParameter("userId"));
+        }
+        if (StringUtils.isNotBlank(request.getParameter("patrolTypeId"))) {
+            datatableRequest.getSearchMap().put("patrolTypeId", request.getParameter("patrolTypeId"));
+        }
         List<PatrolRecord> pageDate = patrolRecordDao.getPage(datatableRequest.getSearchMap());
         for (PatrolRecord p : pageDate) {
             UserInfo userInfo = userService.getById(p.getUserId());

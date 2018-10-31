@@ -76,6 +76,9 @@
             <if test="userId != null and userId != ''">
                 AND user_id = #{userId}
             </if>
+            <if test="patrolTypeId != null and patrolTypeId != ''">
+                AND patrol_type_id = #{patrolTypeId}
+            </if>
             <if test="start != null">
                 AND id not in (select top ${start} id from patrol_records)
             </if>
