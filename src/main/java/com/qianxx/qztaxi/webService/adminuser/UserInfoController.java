@@ -206,13 +206,18 @@ public class UserInfoController {
     @ResponseBody
     public AjaxList getPatrolPic(HttpServletResponse response, @RequestParam() Integer patrolRecordId) {
         PatrolRecord patrolRecord = patrolRecordsService.getById(patrolRecordId);
-        if (patrolRecord == null) {
-            return AjaxList.createError("您选择的下载地址不存在", null);
-        }
+        String defaultPath = "\\WEB-INF\\static\\css\\images\\noresource.png";
         try {
+            if (patrolRecord == null) {
+                FileUtils.downloadApp(defaultPath, response, DateFormatUtils.format(System.currentTimeMillis(), "yyyyMMddHHmmssSSS"));
+            }
             FileUtils.downloadApp(patrolRecord.getFilePath(), response, DateFormatUtils.format(System.currentTimeMillis(), "yyyyMMddHHmmssSSS"));
         } catch (Exception e) {
-            return AjaxList.createError("下载失败:" + e.getMessage(), null);
+            try {
+                FileUtils.downloadApp(defaultPath, response, DateFormatUtils.format(System.currentTimeMillis(), "yyyyMMddHHmmssSSS"));
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
         }
         return AjaxList.createSuccess("操作成功", null);
     }

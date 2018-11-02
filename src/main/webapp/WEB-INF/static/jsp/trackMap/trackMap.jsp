@@ -5,7 +5,7 @@
     $(function ($) {
         //地图初始化
         var bm = new BMap.Map("monitor-map-area");//41.818798   123.44835
-        var point = new BMap.Point("123.44835", "41.818798");
+        var point = new BMap.Point("120.395463", "41.503167");
         bm.centerAndZoom(point, 14);
         bm.enableScrollWheelZoom();   //启用滚轮放大缩小，默认禁用
         bm.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
