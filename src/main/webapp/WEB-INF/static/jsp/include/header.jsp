@@ -88,7 +88,7 @@
     <div class="navbar-container" id="navbar-container">
         <div class="navbar-header pull-left">
             <a href="#" class="navbar-brand">
-               <span>山洪灾害监测预警移动查询系统</span>
+               <span  style="font-size:22px">山 洪 灾 害 监 测 预 警 移 动 查 询 系 统</span>
             </a><!-- /.brand -->
         </div><!-- /.navbar-header -->
         <div class="navbar-header pull-right" role="navigation">

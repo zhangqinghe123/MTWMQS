@@ -44,6 +44,9 @@
 <body class="login-page">
     <div class="login-content">
         <div class="full-width m-top">
+            <div class="login-title">
+                <img class="logobg" src="${basePath}resources/css/images/loginTitleNew.png"/>
+            </div>
             <div class="logo-page">
                 <div class="logo-area">
                     <img class="logobg" src="${basePath}resources/css/images/logoDown.jpg"/>
