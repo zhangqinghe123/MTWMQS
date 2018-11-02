@@ -17,7 +17,7 @@
         bm.addControl(new BMap.OverviewMapControl());              //添加缩略地图控件
         // var myIconpq = new BMap.Icon(basePath + "/resources/css/images/position.png", new BMap.Size(32, 40), {imageOffset: new BMap.Size(0, 10)});
         // var point=new BMap.Point($("#longitude").val(), $("#latitude").val());
-        bm.centerAndZoom(point, 19);
+        bm.centerAndZoom(point, 14);
         // var marker=new BMap.Marker(point,{icon: myIconpq});
         // bm.addOverlay(marker)
 
@@ -33,11 +33,8 @@
             }
         </script>
         <ul class="breadcrumb">
-            <li>
-
-                <a href="#">你好!欢迎来到 山洪灾害监测预警移动查询系统</a>
-            </li>
-        </ul><!-- .breadcrumb -->
+            <h4>你好! 欢迎来到 山洪灾害监测预警移动查询系统</h4>
+        </ul>
     </div>
 
     <div class="page-content">
