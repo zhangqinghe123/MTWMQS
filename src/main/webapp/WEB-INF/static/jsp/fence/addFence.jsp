@@ -63,14 +63,23 @@
         map.addEventListener("click", function(e){
             //通过点击百度地图，可以获取到对应的point, 由point的lng、lat属性就可以获取对应的经度纬度
             var pt = e.point;
-            map.clearOverlays();
+            // map.clearOverlays();
             map.addOverlay(new BMap.Marker(pt));
-            geoc.getLocation(pt, function(rs){
+            geoc.getLocation(pt, function (rs) {
                 //将对应的HTML元素设置值
                 // $("#longitude").val(pt.lng);
                 // $("#latitude").val(pt.lat);
+                if ($("#fencePoint").val() === "") {
+                    var tmp = pt.lat + "," + pt.lng
+                    $("#fencePoint").val(tmp);
+                } else {
+                    var tmp = $("#fencePoint").val() + ";" + pt.lat + "," + pt.lng
+                    $("#fencePoint").val(tmp);
+                }
             });
         });
+
+
 
     });
 
@@ -80,13 +89,14 @@
     <div class="appversion" id="appversion">
         <ul class="breadcrumb">
             <li>用户管理</li>
-            <li class="active">用户巡查记录</li>
+            <li class="active">配置用户【${userInfo.userName}】的鹰眼信息</li>
         </ul>
     </div>
     <div class="page-content">
         <div class="row">
             <div class="col-xs-12">
-                <input type="hidden" name="userId" value="${userId}">
+                <input type="hidden" name="userId" value="${userInfo.id}">
+                <textarea name="fencePoint" id="fencePoint" placeholder="点击地图设置围栏多边形" readonly="readonly" style="width:100%">${fencePoint}</textarea>
                 <div class="tab-pane">
                     <div class="monitor-map-area" id="monitor-map-area" style="height: 750px;"> </div>
                 </div>
