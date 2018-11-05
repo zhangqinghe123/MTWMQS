@@ -1,7 +1,6 @@
 package com.qianxx.qztaxi.common.yingyan;
 
-import com.alibaba.fastjson.JSONObject;
-import com.qianxx.qztaxi.common.yingyan.api.fence.CreatePolygonFenceRequest;
+import com.qianxx.qztaxi.common.yingyan.api.fence.DeleteFenceRequest;
 import com.qianxx.qztaxi.common.yingyan.api.fence.ListFenceRequest;
 
 /**
@@ -19,9 +18,14 @@ public class Test {
 //        String result = FenceHandler.createPolygonFence(request);
 //        System.out.println(result);
 
+        DeleteFenceRequest deleteFenceRequest = new DeleteFenceRequest();
+        deleteFenceRequest.setMonitored_person("user_9");
+        String deleteFenceResult = FenceHandler.deleteFenceByMonitorPerson(deleteFenceRequest);
+        System.out.println(deleteFenceResult);
+
         ListFenceRequest request = new ListFenceRequest();
         request.setMonitored_person("user_9");
-        String result = FenceHandler.listFence(request);
+        String result = FenceHandler.listFenceByMonitorPerson(request);
         System.out.println(result);
     }
 }

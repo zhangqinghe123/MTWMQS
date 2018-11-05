@@ -2,6 +2,7 @@ package com.qianxx.qztaxi.common.yingyan;
 
 import com.mchange.v2.sql.filter.RecreatePackage;
 import com.qianxx.qztaxi.common.yingyan.api.fence.CreatePolygonFenceRequest;
+import com.qianxx.qztaxi.common.yingyan.api.fence.DeleteFenceRequest;
 import com.qianxx.qztaxi.common.yingyan.api.fence.ListFenceRequest;
 import com.qianxx.qztaxi.common.yingyan.api.track.*;
 import com.qianxx.qztaxi.common.yingyan.core.HttpClient;
@@ -26,10 +27,16 @@ public class FenceHandler {
         return HttpClient.sendRequest(UrlDomain.FENCE_CREATE_POLYGON_FENCE, parameters.toString(), HttpClient.METHOD_POST);
     }
 
-    public static String listFence(ListFenceRequest request) {
+    public static String listFenceByMonitorPerson(ListFenceRequest request) {
         StringBuilder parameters = new StringBuilder();
         packRequest(request, parameters);
         return HttpClient.sendRequest(UrlDomain.FENCE_LIST_FENCE, parameters.toString(), HttpClient.METHOD_GET);
+    }
+
+    public static String deleteFenceByMonitorPerson(DeleteFenceRequest request) {
+        StringBuilder parameters = new StringBuilder();
+        packRequest(request, parameters);
+        return HttpClient.sendRequest(UrlDomain.FENCE_DELETE_FENCE, parameters.toString(), HttpClient.METHOD_POST);
     }
 
 
@@ -48,6 +55,9 @@ public class FenceHandler {
         } else if (request instanceof ListFenceRequest) {
             ListFenceRequest listFenceRequest = (ListFenceRequest) request;
             parameters.append("&monitored_person=").append(HttpUtils.urlEncode(listFenceRequest.getMonitored_person()));
+        } else if (request instanceof DeleteFenceRequest) {
+            DeleteFenceRequest deleteFenceRequest = (DeleteFenceRequest) request;
+            parameters.append("&monitored_person=").append(HttpUtils.urlEncode(deleteFenceRequest.getMonitored_person()));
         } else {
             AddPointsRequest addPointsRequest = (AddPointsRequest) request;
             TrackUtils.packPoints(addPointsRequest.getTrackPoints(), parameters);

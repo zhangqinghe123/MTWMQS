@@ -39,4 +39,6 @@ public class UrlDomain {
 
     public static final String FENCE_LIST_FENCE = "fence/list";
 
+    public static final String FENCE_DELETE_FENCE = "fence/delete";
+
 }
