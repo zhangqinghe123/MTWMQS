@@ -1,8 +1,11 @@
 package com.qianxx.qztaxi.webService.adminuser;
 
+import com.alibaba.fastjson.JSONObject;
 import com.qianxx.qztaxi.common.exception.RestServiceException;
 import com.qianxx.qztaxi.common.util.FileUtils;
+import com.qianxx.qztaxi.common.yingyan.FenceHandler;
 import com.qianxx.qztaxi.common.yingyan.TrackHandler;
+import com.qianxx.qztaxi.common.yingyan.api.fence.DeleteFenceRequest;
 import com.qianxx.qztaxi.common.yingyan.api.track.GetTrackRequest;
 import com.qianxx.qztaxi.dao.user.UserInfoDao;
 import com.qianxx.qztaxi.po.PatrolRecord;
@@ -157,8 +160,8 @@ public class UserInfoController {
      * 查询行程信息
      */
     @RequestMapping(value = "/findMapPoint")
-    public @ResponseBody
-    AjaxList findMapPoint(@RequestParam Integer userId, @RequestParam String startTime, @RequestParam String endTime) {
+    @ResponseBody
+    public AjaxList findMapPoint(@RequestParam Integer userId, @RequestParam String startTime, @RequestParam String endTime) {
         if (null == userId) {
             return AjaxList.createError("用户ID不能为空", null);
         }
@@ -228,6 +231,22 @@ public class UserInfoController {
         model.addAttribute("userInfo", userInfo);
         model.addAttribute("fencePoint", "\"120.395463\", \"41.503167\"");
         return "/fence/addFence";
+    }
+
+    @RequestMapping(value = "cleanFence")
+    @ResponseBody
+    public AjaxList cleanFence(@RequestParam Integer userId) {
+        DeleteFenceRequest deleteFenceRequest = new DeleteFenceRequest();
+        deleteFenceRequest.setMonitored_person("user_" + userId);
+        String deleteFenceResult = FenceHandler.deleteFenceByMonitorPerson(deleteFenceRequest);
+        JSONObject result = JSONObject.parseObject(deleteFenceResult);
+        if ("0".equals(result.getString("status"))) {
+            return AjaxList.createSuccess("操作成功", null);
+        } else {
+            return AjaxList.createError("操作失败：" + result.getString("message"), null);
+        }
+
+
     }
 
 }

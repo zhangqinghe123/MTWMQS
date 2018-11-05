@@ -79,8 +79,24 @@
             });
         });
 
-
-
+        $("#cleanFence").on('click', function () {
+            $.ajax({
+                url: basePath + "admin/userInfo/cleanFence",
+                data: {
+                    userId:$("#userId").val()
+                },
+                type: 'POST',
+                success: function (data) {
+                    if (data.errCode == 0) {
+                    } else {
+                        apus.ui.toastr.error("获取失败，错误信息：" + data.message);
+                    }
+                },
+                error: function (e) {
+                    apus.ui.toastr.error("获取失败");
+                },
+            });
+        });
     });
 
 </script>
@@ -96,7 +112,14 @@
         <div class="row">
             <div class="col-xs-12">
                 <input type="hidden" name="userId" value="${userInfo.id}">
-                <textarea name="fencePoint" id="fencePoint" placeholder="点击地图设置围栏多边形" readonly="readonly" style="width:100%">${fencePoint}</textarea>
+                <form class="form-horizontal" role="form" id="selectForm" modelAttribute="form">
+                    <div class="control-group">
+                        <div class="input-control">
+                            <span class="btn btn-primary btn-sm query_btn" id="cleanFence" name="cleanFence">清除围栏</span>
+                        </div>
+                    </div>
+                </form>
+                <textarea name="fencePoint" id="fencePoint" placeholder="点击地图设置围栏多边形" readonly="readonly" style="width:50%">${fencePoint}</textarea>
                 <div class="tab-pane">
                     <div class="monitor-map-area" id="monitor-map-area" style="height: 750px;"> </div>
                 </div>
