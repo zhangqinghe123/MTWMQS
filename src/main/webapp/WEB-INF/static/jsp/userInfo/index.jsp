@@ -123,11 +123,7 @@
                 });
                 $("#qz_userinfo_table_wrapper").on('click', '#fenceInfo', function () {
                     var id = $(this).attr("data-id");
-                    dialog.openUrlModal(
-                        "用户围栏信息",
-                        basePath + "admin/userInfo/fenceInfo/" + id,
-                        {width: 1000, height: 700, id: "my_customer_dialog", ajaxOption: {type: "get"}}
-                    );
+                    window.location.href = basePath + '/admin/userInfo/fenceInfo/' + id;
                 });
                 $("#qz_userinfo_table_wrapper").on('click', '#getPatrolInfo', function () {
                     var id = $(this).attr("data-id");
