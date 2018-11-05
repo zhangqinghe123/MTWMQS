@@ -37,4 +37,6 @@ public class UrlDomain {
 
     public static final String FENCE_CREATE_POLYGON_FENCE = "fence/createpolygonfence";
 
+    public static final String FENCE_LIST_FENCE = "fence/list";
+
 }

@@ -2,6 +2,7 @@ package com.qianxx.qztaxi.common.yingyan;
 
 import com.mchange.v2.sql.filter.RecreatePackage;
 import com.qianxx.qztaxi.common.yingyan.api.fence.CreatePolygonFenceRequest;
+import com.qianxx.qztaxi.common.yingyan.api.fence.ListFenceRequest;
 import com.qianxx.qztaxi.common.yingyan.api.track.*;
 import com.qianxx.qztaxi.common.yingyan.core.HttpClient;
 import com.qianxx.qztaxi.common.yingyan.core.UrlDomain;
@@ -25,6 +26,13 @@ public class FenceHandler {
         return HttpClient.sendRequest(UrlDomain.FENCE_CREATE_POLYGON_FENCE, parameters.toString(), HttpClient.METHOD_POST);
     }
 
+    public static String listFence(ListFenceRequest request) {
+        StringBuilder parameters = new StringBuilder();
+        packRequest(request, parameters);
+        return HttpClient.sendRequest(UrlDomain.FENCE_LIST_FENCE, parameters.toString(), HttpClient.METHOD_GET);
+    }
+
+
     private static void packRequest(BaseRequest request, StringBuilder parameters) {
         if (null == request) {
             throw new IllegalTrackArgumentException("request can not be null.");
@@ -37,6 +45,9 @@ public class FenceHandler {
             parameters.append("&vertexes=").append(HttpUtils.urlEncode(createPolygonFenceRequest.getVertexes()));
             parameters.append("&coord_type=").append(HttpUtils.urlEncode(createPolygonFenceRequest.getCoordType()));
             parameters.append("&denoise=").append(HttpUtils.urlEncode(String.valueOf(createPolygonFenceRequest.getDenoise())));
+        } else if (request instanceof ListFenceRequest) {
+            ListFenceRequest listFenceRequest = (ListFenceRequest) request;
+            parameters.append("&monitored_person=").append(HttpUtils.urlEncode(listFenceRequest.getMonitored_person()));
         } else {
             AddPointsRequest addPointsRequest = (AddPointsRequest) request;
             TrackUtils.packPoints(addPointsRequest.getTrackPoints(), parameters);
