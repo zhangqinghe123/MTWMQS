@@ -222,4 +222,12 @@ public class UserInfoController {
         return AjaxList.createSuccess("操作成功", null);
     }
 
+    @RequestMapping(value = "/fenceInfo/{id}")
+    public String fenceInfo(@PathVariable Integer id, Model model) {
+        model.addAttribute("userId", id.toString());
+        model.addAttribute("centerPoint", "\"120.395463\", \"41.503167\"");
+
+        return "/fence/addFence";
+    }
+
 }

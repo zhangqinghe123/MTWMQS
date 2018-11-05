@@ -52,6 +52,7 @@
                         str += '<a id="delete" data-id="' + row["id"] + '" class="btn btn-info btn-xs" style="margin-right: 5px;">删除</a>';
                         str += '<a id="getMap" data-id="' + row["id"] + '" class="btn btn-info btn-xs" style="margin-right: 5px;">轨迹</a>';
                         str += '<a id="getPatrolInfo" data-id="' + row["id"] + '" class="btn btn-info btn-xs" style="margin-right: 5px;">记录</a>';
+                        str += '<a id="fenceInfo" data-id="' + row["id"] + '" class="btn btn-info btn-xs" style="margin-right: 5px;">围栏</a>';
                         return str;
                     }
                 }
@@ -117,6 +118,14 @@
                     dialog.openUrlModal(
                         "用户巡查轨迹",
                         basePath + "admin/userInfo/getTrack/" + id,
+                        {width: 1000, height: 700, id: "my_customer_dialog", ajaxOption: {type: "get"}}
+                    );
+                });
+                $("#qz_userinfo_table_wrapper").on('click', '#fenceInfo', function () {
+                    var id = $(this).attr("data-id");
+                    dialog.openUrlModal(
+                        "用户围栏信息",
+                        basePath + "admin/userInfo/fenceInfo/" + id,
                         {width: 1000, height: 700, id: "my_customer_dialog", ajaxOption: {type: "get"}}
                     );
                 });
