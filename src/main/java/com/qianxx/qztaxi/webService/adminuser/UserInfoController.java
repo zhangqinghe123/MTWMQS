@@ -1,11 +1,13 @@
 package com.qianxx.qztaxi.webService.adminuser;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.qianxx.qztaxi.common.exception.RestServiceException;
 import com.qianxx.qztaxi.common.util.FileUtils;
 import com.qianxx.qztaxi.common.yingyan.FenceHandler;
 import com.qianxx.qztaxi.common.yingyan.TrackHandler;
 import com.qianxx.qztaxi.common.yingyan.api.fence.DeleteFenceRequest;
+import com.qianxx.qztaxi.common.yingyan.api.fence.ListFenceRequest;
 import com.qianxx.qztaxi.common.yingyan.api.track.GetTrackRequest;
 import com.qianxx.qztaxi.dao.user.UserInfoDao;
 import com.qianxx.qztaxi.po.PatrolRecord;
@@ -227,9 +229,28 @@ public class UserInfoController {
 
     @RequestMapping(value = "/fenceInfo/{id}")
     public String fenceInfo(@PathVariable Integer id, Model model) {
+        ListFenceRequest request = new ListFenceRequest();
+        request.setMonitored_person("user_" + id);
+        String result = FenceHandler.listFenceByMonitorPerson(request);
+        System.out.println(result);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        if ("0".equals(resultJson.getString("status")) && resultJson.getInteger("size") > 0) {
+            JSONArray locationArray = resultJson.getJSONArray("fences").getJSONObject(0).getJSONArray("vertexes");
+            StringBuilder builder = new StringBuilder();
+            if (locationArray.size() > 0) {
+                for (int i = 0; i < locationArray.size(); i++) {
+                    builder.append(locationArray.getJSONObject(i).getString("latitude")).append(",");
+                    builder.append(locationArray.getJSONObject(i).getString("longitude")).append(";");
+                }
+            }
+            if (builder.length() > 0 && builder.indexOf(";") > 0) {
+                builder.deleteCharAt(builder.lastIndexOf(";"));
+            }
+            model.addAttribute("fencePoint", builder.toString());
+        }
         UserInfo userInfo = userInfoDao.getById(id);
         model.addAttribute("userInfo", userInfo);
-        model.addAttribute("fencePoint", "\"120.395463\", \"41.503167\"");
         return "/fence/addFence";
     }
 
@@ -245,7 +266,6 @@ public class UserInfoController {
         } else {
             return AjaxList.createError("操作失败：" + result.getString("message"), null);
         }
-
 
     }
 

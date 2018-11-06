@@ -21,7 +21,7 @@
 
         // 自定义控件必须实现自己的initialize方法,并且将控件的DOM元素返回
         // 在本方法中创建个p元素作为控件的容器,并将其添加到地图容器中
-        ZoomControl.prototype.initialize = function(map){
+        ZoomControl.prototype.initialize = function (map) {
             // 创建一个DOM元素
             var p = document.createElement("p");
             p.innerHTML = '<p id="r-result">搜索地址:<input type="text" id="suggestId" size="20" value="百度" style="width:150px;" /></p><p id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></p>';
@@ -37,30 +37,32 @@
         map.addControl(myZoomCtrl);
 
         var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
-            {"input" : "suggestId"
-                ,"location" : map
+            {
+                "input": "suggestId"
+                , "location": map
             });
 
         var myValue;
-        ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
+        ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
             var _value = e.item.value;
-            myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-            $("#searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+            myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+            $("#searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
 
             map.clearOverlays();    //清除地图上所有覆盖物
-            function myFun(){
+            function myFun() {
                 var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
                 map.centerAndZoom(pp, 18);
                 map.addOverlay(new BMap.Marker(pp));    //添加标注
                 // $("#longitude").val(pp.lng);
                 // $("#latitude").val(pp.lat);
             }
+
             var local = new BMap.LocalSearch(map, { //智能搜索
                 onSearchComplete: myFun
             });
             local.search(myValue);
         });
-        map.addEventListener("click", function(e){
+        map.addEventListener("click", function (e) {
             //通过点击百度地图，可以获取到对应的point, 由point的lng、lat属性就可以获取对应的经度纬度
             var pt = e.point;
             // map.clearOverlays();
@@ -83,11 +85,12 @@
             $.ajax({
                 url: basePath + "admin/userInfo/cleanFence",
                 data: {
-                    userId:$("#userId").val()
+                    userId: $("#userId").val()
                 },
                 type: 'POST',
                 success: function (data) {
                     if (data.errCode == 0) {
+                        window.location.href = basePath + '/admin/userInfo/fenceInfo/' + $("#userId").val();
                     } else {
                         apus.ui.toastr.error("获取失败，错误信息：" + data.message);
                     }
@@ -111,7 +114,7 @@
     <div class="page-content">
         <div class="row">
             <div class="col-xs-12">
-                <input type="hidden" name="userId" value="${userInfo.id}">
+                <input type="hidden" id="userId" name="userId" value="${userInfo.id}">
                 <form class="form-horizontal" role="form" id="selectForm" modelAttribute="form">
                     <div class="control-group">
                         <div class="input-control">
@@ -119,9 +122,10 @@
                         </div>
                     </div>
                 </form>
-                <textarea name="fencePoint" id="fencePoint" placeholder="点击地图设置围栏多边形" readonly="readonly" style="width:50%">${fencePoint}</textarea>
+                <textarea name="fencePoint" id="fencePoint" placeholder="点击地图设置围栏多边形" readonly="readonly"
+                          style="width:50%">${fencePoint}</textarea>
                 <div class="tab-pane">
-                    <div class="monitor-map-area" id="monitor-map-area" style="height: 750px;"> </div>
+                    <div class="monitor-map-area" id="monitor-map-area" style="height: 750px;"></div>
                 </div>
             </div>
         </div>
