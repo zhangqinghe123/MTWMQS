@@ -233,8 +233,6 @@ public class UserInfoController {
         ListFenceRequest request = new ListFenceRequest();
         request.setMonitored_person("user_" + id);
         String result = FenceHandler.listFenceByMonitorPerson(request);
-        System.out.println(result);
-
         JSONObject resultJson = JSONObject.parseObject(result);
         if ("0".equals(resultJson.getString("status")) && resultJson.getInteger("size") > 0) {
             JSONArray locationArray = resultJson.getJSONArray("fences").getJSONObject(0).getJSONArray("vertexes");
@@ -272,6 +270,16 @@ public class UserInfoController {
     @RequestMapping(value = "addFence")
     @ResponseBody
     public AjaxList addFence(@RequestParam Integer userId, @RequestParam String vertexes) {
+        ListFenceRequest listFenceRequest = new ListFenceRequest();
+        listFenceRequest.setMonitored_person("user_" + userId);
+        String listFenceResult = FenceHandler.listFenceByMonitorPerson(listFenceRequest);
+        JSONObject listFenceResultJson = JSONObject.parseObject(listFenceResult);
+        if ("0".equals(listFenceResultJson.getString("status")) && listFenceResultJson.getInteger("size") > 0) {
+            DeleteFenceRequest deleteFenceRequest = new DeleteFenceRequest();
+            deleteFenceRequest.setMonitored_person("user_" + userId);
+            FenceHandler.deleteFenceByMonitorPerson(deleteFenceRequest);
+        }
+
         CreatePolygonFenceRequest request = new CreatePolygonFenceRequest();
         request.setFenceName("fence_user_" + userId);
         request.setMonitoredPerson("user_" + userId);

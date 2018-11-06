@@ -123,6 +123,21 @@
                 },
             });
         });
+
+        if ($("#fencePoint").val() != null && $("#fencePoint").val() !== undefined && $("#fencePoint").val() != "") {
+            var localStorage = $("#fencePoint").val().split(";");
+            for (var i = 0; i < localStorage.length; i++) {
+                var location = localStorage[i].split(",");
+                var pt = new BMap.Point(location[1], location[0]);
+                map.addOverlay(new BMap.Marker(pt));
+                if (i === 0) {
+                    map.centerAndZoom(pt, 18);
+                }
+
+            }
+
+
+        }
     });
 
 </script>
@@ -147,7 +162,7 @@
                     </div>
                 </div>
                 <div class="tab-pane">
-                    <div class="monitor-map-area" id="monitor-map-area" style="height: 750px;"></div>
+                    <div class="monitor-map-area" id="monitor-map-area" style="height: 650px;"></div>
                 </div>
             </div>
         </div>
