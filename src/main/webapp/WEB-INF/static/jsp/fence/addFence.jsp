@@ -138,8 +138,6 @@
             }
             var hPolygon = new BMap.Polygon(arrPolygon, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0,fillColor:""});//添加多边形到地图上
             map.addOverlay(hPolygon);//给多边形添加鼠标事件
-
-
         }
     });
 
