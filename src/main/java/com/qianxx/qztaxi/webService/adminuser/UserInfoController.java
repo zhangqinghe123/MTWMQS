@@ -6,6 +6,7 @@ import com.qianxx.qztaxi.common.exception.RestServiceException;
 import com.qianxx.qztaxi.common.util.FileUtils;
 import com.qianxx.qztaxi.common.yingyan.FenceHandler;
 import com.qianxx.qztaxi.common.yingyan.TrackHandler;
+import com.qianxx.qztaxi.common.yingyan.api.fence.CreatePolygonFenceRequest;
 import com.qianxx.qztaxi.common.yingyan.api.fence.DeleteFenceRequest;
 import com.qianxx.qztaxi.common.yingyan.api.fence.ListFenceRequest;
 import com.qianxx.qztaxi.common.yingyan.api.track.GetTrackRequest;
@@ -266,7 +267,22 @@ public class UserInfoController {
         } else {
             return AjaxList.createError("操作失败：" + result.getString("message"), null);
         }
+    }
 
+    @RequestMapping(value = "addFence")
+    @ResponseBody
+    public AjaxList addFence(@RequestParam Integer userId, @RequestParam String vertexes) {
+        CreatePolygonFenceRequest request = new CreatePolygonFenceRequest();
+        request.setFenceName("fence_user_" + userId);
+        request.setMonitoredPerson("user_" + userId);
+        request.setVertexes(vertexes);
+        String result = FenceHandler.createPolygonFence(request);
+        JSONObject resultJson = JSONObject.parseObject(result);
+        if ("0".equals(resultJson.getString("status"))) {
+            return AjaxList.createSuccess("操作成功", null);
+        } else {
+            return AjaxList.createError("操作失败：" + resultJson.getString("message"), null);
+        }
     }
 
 }

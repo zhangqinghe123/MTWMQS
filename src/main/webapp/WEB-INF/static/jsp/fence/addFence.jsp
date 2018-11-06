@@ -90,13 +90,36 @@
                 type: 'POST',
                 success: function (data) {
                     if (data.errCode == 0) {
+                        apus.ui.toastr.success("成功！");
                         window.location.href = basePath + '/admin/userInfo/fenceInfo/' + $("#userId").val();
                     } else {
-                        apus.ui.toastr.error("获取失败，错误信息：" + data.message);
+                        apus.ui.toastr.error("删除失败，错误信息：" + data.message);
                     }
                 },
                 error: function (e) {
-                    apus.ui.toastr.error("获取失败");
+                    apus.ui.toastr.error("删除失败");
+                },
+            });
+        });
+
+        $("#addFence").on('click', function () {
+            $.ajax({
+                url: basePath + "admin/userInfo/addFence",
+                data: {
+                    userId: $("#userId").val(),
+                    vertexes: $("#fencePoint").val()
+                },
+                type: 'POST',
+                success: function (data) {
+                    if (data.errCode == 0) {
+                        apus.ui.toastr.success("成功！");
+                        window.location.href = basePath + '/admin/userInfo/fenceInfo/' + $("#userId").val();
+                    } else {
+                        apus.ui.toastr.error("删除失败，错误信息：" + data.message);
+                    }
+                },
+                error: function (e) {
+                    apus.ui.toastr.error("删除失败");
                 },
             });
         });
@@ -115,15 +138,14 @@
         <div class="row">
             <div class="col-xs-12">
                 <input type="hidden" id="userId" name="userId" value="${userInfo.id}">
-                <form class="form-horizontal" role="form" id="selectForm" modelAttribute="form">
-                    <div class="control-group">
-                        <div class="input-control">
-                            <span class="btn btn-primary btn-sm query_btn" id="cleanFence" name="cleanFence">清除围栏</span>
-                        </div>
-                    </div>
-                </form>
                 <textarea name="fencePoint" id="fencePoint" placeholder="点击地图设置围栏多边形" readonly="readonly"
                           style="width:50%">${fencePoint}</textarea>
+                <div class="control-group">
+                    <div class="input-control">
+                        <span class="btn btn-primary btn-sm query_btn" id="addFence" name="addFence">添加围栏</span>
+                        <span class="btn btn-primary btn-sm query_btn" id="cleanFence" name="cleanFence">清除围栏</span>
+                    </div>
+                </div>
                 <div class="tab-pane">
                     <div class="monitor-map-area" id="monitor-map-area" style="height: 750px;"></div>
                 </div>
