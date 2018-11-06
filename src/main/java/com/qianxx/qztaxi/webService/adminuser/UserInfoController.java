@@ -279,7 +279,6 @@ public class UserInfoController {
             deleteFenceRequest.setMonitored_person("user_" + userId);
             FenceHandler.deleteFenceByMonitorPerson(deleteFenceRequest);
         }
-
         CreatePolygonFenceRequest request = new CreatePolygonFenceRequest();
         request.setFenceName("fence_user_" + userId);
         request.setMonitoredPerson("user_" + userId);

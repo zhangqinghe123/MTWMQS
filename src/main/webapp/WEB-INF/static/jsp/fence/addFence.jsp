@@ -126,15 +126,18 @@
 
         if ($("#fencePoint").val() != null && $("#fencePoint").val() !== undefined && $("#fencePoint").val() != "") {
             var localStorage = $("#fencePoint").val().split(";");
+            var arrPolygon = new Array();
             for (var i = 0; i < localStorage.length; i++) {
                 var location = localStorage[i].split(",");
                 var pt = new BMap.Point(location[1], location[0]);
                 map.addOverlay(new BMap.Marker(pt));
                 if (i === 0) {
-                    map.centerAndZoom(pt, 18);
+                    map.centerAndZoom(pt, 15);
                 }
-
+                arrPolygon.push(new BMap.Point(location[1], location[0]));
             }
+            var hPolygon = new BMap.Polygon(arrPolygon, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0,fillColor:""});//添加多边形到地图上
+            map.addOverlay(hPolygon);//给多边形添加鼠标事件
 
 
         }
