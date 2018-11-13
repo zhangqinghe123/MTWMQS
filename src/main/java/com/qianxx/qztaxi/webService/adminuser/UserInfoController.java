@@ -164,7 +164,7 @@ public class UserInfoController {
      */
     @RequestMapping(value = "/findMapPoint")
     @ResponseBody
-    public AjaxList findMapPoint(@RequestParam Integer userId, @RequestParam String startTime, @RequestParam String endTime) {
+    public AjaxList findMapPoint(@RequestParam Integer userId, @RequestParam String startTime) {
         if (null == userId) {
             return AjaxList.createError("用户ID不能为空", null);
         }
@@ -172,9 +172,9 @@ public class UserInfoController {
         if (null == userInfo) {
             return AjaxList.createError("无该用户信息", null);
         }
-
+        String endTime = startTime + " 23:59:59";
+        startTime = startTime + " 00:00:00";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
         GetTrackRequest getTrackRequest = new GetTrackRequest();
         getTrackRequest.setEntityName("user_" + userId);
         try {

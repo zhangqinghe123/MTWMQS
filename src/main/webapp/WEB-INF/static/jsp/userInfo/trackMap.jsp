@@ -25,8 +25,7 @@
                 url: basePath + "admin/userInfo/findMapPoint",
                 data: {
                     userId:$("#userId").val(),
-                    startTime:$("#startTime").val(),
-                    endTime:$("#endTime").val()
+                    startTime:$("#startTime").val()
                 },
                 type: 'POST',
                 success: function (data) {
@@ -63,7 +62,7 @@
         $("#showMap").on('click', function () {
             showMap();
         });
-        function getNowFormatDate(suffix) {
+        function getNowFormatDate() {
             var date = new Date();
             var seperator1 = "-";
             var year = date.getFullYear();
@@ -76,15 +75,13 @@
                 strDate = "0" + strDate;
             }
             var currentdate = year + seperator1 + month + seperator1 + strDate;
-            return currentdate +" "+ suffix;
+            return currentdate;
         }
-        $("#startTime").val(getNowFormatDate("00:00:00"));
-        $("#endTime").val(getNowFormatDate("23:59:59"));
+        $("#startTime").val(getNowFormatDate());
 
     });
 </script>
-<input name="startTime" id="startTime" class="Wdate" onClick="WdatePicker({startDate:'%y-%M-%d 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss'})" />-
-<input name="endTime" id="endTime" class="Wdate" onClick="WdatePicker({startDate:'%y-%M-%d 23:59:59',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'startTime\')}'})" />
+<input name="startTime" id="startTime" class="Wdate" onClick="WdatePicker({startDate:'%y-%M-%d',dateFmt:'yyyy-MM-dd'})" />-
 <span class="btn btn-primary btn-sm query_btn" id="showMap" name="showMap">搜索</span>
 <input type="hidden" value="${userId}" id="userId">
 <div class="monitor-map-area" id="monitor-map-area" style="height: 650px;"> </div>

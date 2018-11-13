@@ -122,9 +122,8 @@
                                 <%--</select>--%>
 
                                 <c:forEach items="${patrolType}" var="z" varStatus="s">
-                                    <input type="checkbox" value="${z.id}" name="patrolType">${z.name}</input>
+                                    <input type="checkbox" value="${z.id}" name="patrolType">${z.name}
                                 </c:forEach>
-
                                 <span class="btn btn-primary btn-sm query_btn">搜索</span>
                             </div>
                         </div>
