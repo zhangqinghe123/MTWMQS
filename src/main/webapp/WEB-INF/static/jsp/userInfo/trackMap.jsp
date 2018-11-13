@@ -11,7 +11,7 @@
     $(function ($) {
         //地图初始化
         var bm = new BMap.Map("monitor-map-area");//41.818798   123.44835
-        var point = new BMap.Point("123.44835", "41.818798");
+        var point = new BMap.Point("120.395463", "41.503167");
         bm.centerAndZoom(point, 14);
         bm.enableScrollWheelZoom();   //启用滚轮放大缩小，默认禁用
         bm.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
@@ -78,7 +78,28 @@
             return currentdate;
         }
         $("#startTime").val(getNowFormatDate());
-
+        $.ajax({
+            url: basePath + "admin/userInfo/getUserFence",
+            data: {
+                userId:$("#userId").val(),
+            },
+            type: 'POST',
+            success: function (data) {
+                if (data.errCode == 0) {
+                    var localStorage = data.data.split(";");;
+                    var arrPolygon = new Array();
+                    for (var i = 0; i < localStorage.length; i++) {
+                        var location = localStorage[i].split(",");
+                        arrPolygon.push(new BMap.Point(location[1], location[0]));
+                    }
+                    var hPolygon = new BMap.Polygon(arrPolygon, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0,fillColor:""});//添加多边形到地图上
+                    bm.addOverlay(hPolygon);//给多边形添加鼠标事件
+                }
+            },
+            error: function (e) {
+                apus.ui.toastr.error("获取失败");
+            },
+        });
     });
 </script>
 <input name="startTime" id="startTime" class="Wdate" onClick="WdatePicker({startDate:'%y-%M-%d',dateFmt:'yyyy-MM-dd'})" />-

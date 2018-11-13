@@ -53,6 +53,28 @@
                     apus.ui.toastr.error("获取失败");
                 },
             });
+            $.ajax({
+                url: basePath + "admin/userInfo/getUserFence",
+                data: {
+                    userId:$("select[name='userId'] option:selected").val()
+                },
+                type: 'POST',
+                success: function (data) {
+                    if (data.errCode == 0) {
+                        var localStorage = data.data.split(";");;
+                        var arrPolygon = new Array();
+                        for (var i = 0; i < localStorage.length; i++) {
+                            var location = localStorage[i].split(",");
+                            arrPolygon.push(new BMap.Point(location[1], location[0]));
+                        }
+                        var hPolygon = new BMap.Polygon(arrPolygon, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0,fillColor:""});//添加多边形到地图上
+                        bm.addOverlay(hPolygon);//给多边形添加鼠标事件
+                    }
+                },
+                error: function (e) {
+                    apus.ui.toastr.error("获取失败");
+                },
+            });
         }
         $("#showMap").on('click', function () {
             showMap();

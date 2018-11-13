@@ -253,6 +253,33 @@ public class UserInfoController {
         return "/fence/addFence";
     }
 
+    /**
+     * 查询行程信息
+     */
+    @RequestMapping(value = "/getUserFence")
+    @ResponseBody
+    public AjaxList getUserFence(@RequestParam Integer userId) {
+        ListFenceRequest request = new ListFenceRequest();
+        request.setMonitored_person("user_" + userId);
+        String result = FenceHandler.listFenceByMonitorPerson(request);
+        JSONObject resultJson = JSONObject.parseObject(result);
+        StringBuilder builder = new StringBuilder();
+        if ("0".equals(resultJson.getString("status")) && resultJson.getInteger("size") > 0) {
+            JSONArray locationArray = resultJson.getJSONArray("fences").getJSONObject(0).getJSONArray("vertexes");
+            if (locationArray.size() > 0) {
+                for (int i = 0; i < locationArray.size(); i++) {
+                    builder.append(locationArray.getJSONObject(i).getString("latitude")).append(",");
+                    builder.append(locationArray.getJSONObject(i).getString("longitude")).append(";");
+                }
+            }
+            if (builder.length() > 0 && builder.indexOf(";") > 0) {
+                builder.deleteCharAt(builder.lastIndexOf(";"));
+            }
+            return AjaxList.createSuccess("成功", builder.toString());
+        }
+        return AjaxList.createError("无轨迹数据", null);
+    }
+
     @RequestMapping(value = "cleanFence")
     @ResponseBody
     public AjaxList cleanFence(@RequestParam Integer userId) {
