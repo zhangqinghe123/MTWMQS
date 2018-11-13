@@ -88,7 +88,7 @@
     <div class="navbar-container" id="navbar-container">
         <div class="navbar-header pull-left">
             <a href="#" class="navbar-brand">
-               <span  style="font-size:22px">山 洪 灾 害 监 测 预 警 移 动 查 询 系 统</span>
+               <span  style="font-size:22px">朝 阳 县 山 洪 灾 害 监 测 预 警 移 动 查 询 系 统</span>
             </a><!-- /.brand -->
         </div><!-- /.navbar-header -->
         <div class="navbar-header pull-right" role="navigation">
@@ -101,7 +101,7 @@
                 <li class="light-blue">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
 						<span class="user-info">
-							<small>欢迎光临</small>
+							<small>欢迎使用</small>
 						    <span id="userName">${_CURR_USER}</span>
 						</span>
                         <i class="icon-caret-down"></i>

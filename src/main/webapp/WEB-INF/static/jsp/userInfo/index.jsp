@@ -20,21 +20,6 @@
                     "title": 'ID',
                 },
                 {
-                    "data": "account",
-                    "width": '200',
-                    "title": '账号',
-                },
-                {
-                    "data": "password",
-                    "width": '200',
-                    "title": '密码',
-                },
-                {
-                    "data": "mobile",
-                    "width": '200',
-                    "title": '手机号',
-                },
-                {
                     "data": "userName",
                     "width": '200',
                     "title": '姓名',
@@ -45,6 +30,21 @@
                     "title": '职位',
                 },
                 {
+                    "data": "mobile",
+                    "width": '200',
+                    "title": '手机号',
+                },
+                {
+                    "data": "account",
+                    "width": '200',
+                    "title": '账号',
+                },
+                {
+                    "data": "password",
+                    "width": '200',
+                    "title": '密码',
+                },
+                {
                     "title": '操作',
                     "width": '300',
                     "render": function (data, type, row) {
@@ -52,7 +52,7 @@
                         str += '<a id="delete" data-id="' + row["id"] + '" class="btn btn-info btn-xs" style="margin-right: 5px;">删除</a>';
                         str += '<a id="getMap" data-id="' + row["id"] + '" class="btn btn-info btn-xs" style="margin-right: 5px;">轨迹</a>';
                         str += '<a id="getPatrolInfo" data-id="' + row["id"] + '" class="btn btn-info btn-xs" style="margin-right: 5px;">记录</a>';
-                        str += '<a id="fenceInfo" data-id="' + row["id"] + '" class="btn btn-info btn-xs" style="margin-right: 5px;">围栏</a>';
+                        str += '<a id="fenceInfo" data-id="' + row["id"] + '" class="btn btn-info btn-xs" style="margin-right: 5px;">区域</a>';
                         return str;
                     }
                 }
