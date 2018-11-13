@@ -15,26 +15,17 @@
             'searching': false,
             "columns": [
                 {
-                    "data": "filePath",
-                    "width": '300',
-                    "title": '巡查图片',
-                    "render": function (data, type, row) {
-                        var str = basePath + 'admin/userInfo/getPatrolPic?patrolRecordId=' + row.id;
-                        return '<img src="' + str + '" height="150px">';
-                    }
-                },
-                {
-                    "data": "explain",
-                    "width": '200',
-                    "title": '图片说明',
-                },
-                {
                     "data": "createTime",
-                    "title": '发布日期',
+                    "title": '上报日期',
                     "width": '150',
                     "render": function (data, type, row) {
                         return sysCfg.formatter.fDateTime(row["createTime"]);
                     }
+                },
+                {
+                    "data": "patrolTypeName",
+                    "title": '巡查类型',
+                    "width": '150',
                 },
                 {
                     "data": "userName",
@@ -47,15 +38,24 @@
                     "width": '150',
                 },
                 {
-                    "data": "patrolTypeName",
-                    "title": '巡查类型',
-                    "width": '150',
+                    "data": "filePath",
+                    "width": '200',
+                    "title": '巡查图片',
+                    "render": function (data, type, row) {
+                        var str = basePath + 'admin/userInfo/getPatrolPic?patrolRecordId=' + row.id;
+                        return '<img src="' + str + '" height="100px">';
+                    }
+                },
+                {
+                    "data": "explain",
+                    "width": '300',
+                    "title": '巡查说明',
                 },
                 {
                     "title": '操作',
                     "width": '300',
                     "render": function (data, type, row) {
-                        var str = '<a id="showPosition" data-longitude="' + row["longitude"] + '" data-latitude="' + row["latitude"] + '" class="btn btn-success btn-xs" style="margin-right: 5px;">上传位置</a>';
+                        var str = '<a id="showPosition" data-longitude="' + row["longitude"] + '" data-latitude="' + row["latitude"] + '" class="btn btn-success btn-xs" style="margin-right: 5px;">查看位置</a>';
                         str += '<a id="showBigPic" data-id="' + row["id"] + '" class="btn btn-success btn-xs" style="margin-right: 5px;">显示大图</a>';
                         return str;
                     }
