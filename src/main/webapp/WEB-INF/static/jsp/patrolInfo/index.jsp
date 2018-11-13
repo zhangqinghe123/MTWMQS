@@ -9,7 +9,11 @@
                 'url': url,
                 'type': "POST",
                 'data': function (d) {
-                    d.patrolTypeId = $("select[name='patrolType'] option:selected").val();
+                    var chk_value = "";
+                    $('input[name="patrolType"]:checked').each(function () {
+                        chk_value = chk_value + "," + $(this).val()
+                    });
+                    d.patrolTypeId = chk_value;
                 },
             },
             'searching': false,
@@ -53,7 +57,7 @@
                 },
                 {
                     "title": '操作',
-                    "width": '300',
+                    "width": '200',
                     "render": function (data, type, row) {
                         var str = '<a id="showPosition" data-longitude="' + row["longitude"] + '" data-latitude="' + row["latitude"] + '" class="btn btn-success btn-xs" style="margin-right: 5px;">查看位置</a>';
                         str += '<a id="showBigPic" data-id="' + row["id"] + '" class="btn btn-success btn-xs" style="margin-right: 5px;">显示大图</a>';
@@ -110,12 +114,17 @@
                     <form class="form-horizontal" role="form" id="selectForm" modelAttribute="form">
                         <div class="control-group">
                             <div class="input-control">
-                                <select name="patrolType" style="width: 100px">
-                                    <option value="">请选择类型</option>
-                                    <c:forEach items="${patrolType}" var="z" varStatus="s">
-                                        <option value="${z.id}">${z.name}</option>
-                                    </c:forEach>
-                                </select>
+                                <%--<select name="patrolType" style="width: 100px">--%>
+                                <%--<option value="">请选择类型</option>--%>
+                                <%--<c:forEach items="${patrolType}" var="z" varStatus="s">--%>
+                                <%--<option value="${z.id}">${z.name}</option>--%>
+                                <%--</c:forEach>--%>
+                                <%--</select>--%>
+
+                                <c:forEach items="${patrolType}" var="z" varStatus="s">
+                                    <input type="checkbox" value="${z.id}" name="patrolType">${z.name}</input>
+                                </c:forEach>
+
                                 <span class="btn btn-primary btn-sm query_btn">搜索</span>
                             </div>
                         </div>

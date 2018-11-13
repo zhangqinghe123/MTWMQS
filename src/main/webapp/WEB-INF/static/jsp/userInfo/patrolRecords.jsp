@@ -53,7 +53,7 @@
                 },
                 {
                     "title": '操作',
-                    "width": '300',
+                    "width": '200',
                     "render": function (data, type, row) {
                         var str = '<a id="showPosition" data-longitude="' + row["longitude"] + '" data-latitude="' + row["latitude"] + '" class="btn btn-success btn-xs" style="margin-right: 5px;">查看位置</a>';
                         str += '<a id="showBigPic" data-id="' + row["id"] + '" class="btn btn-success btn-xs" style="margin-right: 5px;">显示大图</a>';

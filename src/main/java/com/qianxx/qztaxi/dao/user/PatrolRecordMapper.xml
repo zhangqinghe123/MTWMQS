@@ -77,7 +77,10 @@
                 AND user_id = #{userId}
             </if>
             <if test="patrolTypeId != null and patrolTypeId != ''">
-                AND patrol_type_id = #{patrolTypeId}
+                AND patrol_type_id in
+                <foreach item="patrolTypeId" index="index" collection="patrolTypeId" open="(" separator="," close=")">
+                    #{patrolTypeId}
+                </foreach>
             </if>
             <if test="start != null">
                 AND id not in (select top ${start} id from patrol_records)

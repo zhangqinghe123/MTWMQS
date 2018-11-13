@@ -44,7 +44,9 @@ public class PatrolRecordsServiceImpl extends BaseService<PatrolRecord, PatrolRe
             datatableRequest.getSearchMap().put("userId", request.getParameter("userId"));
         }
         if (StringUtils.isNotBlank(request.getParameter("patrolTypeId"))) {
-            datatableRequest.getSearchMap().put("patrolTypeId", request.getParameter("patrolTypeId"));
+            String patrolTypeId = request.getParameter("patrolTypeId");
+            patrolTypeId = patrolTypeId.substring(1);
+            datatableRequest.getSearchMap().put("patrolTypeId", patrolTypeId.split(","));
         }
         List<PatrolRecord> pageDate = patrolRecordDao.getPage(datatableRequest.getSearchMap());
         for (PatrolRecord p : pageDate) {
