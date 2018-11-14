@@ -1,5 +1,6 @@
 package com.qianxx.qztaxi.webService.api.user;
 
+import com.qianxx.qztaxi.common.callmembersys.GetMemberSysToken;
 import com.qianxx.qztaxi.common.util.*;
 import com.qianxx.qztaxi.log.factory.ApiLoggerFactory;
 import com.qianxx.qztaxi.po.PatrolRecord;
@@ -114,6 +115,15 @@ public class UserController {
     @ApiOperation(value = "获取系统联系人", notes = "获取系统联系人", httpMethod = "GET")
     public AjaxList getPatrolType() {
         return AjaxList.createSuccess("获取成功", patrolTypeDictionaryService.getAll());
+    }
+
+    @RequestMapping(value = "getToken", method = RequestMethod.GET)
+    @ApiOperation(value = "获取摄像头token", notes = "获取系统联系人", httpMethod = "GET")
+    public AjaxList getToken(@RequestParam(required = false) Boolean force) {
+        if (force == null) {
+            force = false;
+        }
+        return AjaxList.createSuccess("获取成功", GetMemberSysToken.getInstance().getToken(force));
     }
 
 }
