@@ -42,16 +42,16 @@ $(function ($) {
         <div class="col-xs-12">
             <form class="form-horizontal" role="form" id="versionForm" modelAttribute="form">
                 <div class="form-group">
-                    <label class="col-sm-3 control-label"> 账号：</label>
+                    <label class="col-sm-3 control-label"> 姓名：</label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control" name="account" data-rule-required="true" placeholder="请输入账号"/>
+                        <input type="text" class="form-control" name="userName" data-rule-required="true" placeholder="请输入版本号"/>
                     </div>
                 </div>
                 <div class="space-4"></div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label"> 密码：</label>
+                    <label class="col-sm-3 control-label"> 职位：</label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control" name="password" data-rule-required="true" placeholder="请输入密码"/>
+                        <input type="text" class="form-control" name="userPosition" data-rule-required="true" placeholder="请输入职位"/>
                     </div>
                 </div>
                 <div class="space-4"></div>
@@ -63,16 +63,16 @@ $(function ($) {
                 </div>
                 <div class="space-4"></div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label"> 姓名：</label>
+                    <label class="col-sm-3 control-label"> 用户名：</label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control" name="userName" data-rule-required="true" placeholder="请输入版本号"/>
+                        <input type="text" class="form-control" name="account" data-rule-required="true" placeholder="请输入账号"/>
                     </div>
                 </div>
                 <div class="space-4"></div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label"> 职位：</label>
+                    <label class="col-sm-3 control-label"> 密码：</label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control" name="userPosition" data-rule-required="true" placeholder="请输入职位"/>
+                        <input type="text" class="form-control" name="password" data-rule-required="true" placeholder="请输入密码"/>
                     </div>
                 </div>
                 <div class="space-4"></div>
