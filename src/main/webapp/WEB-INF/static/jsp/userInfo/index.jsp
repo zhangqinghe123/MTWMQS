@@ -93,7 +93,7 @@
                     dialog.openUrlModal(
                         "编辑用户信息",
                         basePath + "admin/userInfo/update?id=" + id,
-                        {width: 750, height: 680, id: "my_customer_dialog", ajaxOption: {type: "get"}}
+                        {width: 650, height: 380, id: "my_customer_dialog", ajaxOption: {type: "get"}}
                     );
                 });
                 //搜索
@@ -108,9 +108,9 @@
                 });
                 $(".add_btn").on('click', function () {
                     dialog.openUrlModal(
-                        "新增用户信息",
+                        "新增用户",
                         basePath + "admin/userInfo/add",
-                        {width: 750, height: 680, id: "my_customer_dialog", ajaxOption: {type: "get"}}
+                        {width: 650, height: 380, id: "my_customer_dialog", ajaxOption: {type: "get"}}
                     );
                 });
                 $("#qz_userinfo_table_wrapper").on('click', '#getMap', function () {

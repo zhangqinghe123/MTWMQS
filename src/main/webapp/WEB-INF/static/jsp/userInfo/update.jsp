@@ -43,9 +43,33 @@ $(function ($) {
             <form class="form-horizontal" role="form" id="versionForm" modelAttribute="form">
             	<input type="hidden" name="id" value="${userInfo.id}">
                 <div class="form-group">
-                    <label class="col-sm-3 control-label"> 账号：</label>
+                    <label class="col-sm-3 control-label">姓名 ：</label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control" name="account" value="${userInfo.account}" data-rule-required="true" placeholder="请输入账号" readonly="readonly"/>
+                        <input type="text" class="form-control" name="userName" value="${userInfo.userName}" data-rule-required="true" placeholder="请输入姓名"/>
+                    </div>
+                </div>
+                <div class="space-4"></div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">职位 ：</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" name="userPosition" value="${userInfo.userPosition}" data-rule-required="true" placeholder="请输入职位"/>
+                    </div>
+                </div>
+                <div class="space-4"></div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">手机号 ：</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" name="mobile" value="${userInfo.mobile}" data-rule-required="true" placeholder="请输入手机号"/>
+                    </div>
+                </div>
+                <div class="space-4"></div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label"> 用户名：</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" name="account" value="${userInfo.account}" data-rule-required="true" placeholder="请输入用户名" readonly="readonly"/>
                     </div>
                 </div>
                 <div class="space-4"></div>
@@ -56,27 +80,7 @@ $(function ($) {
                     </div>
                 </div>
                 <div class="space-4"></div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">手机号 ：</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control" name="mobile" value="${userInfo.mobile}" data-rule-required="true" placeholder="请输入手机号"/>
-                    </div>
-                </div>
-                <div class="space-4"></div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">姓名 ：</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control" name="userName" value="${userInfo.userName}" data-rule-required="true" placeholder="请输入姓名"/>
-                    </div>
-                </div>
-                <div class="space-4"></div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">职位 ：</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control" name="userPosition" value="${userInfo.userPosition}" data-rule-required="true" placeholder="请输入职位"/>
-                    </div>
-                </div>
-                <div class="space-4"></div>
+
                 <div class="form-group text-center">
                     <a class="btn btn-info qz_save_btn">
                         <i class="icon-ok bigger-110"></i>提交
