@@ -44,7 +44,7 @@ $(function ($) {
                 <div class="form-group">
                     <label class="col-sm-3 control-label"> 姓名：</label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control" name="userName" data-rule-required="true" placeholder="请输入版本号"/>
+                        <input type="text" class="form-control" name="userName" data-rule-required="true" placeholder="请输入姓名"/>
                     </div>
                 </div>
                 <div class="space-4"></div>
@@ -65,7 +65,7 @@ $(function ($) {
                 <div class="form-group">
                     <label class="col-sm-3 control-label"> 用户名：</label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control" name="account" data-rule-required="true" placeholder="请输入账号"/>
+                        <input type="text" class="form-control" name="account" data-rule-required="true" placeholder="请输入用户名"/>
                     </div>
                 </div>
                 <div class="space-4"></div>
