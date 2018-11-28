@@ -132,6 +132,7 @@ public class TrackHandler {
                 isContinue = false;
             }
             pageIndex++;
+            request.setPageIndex(pageIndex);
         }
         return resultMap;
     }
