@@ -7,7 +7,7 @@
     pageContext.setAttribute("basePath", basePath);
 %>
 <body>
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=sA85emPOmdhtikFDCmEq1uRaWV2qI5F5"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=zsKT6hGm3BYL65E9DmFyqTNGC90ojzaj"></script>
 <script type="text/javascript">
     $(function ($) {
         //地图初始化
